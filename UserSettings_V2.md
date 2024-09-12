@@ -11,7 +11,7 @@
  [[Refer to this link](userguide/aat.md)]
 <a name="head.Description"></a>
 # Description
-
+The `UserSettings` that is responsible for persisting and notifying listeners of any change of these settings.
 
 The plugin is designed to be loaded and executed within the Thunder framework. For more information about the framework refer to [[Thunder](#ref.Thunder)].
 <a name="head.Configuration"></a>
