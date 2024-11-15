@@ -42,11 +42,11 @@ The following methods are provided by the org.rdk.AuthService plugin:
 | [SetServiceAccessToken](#method.SetServiceAccessToken) | Sets the service access token | [ServiceAccessTokenChanged](#event.ServiceAccessTokenChanged)|
 | [GetServiceAccountId](#method.GetServiceAccountId) | Returns the service account ID | NA |
 | [SetServiceAccountId](#method.SetServiceAccountId) | Sets the service account ID | [OnServiceAccountIdChanged](#event.OnServiceAccountIdChanged)|
-| [SetAuthIdToken](#method.SetAuthIdToken) | Sets the authorization ID token | NA |
-| [Ready](#method.Ready) | Device's keys and certificates status | [NA](#event.NA)|
+| [SetAuthIdToken](#method.SetAuthIdToken) | Sets authorization ID token | NA |
+| [Ready](#method.Ready) | Device's keys and certificates status | NA |
 | [GetBootstrapProperty](#method.GetBootstrapProperty) | Returns bootstrap property | NA |
 | [ActivationStarted](#method.ActivationStarted) | Lets Auth Service know device's activation | NA |
-| [ActivationComplete](#method.ActivationComplete) | Device's activation completion | [NA](#event.NA)|
+| [ActivationComplete](#method.ActivationComplete) | Device's activation completion | NA |
 | [GetLostAndFoundAccessToken](#method.GetLostAndFoundAccessToken) | Returns LFAT if available | NA |
 | [SetLostAndFoundAccessToken](#method.SetLostAndFoundAccessToken) | Sets Lost and Found token | NA |
 | [GetXDeviceId](#method.GetXDeviceId) | Returns the xDevice ID | NA |
@@ -58,7 +58,7 @@ The following methods are provided by the org.rdk.AuthService plugin:
 | [GetAdvtOptOut](#method.GetAdvtOptOut) | Returns advtOptOut | NA |
 | [SetAdvtOptOut](#method.SetAdvtOptOut) | Sets advtOptOut | NA |
 | [GetActivationStatus](#method.GetActivationStatus) | Returns the activation status | NA |
-| [SetActivationStatus](#method.SetActivationStatus) | Changes activation status | [OnActivationStatusChanged](#event.OnActivationStatusChanged)|
+| [SetActivationStatus](#method.SetActivationStatus) | Sets the activation status | [OnActivationStatusChanged](#event.OnActivationStatusChanged)|
 | [ClearAuthToken](#method.ClearAuthToken) | Clears the authorization token | NA |
 | [ClearSessionToken](#method.ClearSessionToken) | Clears the session token | NA |
 | [ClearServiceAccessToken](#method.ClearServiceAccessToken) | Clears the service access token | NA |
@@ -68,13 +68,13 @@ The following methods are provided by the org.rdk.AuthService plugin:
 | [GetCustomProperties](#method.GetCustomProperties) | Returns the custom properties | NA |
 | [SetCustomProperties](#method.SetCustomProperties) | Sets the custom properties | NA |
 | [GetAlternateIds](#method.GetAlternateIds) | Returns alternate IDs | NA |
-| [SetAlternateIds](#method.SetAlternateIds) | Sets alternate IDs as key/value pairs | NA |
+| [SetAlternateIds](#method.SetAlternateIds) | Sets alternate IDs | NA |
 | [GetTransitionData](#method.GetTransitionData) | Returns the transition data | NA |
 
 <a name="method.GetInfo"></a>
 ## GetInfo<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API returns the STB Auth Service info. It provides details such as version, host, auth service path, auth service mode, minimum and maximum renewal times, and success status. This information is crucial for understanding the current state and configuration of the STB Auth Service.
+This API returns the STB Auth Service info. It provides details such as version, host, auth service path, auth service mode, minimum and maximum renewal times, and success status. This information is crucial for understanding the configuration and status of the STB Auth Service.
 
 This method does not trigger any events.
 
@@ -110,7 +110,7 @@ This method takes no parameters.
 
  ```bash
 
-curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "method":"org.rdk.AuthService.1.GetInfo"}' http://127.0.0.1:9998/jsonrpc
+curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "method":"org.rdk.AuthService.1.GetInfo"}'http://127.0.0.1:9998/jsonrpc
 
 ```
 </details>
@@ -205,7 +205,7 @@ Response: '%s'
 <a name="method.GetDeviceInfo"></a>
 ## GetDeviceInfo<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API is used to return device information. Please note that this API is deprecated and may be removed in future versions. The returned device information is encoded in a string format.
+This API returns device information. Please note that this API is deprecated and may be removed in future versions. The device information is returned as a string of hexadecimal characters.
 
 ### Parameters
 
@@ -215,8 +215,8 @@ This method takes no parameters.
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| deviceInfo | string | Encoded device information |
-| success | boolean | Indicates the success or failure of the operation |
+| deviceInfo | string | The device information returned as a string of hexadecimal characters. |
+| success | boolean | Indicates whether the operation was successful. |
 
 ### Example
 #### Request
@@ -324,7 +324,7 @@ Response: '%s'
 <a name="method.GetDeviceId"></a>
 ## GetDeviceId<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API returns the device (receiver) id. It is used to retrieve the unique identifier of the device. The method is essential for tracking and managing individual devices in a network or system.
+This API returns the device (receiver) id. It is a virtual method that retrieves the unique identifier of the device. This identifier is used to distinguish between different devices in a network or system.
 
 ### Parameters
 
@@ -335,8 +335,8 @@ This method takes no parameters.
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
 | deviceId | string | The unique identifier of the device |
-| partnerId | string | The partner identifier |
-| success | boolean | The status of the operation, true if successful |
+| partnerId | string | The partner identifier, in this case "comcast" |
+| success | boolean | Indicates whether the operation was successful or not |
 
 ### Example
 #### Request
@@ -445,19 +445,19 @@ Response: '%s'
 <a name="method.setDeviceId"></a>
 ## setDeviceId<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API sets the device id. It is used to assign a unique identifier to a device. The device id is a string parameter that is passed into the method.
+This API sets the device id. It takes a string as an input parameter and returns a success message. The device id is used to uniquely identify a device in the system.
 
 ### Parameters
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| deviceId | string | The unique identifier to be set for the device |
+| deviceId | string | The unique identifier for the device |
 
 ### Result
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| success | boolean | Returns true if the device id was successfully set |
+| success | boolean | Returns true if the device id is successfully set |
 | message | string | Returns a message indicating the status of the operation |
 
 ### Example
@@ -645,7 +645,7 @@ function log(msg, content) {
   el.innerHTML += entry
 }
 </script>
-<button onclick="setPartnerId('partner123')">Set Partner ID</button>
+<button onclick="setPartnerId('partner123')">setPartnerId</button>
 </body>
 </html>
 
@@ -691,27 +691,27 @@ Response: '%s'
 <a name="method.GetAuthToken"></a>
 ## GetAuthToken<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API returns the authorization token. It provides a mechanism to force a new token or recover a renewal token. The method triggers the [AuthTokenChanged](#event.AuthTokenChanged) event when the authorization token changes.
+This method returns the authorization token. It provides a new token if the `forceNew` parameter is set to true. If the `recoverRenewal` parameter is set to true, it recovers the renewal process of the token.
+
+This method triggers the [AuthTokenChanged](#event.AuthTokenChanged)
 
 ### Parameters
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| forceNew | bool | Forces the generation of a new authorization token |
-| recoverRenewal | bool | Recovers a renewal token if available |
+| forceNew | bool | If set to true, a new token is generated |
+| recoverRenewal | bool | If set to true, the renewal process of the token is recovered |
 
 ### Result
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| status | string | The status of the token request |
-| token | string | The authorization token |
-| expires | int | The expiration time of the token in seconds |
+| status | string | The status of the token generation process |
+| token | string | The generated authorization token |
+| expires | int | The expiration time of the token |
 | clientId | string | The client ID associated with the token |
-| messageId | string | The message ID associated with the token request |
-| success | bool | Indicates whether the token request was successful |
-
-Note: The actual return type of this API is a user-defined type, `GetAuthTokenResult`, which encapsulates the above result fields.
+| messageId | string | The message ID associated with the token generation process |
+| success | bool | Indicates whether the token generation process was successful or not |
 
 ### Example
 #### Request
@@ -730,7 +730,7 @@ Note: The actual return type of this API is a user-defined type, `GetAuthTokenRe
 
  ```bash
 
-curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "method":"org.rdk.AuthService.1.GetAuthToken", "params":{"forceNew":true, "recoverRenewal":true}}' http://127.0.0.1:9998/jsonrpc
+curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "method":"org.rdk.AuthService.1.GetAuthToken", "params":{"forceNew":true, "recoverRenewal":true}}'http://127.0.0.1:9998/jsonrpc
 
 ```
 </details>
@@ -756,8 +756,8 @@ localStorage.setItem('host', host)
 thunderJS = ThunderJS({
   host: host,
 })
-function getAuthToken(forceNew) {
-  thunderJS.AuthService.GetAuthToken(forceNew)
+function getAuthToken(forceNew, recoverRenewal) {
+  thunderJS.AuthService.GetAuthToken({forceNew: forceNew, recoverRenewal: recoverRenewal})
     .then(function(result) {
       log('Success', result)
     })
@@ -775,7 +775,7 @@ function log(msg, content) {
   el.innerHTML += entry
 }
 </script>
-<button onclick="getAuthToken(true)">Get Auth Token</button>
+<button onclick="getAuthToken(true, true)">Get Auth Token</button>
 </body>
 </html>
 
@@ -793,8 +793,8 @@ void GetAuthToken(std::string methodName, JSONRPC::LinkType<Core::JSON::IElement
     printf("[%llu] Inside (%s)
 ", TimeStamp(), __FUNCTION__);
     JsonObject parameters, response;
-    parameters["forceNew"] = true; // replace with actual value
-    parameters["recoverRenewal"] = true; // replace with actual value
+    parameters["forceNew"] = true;
+    parameters["recoverRenewal"] = true;
     std::string result;
     if (invokeJSONRPC(remoteObject, methodName, parameters, response)) {
         response.ToString(result);
@@ -826,7 +826,7 @@ Response: '%s'
 <a name="method.GetSessionToken"></a>
 ## GetSessionToken<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API returns the session token. It is a virtual method that retrieves the session token and other related information such as the token's expiration time, client ID, message ID, and status. This method is essential for maintaining a secure and authenticated session.
+This API returns the session token. It is a virtual method that retrieves the session token and other related information such as the token's expiration time, client ID, message ID, and status. The method does not trigger any events.
 
 ### Parameters
 
@@ -836,13 +836,13 @@ This method takes no parameters.
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| status | string | The status of the session token retrieval. |
-| token | string | The actual session token. |
-| expires | integer | The expiration time of the session token. |
-| clientId | string | The ID of the client. |
-| messageId | string | The ID of the message. |
-| success | boolean | Indicates whether the session token retrieval was successful. |
-| message | string | Any additional message related to the session token retrieval. |
+| status | string | The status of the session token retrieval, "0" indicates success |
+| token | string | The actual session token |
+| expires | integer | The expiration time of the session token |
+| clientId | string | The client ID associated with the session token |
+| messageId | string | The message ID associated with the session token |
+| success | boolean | Indicates whether the session token retrieval was successful |
+| message | string | Any additional message or information related to the session token retrieval |
 
 ### Example
 #### Request
@@ -955,7 +955,7 @@ Response: '%s'
 <a name="method.setsessiontoken"></a>
 ## SetSessionToken<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API sets the session token. It takes in several parameters including status, token, expiration time, client ID, and message ID. Once the session token is set, it triggers the SessionTokenChanged event.
+This API sets the session token. It takes in several parameters including status, token, expiration time, client ID, and message ID. Upon successful execution, it triggers the [SessionTokenChanged](#event.SessionTokenChanged) event.
 
 ### Parameters
 
@@ -971,7 +971,7 @@ This API sets the session token. It takes in several parameters including status
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| status | string | The status of the operation, "0" indicates success |
+| status | int32_t | The status of the operation, 0 indicates success |
 | token | string | The session token |
 | expires | uint32_t | The expiration time of the session token |
 | clientId | string | The client ID |
@@ -986,11 +986,11 @@ This API sets the session token. It takes in several parameters including status
 "id":3,
 "method":"org.rdk.AuthService.1.SetSessionToken",
 "params":{
-    "status":0,
-    "token":"PD94bWwgdmVyc2lvbj0iMS4wI...",
-    "expires":31530812,
-    "clientId":"...",
-    "messageId":"..."
+    "status": 0,
+    "token": "PD94bWwgdmVyc2lvbj0iMS4wI...",
+    "expires": 31530812,
+    "clientId": "...",
+    "messageId": "..."
     }
 }
 ```
@@ -1098,7 +1098,7 @@ Response: '%s'
 <a name="method.GetServiceAccessToken"></a>
 ## GetServiceAccessToken<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API returns the service access token. It is a crucial method for authenticating and authorizing the service. The access token is a key element in ensuring the security and integrity of the service.
+This API returns the service access token. It is a crucial method for authenticating and authorizing the service. The access token is a key to access the service and its features.
 
 This method does not trigger any events.
 
@@ -1110,11 +1110,11 @@ This method takes no parameters.
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| status | string | The status of the token retrieval process. |
-| token | string | The actual service access token. |
-| expires | integer | The expiration time of the token in seconds. |
-| success | boolean | Indicates whether the token retrieval was successful. |
-| message | string | Any additional message or information related to the token retrieval. |
+| status | string | The status of the request, "0" indicates success |
+| token | string | The service access token |
+| expires | integer | The expiration time of the token in seconds |
+| success | boolean | Indicates whether the token retrieval was successful |
+| message | string | Any additional message related to the token retrieval |
 
 ### Example
 #### Request
@@ -1132,7 +1132,7 @@ This method takes no parameters.
 
  ```bash
 
-curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "method":"org.rdk.AuthService.1.GetServiceAccessToken"}' http://127.0.0.1:9998/jsonrpc
+curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "method":"org.rdk.AuthService.1.GetServiceAccessToken"}'http://127.0.0.1:9998/jsonrpc
 
 ```
 </details>
@@ -1242,7 +1242,7 @@ This method triggers the [ServiceAccessTokenChanged](#event.ServiceAccessTokenCh
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
 | success | bool | Indicates whether the operation was successful |
-| message | string | A message indicating the result of the operation |
+| message | string | Provides additional information about the operation |
 
 ### Example
 #### Request
@@ -1328,10 +1328,10 @@ void SetServiceAccessToken(std::string methodName, JSONRPC::LinkType<Core::JSON:
     printf("[%llu] Inside (%s)
 ", TimeStamp(), __FUNCTION__);
     JsonObject parameters, response;
+    parameters["status"] = 1;
+    parameters["token"] = "example_token";
+    parameters["expires"] = 3600;
     std::string result;
-    parameters["status"] = status;
-    parameters["token"] = token;
-    parameters["expires"] = expires;
     if (invokeJSONRPC(remoteObject, methodName, parameters, response)) {
         response.ToString(result);
         printf("
@@ -1360,8 +1360,6 @@ Response: '%s'
 
 This API returns the service account ID. It is a unique identifier for the service account. This ID is used to manage the permissions and access control for the service account.
 
-This method does not trigger any events.
-
 ### Parameters
 
 This method takes no parameters.
@@ -1371,7 +1369,7 @@ This method takes no parameters.
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
 | serviceAccountId | string | The unique identifier for the service account |
-| success | boolean | Indicates the success or failure of the API call |
+| success | boolean | Indicates whether the operation was successful or not |
 
 ### Example
 #### Request
@@ -1389,7 +1387,7 @@ This method takes no parameters.
 
  ```bash
 
-curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "method":"org.rdk.AuthService.1.GetServiceAccountId"}' http://127.0.0.1:9998/jsonrpc
+curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "method":"org.rdk.AuthService.1.GetServiceAccountId"}'http://127.0.0.1:9998/jsonrpc
 
 ```
 </details>
@@ -1491,12 +1489,12 @@ This method triggers the [OnServiceAccountIdChanged](#event.OnServiceAccountIdCh
 
 ### Result
 
-This method does not return a value. However, it updates the status of the operation in the `setStat` parameter of type `SuccessMsgResult`. The `setStat` parameter has the following fields:
+This method does not return a value. However, it does update the status of the operation in a `SuccessMsgResult` object passed as an output parameter. The `SuccessMsgResult` object has the following structure:
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
 | success | bool | Indicates whether the operation was successful |
-| message | string | Contains a message about the operation |
+| message | string | Contains any message returned by the operation |
 
 ### Example
 #### Request
@@ -1578,8 +1576,8 @@ void SetServiceAccountId(std::string methodName, JSONRPC::LinkType<Core::JSON::I
     printf("[%llu] Inside (%s)
 ", TimeStamp(), __FUNCTION__);
     JsonObject parameters, response;
-    parameters["serviceAccountId"] = "your_service_account_id";
     std::string result;
+    parameters["serviceAccountId"] = "your_service_account_id";
     if (invokeJSONRPC(remoteObject, methodName, parameters, response)) {
         response.ToString(result);
         printf("
@@ -1606,7 +1604,7 @@ Response: '%s'
 <a name="method.SetAuthIdToken"></a>
 ## SetAuthIdToken<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API sets the authorization ID token. It is used to authenticate the user and grant them access to the system. The ID token is a string that is passed as an input parameter.
+This API sets the authorization ID token. It is used to authenticate the user and grant them access to the system. The ID token is a string that is passed as an input parameter to the method.
 
 ### Parameters
 
@@ -1616,12 +1614,11 @@ This API sets the authorization ID token. It is used to authenticate the user an
 
 ### Result
 
-This method does not return a value. However, it does modify the `setStat` parameter, which is an output parameter of type `SuccessMsgResult`. This parameter contains two fields:
-
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| success | bool | Indicates whether the operation was successful |
-| message | string | Contains a message about the operation |
+| setStat | SuccessMsgResult | The result of setting the authorization ID token. It returns "success": true, if the operation is successful. |
+
+Note: The `SuccessMsgResult` is a user-defined type that contains two fields: "success" and "message". The "success" field is a boolean that indicates whether the operation was successful or not, and the "message" field is a string that contains a message about the operation.
 
 ### Example
 #### Request
@@ -1631,7 +1628,7 @@ This method does not return a value. However, it does modify the `setStat` param
 "jsonrpc":"2.0",
 "id":3,
 "method":"org.rdk.AuthService.1.SetAuthIdToken",
-"params":{"authIdToken":"your_auth_id_token_value"}
+"params":{"authIdToken":"your_auth_id_token_here"}
 }
 ```
 
@@ -1703,8 +1700,8 @@ void SetAuthIdToken(std::string methodName, JSONRPC::LinkType<Core::JSON::IEleme
     printf("[%llu] Inside (%s)
 ", TimeStamp(), __FUNCTION__);
     JsonObject parameters, response;
-    parameters["authIdToken"] = "your_auth_id_token";
     std::string result;
+    parameters["authIdToken"] = "your_auth_id_token_value";
     if (invokeJSONRPC(remoteObject, methodName, parameters, response)) {
         response.ToString(result);
         printf("
@@ -1731,20 +1728,20 @@ Response: '%s'
 <a name="method.Ready"></a>
 ## Ready<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API lets the Auth Service know that the device's provisioned keys, certificates, and binaries are present on the device. It is used to confirm the readiness of the device for authentication processes. The status of the device is passed as a parameter to this method.
+This API lets the Auth Service know that the device's provisioned keys, certificates, and binaries are present on the device. It is used to confirm the readiness of the device for authentication processes. The status of the device's readiness is passed as a parameter to this method.
 
 ### Parameters
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| status | string | The status of the device's provisioned keys, certificates, and binaries |
+| status | string | The status of the device's readiness |
 
 ### Result
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| success | boolean | Returns true if the operation was successful |
-| message | string | Returns a message related to the operation's success or failure |
+| success | boolean | Returns true if the device is ready |
+| message | string | Returns an empty string |
 
 ### Example
 #### Request
@@ -1754,7 +1751,7 @@ This API lets the Auth Service know that the device's provisioned keys, certific
 "jsonrpc":"2.0",
 "id":3,
 "method":"org.rdk.AuthService.1.Ready",
-"params":{"status":"value"}
+"params":{"status":"value_for_status"}
 }
 ```
 
@@ -1763,7 +1760,7 @@ This API lets the Auth Service know that the device's provisioned keys, certific
 
  ```bash
 
-curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "method":"org.rdk.AuthService.1.Ready", "params":{"status":"true"}}'http://127.0.0.1:9998/jsonrpc
+curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "method":"org.rdk.AuthService.1.Ready", "params":{"status":"value"}}'http://127.0.0.1:9998/jsonrpc
 
 ```
 </details>
@@ -1854,21 +1851,21 @@ Response: '%s'
 <a name="method.GetBootstrapProperty"></a>
 ## GetBootstrapProperty<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API returns the bootstrap property associated with the current partnerId. It is used to retrieve specific bootstrap properties based on the input string provided. 
+This API returns the bootstrap property associated with the current partnerId. It is a virtual method that takes a string parameter and returns a set of properties.
 
 ### Parameters
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| bootstrapProperty | string | The bootstrap property to be retrieved |
+| bootstrapProperty | string | The bootstrap property associated with the current partnerId |
 
 ### Result
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| ntpHost | string | The NTP host associated with the bootstrap property |
-| success | boolean | Indicates whether the retrieval was successful |
-| message | string | A message indicating the status of the retrieval |
+| ntpHost | string | The NTP host, for example "ntp.ccp.xcal.tv" |
+| success | boolean | The status of the operation, true if successful |
+| message | string | A message associated with the operation, typically used for providing information on failures |
 
 ### Example
 #### Request
@@ -1979,7 +1976,7 @@ Response: '%s'
 <a name="method.ActivationStarted"></a>
 ## ActivationStarted<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API lets the auth service know that the device's activation has started. It is a crucial step in the device activation process, ensuring that the auth service is aware of the device's status. This method is typically called when the device is in the process of being activated.
+This API lets the auth service know that the device's activation has started. It is used to initiate the activation process and ensure that the device is ready for use. The API communicates with the authentication service to confirm the start of the activation process.
 
 ### Parameters
 
@@ -1989,7 +1986,7 @@ This method takes no parameters.
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| successResult | SuccessResult | This API returns "success": true, indicating that the device's activation has started successfully. |
+| successResult | SuccessResult | The result of the activation process, returns "success": true if the activation has started successfully |
 
 ### Example
 #### Request
@@ -2033,7 +2030,7 @@ localStorage.setItem('host', host)
 thunderJS = ThunderJS({
   host: host,
 })
-function activationStarted() {
+function startActivation() {
   thunderJS.AuthService.ActivationStarted()
     .then(function(result) {
       log('Success', result)
@@ -2052,7 +2049,7 @@ function log(msg, content) {
   el.innerHTML += entry
 }
 </script>
-<button onclick="activationStarted()">Activation Started</button>
+<button onclick="startActivation()">Start Activation</button>
 </body>
 </html>
 
@@ -2106,7 +2103,7 @@ This method takes no parameters.
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| successResult | SuccessResult | This is the result of the activation completion process. It returns "success": true if the activation is completed successfully. |
+| successResult | SuccessResult | "success": true |
 
 ### Example
 #### Request
@@ -2124,7 +2121,7 @@ This method takes no parameters.
 
  ```bash
 
-curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "method":"org.rdk.AuthService.1.ActivationComplete"}' http://127.0.0.1:9998/jsonrpc
+curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "method":"org.rdk.AuthService.1.ActivationComplete"}'http://127.0.0.1:9998/jsonrpc
 
 ```
 </details>
@@ -2213,7 +2210,7 @@ Response: '%s'
 <a name="method.GetLostAndFoundAccessToken"></a>
 ## GetLostAndFoundAccessToken<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API returns the stored Lost and Found access token (LFAT) if one is available. It is a virtual method that retrieves the LFAT, which is a unique identifier for lost and found items. The method also provides information about the token's expiration, version, and the time it was received.
+This API returns the stored Lost and Found access token (LFAT) if one is available. It is a virtual method that retrieves the LFAT from the system. The LFAT is a unique identifier used for lost and found operations.
 
 ### Parameters
 
@@ -2224,8 +2221,8 @@ This method takes no parameters.
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
 | lostAndFoundAccessToken | string | The Lost and Found access token. |
-| message | string | A message related to the retrieval of the token. |
-| success | bool | Indicates whether the retrieval was successful. |
+| message | string | A message indicating the status of the operation. |
+| success | bool | A boolean value indicating whether the operation was successful. |
 
 ### Example
 #### Request
@@ -2350,12 +2347,10 @@ This API sets the lost and found access token. It is used to update the access t
 
 ### Result
 
-This method does not return a value. However, it updates the `setStat` parameter with the result of the operation.
-
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| success | boolean | Indicates whether the operation was successful |
-| message | string | Provides additional information about the operation result |
+| success | boolean | Returns true if the operation was successful |
+| message | string | Returns a message related to the operation's outcome |
 
 ### Example
 #### Request
@@ -2374,7 +2369,7 @@ This method does not return a value. However, it updates the `setStat` parameter
 
  ```bash
 
-curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "method":"org.rdk.AuthService.1.SetLostAndFoundAccessToken", "params":{"lostAndFoundAccessToken":"your_token_value"}}'http://127.0.0.1:9998/jsonrpc
+curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "method":"org.rdk.AuthService.1.SetLostAndFoundAccessToken", "params":{"lostAndFoundAccessToken":"your_token_here"}}'http://127.0.0.1:9998/jsonrpc
 
 ```
 </details>
@@ -2465,7 +2460,7 @@ Response: '%s'
 <a name="method.GetXDeviceId"></a>
 ## GetXDeviceId<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API returns the xDevice ID. It is a unique identifier for the xDevice. This method is used when you need to retrieve the ID of a specific xDevice.
+This API returns the xDevice ID. It is a unique identifier for the xDevice. The method is used to retrieve the ID when required for various operations.
 
 ### Parameters
 
@@ -2475,9 +2470,9 @@ This method takes no parameters.
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| xDeviceId | string | The unique identifier of the xDevice |
+| xDeviceId | string | The unique identifier for the xDevice |
 | success | boolean | Indicates whether the operation was successful |
-| message | string | A message providing additional information about the operation |
+| message | string | Provides additional information about the operation |
 
 ### Example
 #### Request
@@ -2586,20 +2581,20 @@ Response: '%s'
 <a name="method.SetXDeviceId"></a>
 ## SetXDeviceId<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API sets the xDevice ID. It is used to assign a unique identifier to the device for tracking and management purposes. The ID is a string value that is passed as an input parameter to the function.
+This API sets the xDevice ID. It takes a string as an input parameter and returns a success message. This method is used to assign a unique identifier to the xDevice.
 
 ### Parameters
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| xDeviceId | string | The unique identifier to be set for the device |
+| xDeviceId | string | The unique identifier for the xDevice |
 
 ### Result
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
 | success | boolean | Returns true if the operation was successful |
-| message | string | Returns a message indicating the status of the operation |
+| message | string | Returns an empty string if the operation was successful |
 
 ### Example
 #### Request
@@ -2663,7 +2658,7 @@ function log(msg, content) {
   el.innerHTML += entry
 }
 </script>
-<button onclick="setXDeviceId('your_xDeviceId')">SetXDeviceId</button>
+<button onclick="setXDeviceId('your_xDeviceId')">setXDeviceId</button>
 </body>
 </html>
 
@@ -2681,8 +2676,8 @@ void SetXDeviceId(std::string methodName, JSONRPC::LinkType<Core::JSON::IElement
     printf("[%llu] Inside (%s)
 ", TimeStamp(), __FUNCTION__);
     JsonObject parameters, response;
+    parameters["xDeviceId"] = "value";
     std::string result;
-    parameters["xDeviceId"] = "value_for_xDeviceId";
     if (invokeJSONRPC(remoteObject, methodName, parameters, response)) {
         response.ToString(result);
         printf("
@@ -2709,9 +2704,7 @@ Response: '%s'
 <a name="method.GetExperience"></a>
 ## GetExperience<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API returns the experience. It is a property that provides the experience value of a user or an entity. The experience is returned as a string value.
-
-This method does not trigger any events.
+This API returns the experience. It is a virtual method that retrieves the experience data and returns it in a structured format. The method is designed to be overridden in a derived class and it is used to implement the functionality to get the experience.
 
 ### Parameters
 
@@ -2830,7 +2823,7 @@ Response: '%s'
 <a name="method.SetExperience"></a>
 ## SetExperience<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API sets the experience. It takes a string as an input parameter and returns a success message. The experience can be any valid string value. The success message is a structured output that contains a boolean value indicating the success status and a message string.
+This API sets the experience. It takes a string as input and returns a success message. The experience can be any valid string value. The success message indicates whether the operation was successful or not.
 
 ### Parameters
 
@@ -2842,8 +2835,8 @@ This API sets the experience. It takes a string as an input parameter and return
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| success | boolean | Indicates the success status |
-| message | string | The success message |
+| success | boolean | Indicates whether the operation was successful |
+| message | string | The message returned by the API |
 
 ### Example
 #### Request
@@ -2953,7 +2946,9 @@ Response: '%s'
 <a name="method.GetXifaId"></a>
 ## GetXifaId<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API returns the xifaId. It is a virtual method that is used to retrieve the xifaId from the system. The method returns a success status if the operation is successful.
+This API returns the xifaId. It is a virtual method that can be overridden in a derived class. The method is designed to return a unique identifier, known as xifaId, which is used for various purposes within the system.
+
+This method does not trigger any events.
 
 ### Parameters
 
@@ -2964,7 +2959,7 @@ This method takes no parameters.
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
 | xifaIdResult | GetxifaIdResult | This is the result of the API call, which contains the xifaId. |
-
+| success | boolean | This indicates whether the API call was successful. If true, the xifaId was successfully retrieved. |
 
 ### Example
 #### Request
@@ -3071,19 +3066,19 @@ Response: '%s'
 <a name="method.SetXifaId"></a>
 ## SetXifaId<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API sets the xifaId. It is a virtual method that takes a string as an input parameter and returns a success message. The xifaId is a unique identifier used in the system.
+This API sets the xifaId. It takes a string as an input parameter and returns a success message if the operation is successful.
 
 ### Parameters
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| xifaId | string | Unique identifier to be set |
+| xifaId | string | The xifaId to be set |
 
 ### Result
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| success | boolean | Returns true if the xifaId is successfully set |
+| success | boolean | Returns true if the operation is successful |
 
 ### Example
 #### Request
@@ -3167,7 +3162,7 @@ void SetXifaId(std::string methodName, JSONRPC::LinkType<Core::JSON::IElement> *
     JsonObject parameters, response;
     parameters["xifaId"] = "value_for_xifaId";
     std::string result;
-    if (invokeJSONRPC(remoteObject, methodName, parameters, response)) {
+    if (invokeJSONRPC(remoteObject, "AuthService.SetXifaId", parameters, response)) {
         response.ToString(result);
         printf("
 Response: '%s'
@@ -3202,9 +3197,8 @@ This method takes no parameters.
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| advtOptOutResult | AdvtOptOutResult | The advertisement opt-out status of the user. |
-
-Please note that the return type `AdvtOptOutResult` is a user-defined type. The possible values for `AdvtOptOutResult` are defined in the `AdvtOptOutResult` enumeration.
+| advtOptOutResult | AdvtOptOutResult | The advertisement opt-out status of the user |
+| success | boolean | The status of the operation, returns true if the operation is successful |
 
 ### Example
 #### Request
@@ -3311,19 +3305,21 @@ Response: '%s'
 <a name="method.SetAdvtOptOut"></a>
 ## SetAdvtOptOut<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API sets the advertisement opt-out. It takes a boolean value as input and sets the advertisement opt-out accordingly. The method returns a success message upon successful execution.
+This API sets the advertisement opt-out status. It takes a boolean value as input and returns a success message upon successful execution.
 
 ### Parameters
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| advtOptOut | bool | Input parameter to set the advertisement opt-out |
+| advtOptOut | bool | The advertisement opt-out status to be set |
 
 ### Result
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| setStat | SuccessMsgResult | Return of the API indicating the success status of the operation |
+| setStat | SuccessMsgResult | The success message result indicating the status of the operation |
+
+Note: This method does not trigger any event.
 
 ### Example
 #### Request
@@ -3432,7 +3428,9 @@ Response: '%s'
 <a name="method.GetActivationStatus"></a>
 ## GetActivationStatus<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API returns the activation status. It provides information about whether the system or service is activated or not. The status is returned as a string, with possible values being "not-activated" or "activated".
+This API returns the activation status. It checks whether the system is activated or not and returns the status as "not-activated" or "activated". The success of the operation is also returned.
+
+This method does not trigger any events.
 
 ### Parameters
 
@@ -3442,8 +3440,8 @@ This method takes no parameters.
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| status | string | The activation status of the system or service. Possible values are "not-activated" or "activated". |
-| success | boolean | Indicates whether the operation was successful. Returns true if the operation was successful, false otherwise. |
+| status | string | The activation status of the system. Possible values are "not-activated" and "activated". |
+| success | boolean | Indicates the success of the operation. Returns true if the operation was successful, false otherwise. |
 
 ### Example
 #### Request
@@ -3525,7 +3523,7 @@ void GetActivationStatus(std::string methodName, JSONRPC::LinkType<Core::JSON::I
 ", TimeStamp(), __FUNCTION__);
     JsonObject parameters, response;
     std::string result;
-    if (invokeJSONRPC(remoteObject, methodName, parameters, response)) {
+    if (invokeJSONRPC(remoteObject, "AuthService.GetActivationStatus", parameters, response)) {
         response.ToString(result);
         printf("
 Response: '%s'
@@ -3551,22 +3549,20 @@ Response: '%s'
 <a name="method.SetActivationStatus"></a>
 ## SetActivationStatus<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API sets the activation status of a device or service. It takes a string parameter representing the desired status and returns a success message if the operation is successful. 
-
-This method triggers the [OnActivationStatusChanged](#event.OnActivationStatusChanged)
+This API is used to set the activation status. It takes a string as an input parameter and returns a success message. The activation status can be any string value. The method triggers the OnActivationStatusChanged event.
 
 ### Parameters
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| status | string | The desired activation status |
+| status | string | The activation status to be set |
 
 ### Result
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| success | bool | Indicates whether the operation was successful |
-| message | string | A message indicating the result of the operation |
+| success | boolean | Returns true if the operation was successful |
+| message | string | Returns a message indicating the result of the operation |
 
 ### Example
 #### Request
@@ -3676,7 +3672,9 @@ Response: '%s'
 <a name="method.ClearAuthToken"></a>
 ## ClearAuthToken<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API clears the authorization token. It is used when the user wants to log out or when the token is expired and needs to be refreshed. The method returns a success message upon successful execution.
+This API clears the authorization token. It is used when the user wants to log out or when the token is expired and needs to be refreshed. 
+
+This method does not trigger any event.
 
 ### Parameters
 
@@ -3686,8 +3684,9 @@ This method takes no parameters.
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| success | bool | Indicates the success or failure of the operation |
-| message | string | Provides additional information about the operation's result |
+| success | boolean | Returns true if the operation was successful |
+| message | string | Returns an empty string as there is no specific message associated with this operation |
+| setStat | SuccessMsgResult | User-defined type that holds the status of the operation |
 
 ### Example
 #### Request
@@ -3705,7 +3704,7 @@ This method takes no parameters.
 
  ```bash
 
-curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "method":"org.rdk.AuthService.1.ClearAuthToken"}' http://127.0.0.1:9998/jsonrpc
+curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "method":"org.rdk.AuthService.1.ClearAuthToken"}'http://127.0.0.1:9998/jsonrpc
 
 ```
 </details>
@@ -3795,7 +3794,7 @@ Response: '%s'
 <a name="method.ClearSessionToken"></a>
 ## ClearSessionToken<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API is used to clear the session token. It is a crucial step in maintaining the security of the session. By clearing the session token, it ensures that the session cannot be hijacked or misused.
+This API clears the session token. It is used when a session is no longer needed or when a session needs to be reset. The API returns a success message upon successful execution.
 
 ### Parameters
 
@@ -3805,7 +3804,7 @@ This method takes no parameters.
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| setStat | SuccessMsgResult | The result of the operation, returns "success": true if the session token is successfully cleared. |
+| success | boolean | Returns true if the session token is successfully cleared |
 
 ### Example
 #### Request
@@ -4031,7 +4030,7 @@ Response: '%s'
 <a name="method.ClearLostAndFoundAccessToken"></a>
 ## ClearLostAndFoundAccessToken<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API clears the lost and found access token. It is used when the access token for the lost and found service needs to be reset or removed. This operation is typically performed when the token is no longer valid or has been compromised.
+This API clears the lost and found access token. It is used when there is a need to reset the access token for the lost and found service. The method returns a success message upon successful execution.
 
 ### Parameters
 
@@ -4041,7 +4040,8 @@ This method takes no parameters.
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| setStat | SuccessMsgResult | The result of the operation, indicating whether the token was successfully cleared. "success": true, "message": " " |
+| success | bool | Indicates the success or failure of the operation |
+| message | string | Provides additional information about the operation result |
 
 ### Example
 #### Request
@@ -4149,7 +4149,7 @@ Response: '%s'
 <a name="method.ClearServiceAccountId"></a>
 ## ClearServiceAccountId<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API clears the service account ID. It is used when there is a need to reset or remove the existing service account ID from the system. The operation is successful when the return message is "success": true.
+This API clears the service account ID. It is used when there is a need to reset or remove the existing service account ID from the system. The operation will return a success message upon successful execution.
 
 ### Parameters
 
@@ -4159,8 +4159,8 @@ This method takes no parameters.
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| success | bool | Indicates the success or failure of the operation |
-| message | string | Provides additional information about the operation result |
+| success | bool | Indicates the success of the operation |
+| message | string | Provides additional information about the operation |
 
 ### Example
 #### Request
@@ -4268,9 +4268,7 @@ Response: '%s'
 <a name="method.ClearCustomProperties"></a>
 ## ClearCustomProperties<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API clears the custom properties. It is a virtual method that returns a success message if the operation is successful. 
-
-This method does not trigger any events.
+This API clears the custom properties. It is used when there is a need to reset or remove all the custom properties that have been set previously. The operation is successful when it returns "success": true.
 
 ### Parameters
 
@@ -4280,8 +4278,9 @@ This method takes no parameters.
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| success | bool | Indicates the success of the operation |
-| message | string | Provides additional information about the operation |
+| success | boolean | Returns true if the operation is successful |
+| message | string | Returns an empty string as there is no specific message associated with the success of this operation |
+| setStat | SuccessMsgResult | User-defined type indicating the status of the operation |
 
 ### Example
 #### Request
@@ -4508,19 +4507,19 @@ Response: '%s'
 <a name="method.SetCustomProperties"></a>
 ## SetCustomProperties<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API sets the custom properties. It takes a JSON string as input and returns a boolean value indicating the success of the operation.
+This API sets the custom properties. It takes a JSON string as input and returns a success status. This method is useful when you want to add or modify custom properties in your application.
 
 ### Parameters
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| customProperties | string (JSON) | The custom properties to be set |
+| customProperties | JSON string | The custom properties to be set |
 
 ### Result
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| success | boolean | Indicates whether the operation was successful or not |
+| success | boolean | The success status of setting the custom properties |
 
 ### Example
 #### Request
@@ -4539,7 +4538,7 @@ This API sets the custom properties. It takes a JSON string as input and returns
 
  ```bash
 
-curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "method":"org.rdk.AuthService.1.SetCustomProperties", "params":{"customProperties":"your_value"}}' http://127.0.0.1:9998/jsonrpc
+curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "method":"org.rdk.AuthService.1.SetCustomProperties", "params":{"customProperties":"your_custom_properties_here"}}' http://127.0.0.1:9998/jsonrpc
 
 ```
 </details>
@@ -4602,7 +4601,7 @@ void SetCustomProperties(std::string methodName, JSONRPC::LinkType<Core::JSON::I
     printf("[%llu] Inside (%s)
 ", TimeStamp(), __FUNCTION__);
     JsonObject parameters, response;
-    parameters["customProperties"] = "custom value";
+    parameters["customProperties"] = "custom value"; // replace "custom value" with actual value
     std::string result;
     if (invokeJSONRPC(remoteObject, methodName, parameters, response)) {
         response.ToString(result);
@@ -4630,8 +4629,6 @@ Response: '%s'
 ## GetAlternateIds<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
 This API returns alternate IDs as key/value pairs. It is a virtual method that provides a mechanism to retrieve alternate identifiers for a given entity. The alternate IDs are returned as a string in an opaque format.
-
-This method does not trigger any events.
 
 ### Parameters
 
@@ -4661,7 +4658,7 @@ This method takes no parameters.
 
  ```bash
 
-curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "method":"org.rdk.AuthService.1.GetAlternateIds"}'http://127.0.0.1:9998/jsonrpc
+curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "method":"org.rdk.AuthService.1.GetAlternateIds"}' http://127.0.0.1:9998/jsonrpc
 
 ```
 </details>
@@ -4706,7 +4703,7 @@ function log(msg, content) {
   el.innerHTML += entry
 }
 </script>
-<button onclick="getAlternateIds()">Get Alternate Ids</button>
+<button onclick="getAlternateIds()">Get Alternate IDs</button>
 </body>
 </html>
 
@@ -4752,7 +4749,7 @@ Response: '%s'
 <a name="method.SetAlternateIds"></a>
 ## SetAlternateIds<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API sets alternate IDs as key/value pairs. It takes a JSON string as input and returns a success status and a message. The alternate IDs can be used for various purposes such as identification, tracking, or data mapping.
+This API sets alternate IDs as key/value pairs. It takes a JSON string as input and returns a success status and a message. This method is useful when you need to assign alternate identifiers to an object or entity.
 
 ### Parameters
 
@@ -4764,10 +4761,8 @@ This API sets alternate IDs as key/value pairs. It takes a JSON string as input 
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| success | boolean | Returns true if the operation was successful |
-| message | string | Returns a message related to the operation |
-
-Note: This method does not trigger any events.
+| success | boolean | Returns true if the operation was successful, false otherwise |
+| message | string | Returns a message related to the operation's outcome |
 
 ### Example
 #### Request
@@ -4877,7 +4872,9 @@ Response: '%s'
 <a name="method.GetTransitionData"></a>
 ## GetTransitionData<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API returns the transition data. It provides a mechanism to retrieve the data related to a specific transition. The transition data is returned as a string, along with a success status and a message.
+This API returns the transition data. It provides a mechanism to retrieve the data related to a specific transition. The transition data is returned as a string, and the success of the operation is indicated by a boolean value.
+
+This method does not trigger any events.
 
 ### Parameters
 
@@ -4888,8 +4885,8 @@ This method takes no parameters.
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
 | transitionData | string | The transition data returned by the API |
-| message | string | A message indicating the status of the operation |
-| success | bool | A boolean value indicating the success or failure of the operation |
+| message | string | A message indicating the status or result of the operation |
+| success | boolean | A boolean value indicating the success of the operation |
 
 ### Example
 #### Request
@@ -4898,8 +4895,7 @@ This method takes no parameters.
 {
 "jsonrpc":"2.0",
 "id":3,
-"method":"org.rdk.AuthService.1.GetTransitionData",
-"params":{}
+"method":"org.rdk.AuthService.1.GetTransitionData"
 }
 ```
 
@@ -5073,7 +5069,7 @@ This event is triggered by [GetAuthToken](#method.GetAuthToken)
 <a name="event.SessionTokenChanged"></a>
 ## SessionTokenChanged<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This event is triggered when the session token has changed. 
+The session token has changed.
 
 This event is triggered by [SetSessionToken](#method.SetSessionToken)
 
@@ -5089,7 +5085,7 @@ This event is triggered by [SetSessionToken](#method.SetSessionToken)
 {
   "jsonrpc": "2.0",
   "method": "client.events.SessionTokenChanged",
-  "params": {"token": "new_session_token"}
+  "params": {"token": "new_token_value"}
 }
 ```
 
