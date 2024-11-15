@@ -87,8 +87,8 @@ This method opens a player instance and assigns it a unique ID. The player ID is
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| id | integer | The unique ID assigned to the player instance |
-| success | boolean | Indicates whether the operation was successful or not |
+| id | uint32_t | The unique ID assigned to the opened player instance |
+| success | bool | Indicates whether the operation was successful or not |
 
 ### Example
 #### Request
@@ -204,7 +204,7 @@ Response: '%s'
 <a name="method.Play"></a>
 ## Play<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API plays audio on the specified player. If a player is using one play mode and another player tries to play audio using the same play mode, then an error returns indicating that the hardware resource has already been acquired by the session and includes the player ID. The source URL is used to fetch the audio file. If no port number is provided for a web socket source, then the player uses 40001 as the default port.
+This method plays audio on the specified player. Note that if a player is using one play mode and another player tries to play audio using the same play mode, then an error returns indicating that the hardware resource has already been acquired by the session and includes the player ID. This method is useful for managing multiple audio players and ensuring that hardware resources are not overused.
 
 This method triggers the [OnSAPEvents](#event.OnSAPEvents)
 
@@ -212,14 +212,14 @@ This method triggers the [OnSAPEvents](#event.OnSAPEvents)
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| id | integer | A unique digit identifier for a player instance |
-| url | string | The source URL |
+| id | digit | A unique digit identifier for a player instance |
+| url | string | The source URL. If no port number is provided for a web socket source, then the player uses 40001 as the default port |
 
 ### Result
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| success | boolean | Returns true if the audio is played successfully, else false |
+| success | boolean | Returns true if the audio is played successfully, false otherwise |
 
 ### Example
 #### Request
@@ -238,7 +238,7 @@ This method triggers the [OnSAPEvents](#event.OnSAPEvents)
 
  ```bash
 
-curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "method":"org.rdk.SystemAudioPlayer.1.Play", "params":{"id":1, "url":"http://example.com/audio.mp3"}}'http://127.0.0.1:9998/jsonrpc
+curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "method":"org.rdk.SystemAudioPlayer.1.Play", "params":{"id":123, "url":"http://example.com/audio.mp3"}}'http://127.0.0.1:9998/jsonrpc
 
 ```
 </details>
@@ -302,7 +302,7 @@ void Play(std::string methodName, JSONRPC::LinkType<Core::JSON::IElement> *remot
 ", TimeStamp(), __FUNCTION__);
     JsonObject parameters, response;
     parameters["id"] = "1";
-    parameters["url"] = "http://example.com/audio.mp3";
+    parameters["url"] = "http://example.com";
     std::string result;
     if (invokeJSONRPC(remoteObject, methodName, parameters, response)) {
         response.ToString(result);
@@ -329,7 +329,9 @@ Response: '%s'
 <a name="method.PlayBuffer"></a>
 ## PlayBuffer<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API buffers the audio playback on the specified player. It requires a unique digit identifier for a player instance and the size of the buffer. The method triggers the [OnSAPEvents](#event.OnSAPEvents)
+This method buffers the audio playback on the specified player. It requires a unique digit identifier for a player instance and the size of the buffer. The method is designed to enhance the audio playback experience by buffering the audio data before playing it.
+
+This method triggers the [OnSAPEvents](#event.OnSAPEvents)
 
 ### Parameters
 
@@ -342,7 +344,7 @@ This API buffers the audio playback on the specified player. It requires a uniqu
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| success | boolean | Returns true if the operation is successful, false otherwise |
+| success | boolean | Returns true if the buffering is successful, false otherwise |
 
 ### Example
 #### Request
@@ -361,7 +363,7 @@ This API buffers the audio playback on the specified player. It requires a uniqu
 
  ```bash
 
-curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "method":"org.rdk.SystemAudioPlayer.1.PlayBuffer", "params":{"id":1, "data":1024}}'http://127.0.0.1:9998/jsonrpc
+curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "method":"org.rdk.SystemAudioPlayer.1.PlayBuffer", "params":{"id":123, "data":1024}}'http://127.0.0.1:9998/jsonrpc
 
 ```
 </details>
@@ -406,7 +408,7 @@ function log(msg, content) {
   el.innerHTML += entry
 }
 </script>
-<button onclick="playBuffer('input_value')">PlayBuffer</button>
+<button onclick="playBuffer('input')">PlayBuffer</button>
 </body>
 </html>
 
@@ -424,10 +426,10 @@ void PlayBuffer(std::string methodName, JSONRPC::LinkType<Core::JSON::IElement> 
     printf("[%llu] Inside (%s)
 ", TimeStamp(), __FUNCTION__);
     JsonObject parameters, response;
-    parameters["id"] = 1; // replace with actual id
-    parameters["data"] = 1024; // replace with actual buffer size
+    parameters["id"] = "123"; // replace with actual id
+    parameters["data"] = "1024"; // replace with actual buffer size
     std::string result;
-    if (invokeJSONRPC(remoteObject, methodName, parameters, response)) {
+    if (invokeJSONRPC(remoteObject, "SystemAudioPlayer.PlayBuffer", parameters, response)) {
         response.ToString(result);
         printf("
 Response: '%s'
@@ -452,7 +454,7 @@ Response: '%s'
 <a name="method.Pause"></a>
 ## Pause<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This method pauses playback on the specified player. The pause functionality is only supported for HTTP and file source types. It requires a unique digit identifier for a player instance to perform the operation.
+This method pauses playback on the specified player. Pause is only supported for HTTP and file source types. It requires a unique digit identifier for a player instance to function.
 
 This method triggers the [OnSAPEvents](#event.OnSAPEvents)
 
@@ -464,11 +466,9 @@ This method triggers the [OnSAPEvents](#event.OnSAPEvents)
 
 ### Result
 
-This method takes no parameters.
-
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| success | string | Returns true if the operation is successful |
+| success | boolean | Returns true if the operation is successful |
 
 ### Example
 #### Request
@@ -550,7 +550,7 @@ void Pause(std::string methodName, JSONRPC::LinkType<Core::JSON::IElement> *remo
     printf("[%llu] Inside (%s)
 ", TimeStamp(), __FUNCTION__);
     JsonObject parameters, response;
-    parameters["id"] = "unique_digit_identifier";
+    parameters["id"] = "123"; // replace 123 with actual id
     std::string result;
     if (invokeJSONRPC(remoteObject, methodName, parameters, response)) {
         response.ToString(result);
@@ -577,7 +577,7 @@ Response: '%s'
 <a name="method.Resume"></a>
 ## Resume<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This method resumes playback on the specified player. Resume is only supported for HTTP and file source types. It requires a unique digit identifier for a player instance to function. 
+This method resumes playback on the specified player. Resume is only supported for HTTP and file source types. It requires a unique digit identifier for a player instance to function.
 
 This method triggers the [OnSAPEvents](#event.OnSAPEvents)
 
@@ -591,7 +591,9 @@ This method triggers the [OnSAPEvents](#event.OnSAPEvents)
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| success | string | Returns true if the operation is successful |
+| success | boolean | Returns true if the operation is successful |
+
+Note: The method `Resume` is a virtual function and returns a `uint32_t` value. However, for the purpose of this documentation, the return type is simplified to a boolean value indicating the success of the operation.
 
 ### Example
 #### Request
@@ -636,7 +638,7 @@ localStorage.setItem('host', host)
 thunderJS = ThunderJS({
   host: host,
 })
-function resumePlayer(id) {
+function resumePlayback(id) {
   thunderJS.SystemAudioPlayer.Resume({id: id})
     .then(function(result) {
       log('Success', result)
@@ -655,7 +657,7 @@ function log(msg, content) {
   el.innerHTML += entry
 }
 </script>
-<button onclick="resumePlayer(1)">Resume Player</button>
+<button onclick="resumePlayback(1)">Resume Playback</button>
 </body>
 </html>
 
@@ -673,7 +675,7 @@ void Resume(std::string methodName, JSONRPC::LinkType<Core::JSON::IElement> *rem
     printf("[%llu] Inside (%s)
 ", TimeStamp(), __FUNCTION__);
     JsonObject parameters, response;
-    parameters["id"] = "unique_digit_identifier";
+    parameters["id"] = "123"; // replace 123 with actual id
     std::string result;
     if (invokeJSONRPC(remoteObject, methodName, parameters, response)) {
         response.ToString(result);
