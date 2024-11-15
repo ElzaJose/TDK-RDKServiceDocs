@@ -43,11 +43,11 @@ The following methods are provided by the org.rdk.AuthService plugin:
 | [GetServiceAccountId](#method.GetServiceAccountId) | Returns the service account ID | NA |
 | [SetServiceAccountId](#method.SetServiceAccountId) | Sets the service account ID | [OnServiceAccountIdChanged](#event.OnServiceAccountIdChanged)|
 | [SetAuthIdToken](#method.SetAuthIdToken) | Sets the authorization ID token | NA |
-| [Ready](#method.Ready) | Device's keys and certificates presence | NA|
+| [Ready](#method.Ready) | Device's keys and certificates status | [NA](#event.NA)|
 | [GetBootstrapProperty](#method.GetBootstrapProperty) | Returns bootstrap property | NA |
 | [ActivationStarted](#method.ActivationStarted) | Lets Auth Service know device's activation | NA |
-| [ActivationComplete](#method.ActivationComplete) | Lets Auth Service know device's activation | NA |
-| [GetLostAndFoundAccessToken](#method.GetLostAndFoundAccessToken) | Returns LFAT if available | NA|
+| [ActivationComplete](#method.ActivationComplete) | Device's activation completion | [NA](#event.NA)|
+| [GetLostAndFoundAccessToken](#method.GetLostAndFoundAccessToken) | Returns LFAT if available | NA |
 | [SetLostAndFoundAccessToken](#method.SetLostAndFoundAccessToken) | Sets Lost and Found token | NA |
 | [GetXDeviceId](#method.GetXDeviceId) | Returns the xDevice ID | NA |
 | [SetXDeviceId](#method.SetXDeviceId) | Sets the xDevice ID | NA |
@@ -58,7 +58,7 @@ The following methods are provided by the org.rdk.AuthService plugin:
 | [GetAdvtOptOut](#method.GetAdvtOptOut) | Returns advtOptOut | NA |
 | [SetAdvtOptOut](#method.SetAdvtOptOut) | Sets advtOptOut | NA |
 | [GetActivationStatus](#method.GetActivationStatus) | Returns the activation status | NA |
-| [SetActivationStatus](#method.SetActivationStatus) | Sets the activation status | [OnActivationStatusChanged](#event.OnActivationStatusChanged)|
+| [SetActivationStatus](#method.SetActivationStatus) | Changes activation status | [OnActivationStatusChanged](#event.OnActivationStatusChanged)|
 | [ClearAuthToken](#method.ClearAuthToken) | Clears the authorization token | NA |
 | [ClearSessionToken](#method.ClearSessionToken) | Clears the session token | NA |
 | [ClearServiceAccessToken](#method.ClearServiceAccessToken) | Clears the service access token | NA |
@@ -68,13 +68,13 @@ The following methods are provided by the org.rdk.AuthService plugin:
 | [GetCustomProperties](#method.GetCustomProperties) | Returns the custom properties | NA |
 | [SetCustomProperties](#method.SetCustomProperties) | Sets the custom properties | NA |
 | [GetAlternateIds](#method.GetAlternateIds) | Returns alternate IDs | NA |
-| [SetAlternateIds](#method.SetAlternateIds) | Sets alternate IDs as pairs | NA |
+| [SetAlternateIds](#method.SetAlternateIds) | Sets alternate IDs as key/value pairs | NA |
 | [GetTransitionData](#method.GetTransitionData) | Returns the transition data | NA |
 
 <a name="method.GetInfo"></a>
 ## GetInfo<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API returns the STB Auth Service info. It provides details such as version, host, auth service path, auth service mode, minimum and maximum renewal times, and success status. This information is crucial for understanding the configuration and status of the STB Auth Service.
+This API returns the STB Auth Service info. It provides details such as version, host, auth service path, auth service mode, minimum and maximum renewal times, and success status. This information is crucial for understanding the current state and configuration of the STB Auth Service.
 
 This method does not trigger any events.
 
@@ -86,9 +86,13 @@ This method takes no parameters.
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| info | GetInfoResult | The STB Auth Service info, including "version", "host", "aspath", "asmode", "minRenew", "maxRenew", and "success" |
-
-Note: The `GetInfoResult` is a structure that contains the STB Auth Service info.
+| version | string | The version of the STB Auth Service |
+| host | string | The host of the STB Auth Service |
+| aspath | string | The path to the auth service |
+| asmode | string | The mode of the auth service |
+| minRenew | integer | The minimum renewal time |
+| maxRenew | integer | The maximum renewal time |
+| success | boolean | The success status of the STB Auth Service |
 
 ### Example
 #### Request
@@ -106,7 +110,7 @@ Note: The `GetInfoResult` is a structure that contains the STB Auth Service info
 
  ```bash
 
-curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "method":"org.rdk.AuthService.1.GetInfo"}'http://127.0.0.1:9998/jsonrpc
+curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "method":"org.rdk.AuthService.1.GetInfo"}' http://127.0.0.1:9998/jsonrpc
 
 ```
 </details>
@@ -114,7 +118,7 @@ curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "met
 
 <details>
  <summary><kbd>JS</kbd></summary>
-
+ 
  ```javascript
 
 <!doctype html>
@@ -161,7 +165,7 @@ function log(msg, content) {
 
 <details>
  <summary><kbd>CPP</kbd></summary>
-
+ 
  ```cpp
 
 void GetInfo(std::string methodName, JSONRPC::LinkType<Core::JSON::IElement> *remoteObject)
@@ -201,7 +205,7 @@ Response: '%s'
 <a name="method.GetDeviceInfo"></a>
 ## GetDeviceInfo<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API returns device information. Please note that this API is deprecated and may be removed in future versions. The returned device information is encoded in a string format.
+This API is used to return device information. Please note that this API is deprecated and may be removed in future versions. The returned device information is encoded in a string format.
 
 ### Parameters
 
@@ -211,9 +215,8 @@ This method takes no parameters.
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| info | GetDeviceInfoResult | This is the device information encoded in a string format. The information includes device type, make, and other relevant details. |
-
-Please note that the success of the API call is indicated by the boolean value "success": true.
+| deviceInfo | string | Encoded device information |
+| success | boolean | Indicates the success or failure of the operation |
 
 ### Example
 #### Request
@@ -239,7 +242,7 @@ curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "met
 
 <details>
  <summary><kbd>JS</kbd></summary>
-
+ 
  ```javascript
 
 <!doctype html>
@@ -286,7 +289,7 @@ function log(msg, content) {
 
 <details>
  <summary><kbd>CPP</kbd></summary>
-
+ 
  ```cpp
 
 void GetDeviceInfo(std::string methodName, JSONRPC::LinkType<Core::JSON::IElement> *remoteObject)
@@ -359,7 +362,7 @@ curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "met
 
 <details>
  <summary><kbd>JS</kbd></summary>
-
+ 
  ```javascript
 
 <!doctype html>
@@ -406,7 +409,7 @@ function log(msg, content) {
 
 <details>
  <summary><kbd>CPP</kbd></summary>
-
+ 
  ```cpp
 
 void GetDeviceId(std::string methodName, JSONRPC::LinkType<Core::JSON::IElement> *remoteObject)
@@ -442,21 +445,20 @@ Response: '%s'
 <a name="method.setDeviceId"></a>
 ## setDeviceId<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API sets the device id. It is used to assign a unique identifier to a device. This identifier is used in subsequent API calls to refer to the device.
+This API sets the device id. It is used to assign a unique identifier to a device. The device id is a string parameter that is passed into the method.
 
 ### Parameters
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| deviceId | string | The unique identifier to be assigned to the device |
+| deviceId | string | The unique identifier to be set for the device |
 
 ### Result
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| idStatus | SuccessMsgResult | The status of the operation, "success": true, "message": " " |
-
-Note: This method does not trigger any events.
+| success | boolean | Returns true if the device id was successfully set |
+| message | string | Returns a message indicating the status of the operation |
 
 ### Example
 #### Request
@@ -483,7 +485,7 @@ curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "met
 
 <details>
  <summary><kbd>JS</kbd></summary>
-
+ 
  ```javascript
 
 <!doctype html>
@@ -520,7 +522,7 @@ function log(msg, content) {
   el.innerHTML += entry
 }
 </script>
-<button onclick="setDeviceId('12345')">Set Device Id</button>
+<button onclick="setDeviceId('123456')">Set Device Id</button>
 </body>
 </html>
 
@@ -530,7 +532,7 @@ function log(msg, content) {
 
 <details>
  <summary><kbd>CPP</kbd></summary>
-
+ 
  ```cpp
 
 void SetDeviceId(std::string methodName, JSONRPC::LinkType<Core::JSON::IElement> *remoteObject)
@@ -578,7 +580,8 @@ This API sets the partner id. It takes a string as an input parameter and return
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| idStatus | SetPartnerIdResult | The status of the operation, "success": true, "error": " " |
+| success | boolean | Indicates whether the operation was successful |
+| error | string | Contains error message if the operation was unsuccessful |
 
 ### Example
 #### Request
@@ -597,7 +600,7 @@ This API sets the partner id. It takes a string as an input parameter and return
 
  ```bash
 
-curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "method":"org.rdk.AuthService.1.SetPartnerId", "params":{"partnerId":"your_partner_id"}}'http://127.0.0.1:9998/jsonrpc
+curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "method":"org.rdk.AuthService.1.SetPartnerId", "params":{"partnerId":"your_partner_id"}}' http://127.0.0.1:9998/jsonrpc
 
 ```
 </details>
@@ -605,7 +608,7 @@ curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "met
 
 <details>
  <summary><kbd>JS</kbd></summary>
-
+ 
  ```javascript
 
 <!doctype html>
@@ -642,7 +645,7 @@ function log(msg, content) {
   el.innerHTML += entry
 }
 </script>
-<button onclick="setPartnerId('partner123')">Set Partner Id</button>
+<button onclick="setPartnerId('partner123')">Set Partner ID</button>
 </body>
 </html>
 
@@ -652,7 +655,7 @@ function log(msg, content) {
 
 <details>
  <summary><kbd>CPP</kbd></summary>
-
+ 
  ```cpp
 
 void SetPartnerId(std::string methodName, JSONRPC::LinkType<Core::JSON::IElement> *remoteObject)
@@ -661,7 +664,7 @@ void SetPartnerId(std::string methodName, JSONRPC::LinkType<Core::JSON::IElement
 ", TimeStamp(), __FUNCTION__);
     JsonObject parameters, response;
     std::string result;
-    parameters["partnerId"] = "partner123"; // replace "partner123" with actual partnerId
+    parameters["partnerId"] = "example_partner_id";
     if (invokeJSONRPC(remoteObject, methodName, parameters, response)) {
         response.ToString(result);
         printf("
@@ -688,22 +691,27 @@ Response: '%s'
 <a name="method.GetAuthToken"></a>
 ## GetAuthToken<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API returns the authorization token. It provides a mechanism to force a new token or recover a renewal. The method triggers the [AuthTokenChanged](#event.AuthTokenChanged) event when the authorization token changes.
+This API returns the authorization token. It provides a mechanism to force a new token or recover a renewal token. The method triggers the [AuthTokenChanged](#event.AuthTokenChanged) event when the authorization token changes.
 
 ### Parameters
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
 | forceNew | bool | Forces the generation of a new authorization token |
-| recoverRenewal | bool | Recovers a renewal token |
+| recoverRenewal | bool | Recovers a renewal token if available |
 
 ### Result
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| getResult | GetAuthTokenResult | Returns the authorization token along with its status, expiry time, client ID, message ID, and success status |
+| status | string | The status of the token request |
+| token | string | The authorization token |
+| expires | int | The expiration time of the token in seconds |
+| clientId | string | The client ID associated with the token |
+| messageId | string | The message ID associated with the token request |
+| success | bool | Indicates whether the token request was successful |
 
-Please note that the `GetAuthTokenResult` object includes the following fields: "status", "token", "expires", "clientId", "messageId", and "success".
+Note: The actual return type of this API is a user-defined type, `GetAuthTokenResult`, which encapsulates the above result fields.
 
 ### Example
 #### Request
@@ -722,7 +730,7 @@ Please note that the `GetAuthTokenResult` object includes the following fields: 
 
  ```bash
 
-curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "method":"org.rdk.AuthService.1.GetAuthToken", "params":{"forceNew":true, "recoverRenewal":true}}'http://127.0.0.1:9998/jsonrpc
+curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "method":"org.rdk.AuthService.1.GetAuthToken", "params":{"forceNew":true, "recoverRenewal":true}}' http://127.0.0.1:9998/jsonrpc
 
 ```
 </details>
@@ -730,7 +738,7 @@ curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "met
 
 <details>
  <summary><kbd>JS</kbd></summary>
-
+ 
  ```javascript
 
 <!doctype html>
@@ -748,8 +756,8 @@ localStorage.setItem('host', host)
 thunderJS = ThunderJS({
   host: host,
 })
-function getAuthToken(forceNew, recoverRenewal) {
-  thunderJS.AuthService.GetAuthToken({forceNew: forceNew, recoverRenewal: recoverRenewal})
+function getAuthToken(forceNew) {
+  thunderJS.AuthService.GetAuthToken(forceNew)
     .then(function(result) {
       log('Success', result)
     })
@@ -767,7 +775,7 @@ function log(msg, content) {
   el.innerHTML += entry
 }
 </script>
-<button onclick="getAuthToken(true, true)">Get Auth Token</button>
+<button onclick="getAuthToken(true)">Get Auth Token</button>
 </body>
 </html>
 
@@ -777,7 +785,7 @@ function log(msg, content) {
 
 <details>
  <summary><kbd>CPP</kbd></summary>
-
+ 
  ```cpp
 
 void GetAuthToken(std::string methodName, JSONRPC::LinkType<Core::JSON::IElement> *remoteObject)
@@ -818,7 +826,7 @@ Response: '%s'
 <a name="method.GetSessionToken"></a>
 ## GetSessionToken<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API returns the session token. It provides a unique token that can be used for session identification. The token is a string of characters and numbers, and it expires after a certain period of time.
+This API returns the session token. It is a virtual method that retrieves the session token and other related information such as the token's expiration time, client ID, message ID, and status. This method is essential for maintaining a secure and authenticated session.
 
 ### Parameters
 
@@ -828,7 +836,13 @@ This method takes no parameters.
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| getResult | GetSessionTokenResult | The session token, along with other related information such as status, expiry time, client ID, message ID, success status, and message. |
+| status | string | The status of the session token retrieval. |
+| token | string | The actual session token. |
+| expires | integer | The expiration time of the session token. |
+| clientId | string | The ID of the client. |
+| messageId | string | The ID of the message. |
+| success | boolean | Indicates whether the session token retrieval was successful. |
+| message | string | Any additional message related to the session token retrieval. |
 
 ### Example
 #### Request
@@ -854,7 +868,7 @@ curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "met
 
 <details>
  <summary><kbd>JS</kbd></summary>
-
+ 
  ```javascript
 
 <!doctype html>
@@ -901,7 +915,7 @@ function log(msg, content) {
 
 <details>
  <summary><kbd>CPP</kbd></summary>
-
+ 
  ```cpp
 
 void GetSessionToken(std::string methodName, JSONRPC::LinkType<Core::JSON::IElement> *remoteObject)
@@ -938,10 +952,10 @@ Response: '%s'
 }
 ```
 
-<a name="method.SetSessionToken"></a>
+<a name="method.setsessiontoken"></a>
 ## SetSessionToken<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API sets the session token. It takes in several parameters including status, token, expiration time, client ID, and message ID. Upon successful execution, it triggers the SessionTokenChanged event.
+This API sets the session token. It takes in several parameters including status, token, expiration time, client ID, and message ID. Once the session token is set, it triggers the SessionTokenChanged event.
 
 ### Parameters
 
@@ -957,9 +971,11 @@ This API sets the session token. It takes in several parameters including status
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| setStat | SuccessMsgResult | The result of the session token setting operation |
-
-This method triggers the [SessionTokenChanged](#event.SessionTokenChanged) event.
+| status | string | The status of the operation, "0" indicates success |
+| token | string | The session token |
+| expires | uint32_t | The expiration time of the session token |
+| clientId | string | The client ID |
+| messageId | string | The message ID |
 
 ### Example
 #### Request
@@ -970,11 +986,11 @@ This method triggers the [SessionTokenChanged](#event.SessionTokenChanged) event
 "id":3,
 "method":"org.rdk.AuthService.1.SetSessionToken",
 "params":{
-    "status": 0,
-    "token": "PD94bWwgdmVyc2lvbj0iMS4wI...",
-    "expires": 31530812,
-    "clientId": "...",
-    "messageId": "..."
+    "status":0,
+    "token":"PD94bWwgdmVyc2lvbj0iMS4wI...",
+    "expires":31530812,
+    "clientId":"...",
+    "messageId":"..."
     }
 }
 ```
@@ -992,7 +1008,7 @@ curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "met
 
 <details>
  <summary><kbd>JS</kbd></summary>
-
+ 
  ```javascript
 
 <!doctype html>
@@ -1039,7 +1055,7 @@ function log(msg, content) {
 
 <details>
  <summary><kbd>CPP</kbd></summary>
-
+ 
  ```cpp
 
 void SetSessionToken(std::string methodName, JSONRPC::LinkType<Core::JSON::IElement> *remoteObject)
@@ -1082,7 +1098,7 @@ Response: '%s'
 <a name="method.GetServiceAccessToken"></a>
 ## GetServiceAccessToken<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API returns the service access token. It is used to authenticate the service and provide access to its features. The token is a string of characters that represents the service's identity.
+This API returns the service access token. It is a crucial method for authenticating and authorizing the service. The access token is a key element in ensuring the security and integrity of the service.
 
 This method does not trigger any events.
 
@@ -1094,7 +1110,11 @@ This method takes no parameters.
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| getResult | GetServiceAccessTokenResult | This is the service access token. It includes the status, token, expiration time, success status, and any related messages. |
+| status | string | The status of the token retrieval process. |
+| token | string | The actual service access token. |
+| expires | integer | The expiration time of the token in seconds. |
+| success | boolean | Indicates whether the token retrieval was successful. |
+| message | string | Any additional message or information related to the token retrieval. |
 
 ### Example
 #### Request
@@ -1112,7 +1132,7 @@ This method takes no parameters.
 
  ```bash
 
-curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "method":"org.rdk.AuthService.1.GetServiceAccessToken"}'http://127.0.0.1:9998/jsonrpc
+curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "method":"org.rdk.AuthService.1.GetServiceAccessToken"}' http://127.0.0.1:9998/jsonrpc
 
 ```
 </details>
@@ -1120,7 +1140,7 @@ curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "met
 
 <details>
  <summary><kbd>JS</kbd></summary>
-
+ 
  ```javascript
 
 <!doctype html>
@@ -1167,7 +1187,7 @@ function log(msg, content) {
 
 <details>
  <summary><kbd>CPP</kbd></summary>
-
+ 
  ```cpp
 
 void GetServiceAccessToken(std::string methodName, JSONRPC::LinkType<Core::JSON::IElement> *remoteObject)
@@ -1205,7 +1225,7 @@ Response: '%s'
 <a name="method.SetServiceAccessToken"></a>
 ## SetServiceAccessToken<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API sets the service access token. It takes in the status, token, and expiry time as parameters. The status is used to determine the current state of the service, the token is the access token for the service, and the expiry time is the duration for which the token is valid.
+This API sets the service access token. It takes in a status, a token, and an expiration time. The status is used to determine the state of the service, the token is the access token for the service, and the expiration time is the time at which the token will expire.
 
 This method triggers the [ServiceAccessTokenChanged](#event.ServiceAccessTokenChanged)
 
@@ -1213,15 +1233,16 @@ This method triggers the [ServiceAccessTokenChanged](#event.ServiceAccessTokenCh
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| status | int32_t | The current status of the service |
+| status | int32_t | The status of the service |
 | token | string | The access token for the service |
-| expires | uint32_t | The duration for which the token is valid |
+| expires | uint32_t | The expiration time for the token |
 
 ### Result
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| setStat | SuccessMsgResult | The result of the operation, indicating success or failure |
+| success | bool | Indicates whether the operation was successful |
+| message | string | A message indicating the result of the operation |
 
 ### Example
 #### Request
@@ -1244,7 +1265,7 @@ This method triggers the [ServiceAccessTokenChanged](#event.ServiceAccessTokenCh
 
  ```bash
 
-curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "method":"org.rdk.AuthService.1.SetServiceAccessToken", "params":{"status":1, "token":"your_token", "expires":123456}}'http://127.0.0.1:9998/jsonrpc
+curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "method":"org.rdk.AuthService.1.SetServiceAccessToken", "params":{"status":1, "token":"your_token", "expires":12345}}'http://127.0.0.1:9998/jsonrpc
 
 ```
 </details>
@@ -1252,7 +1273,7 @@ curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "met
 
 <details>
  <summary><kbd>JS</kbd></summary>
-
+ 
  ```javascript
 
 <!doctype html>
@@ -1299,7 +1320,7 @@ function log(msg, content) {
 
 <details>
  <summary><kbd>CPP</kbd></summary>
-
+ 
  ```cpp
 
 void SetServiceAccessToken(std::string methodName, JSONRPC::LinkType<Core::JSON::IElement> *remoteObject)
@@ -1307,10 +1328,10 @@ void SetServiceAccessToken(std::string methodName, JSONRPC::LinkType<Core::JSON:
     printf("[%llu] Inside (%s)
 ", TimeStamp(), __FUNCTION__);
     JsonObject parameters, response;
-    parameters["status"] = 1;
-    parameters["token"] = "sample_token";
-    parameters["expires"] = 3600;
     std::string result;
+    parameters["status"] = status;
+    parameters["token"] = token;
+    parameters["expires"] = expires;
     if (invokeJSONRPC(remoteObject, methodName, parameters, response)) {
         response.ToString(result);
         printf("
@@ -1376,7 +1397,7 @@ curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "met
 
 <details>
  <summary><kbd>JS</kbd></summary>
-
+ 
  ```javascript
 
 <!doctype html>
@@ -1423,7 +1444,7 @@ function log(msg, content) {
 
 <details>
  <summary><kbd>CPP</kbd></summary>
-
+ 
  ```cpp
 
 void GetServiceAccountId(std::string methodName, JSONRPC::LinkType<Core::JSON::IElement> *remoteObject)
@@ -1470,9 +1491,12 @@ This method triggers the [OnServiceAccountIdChanged](#event.OnServiceAccountIdCh
 
 ### Result
 
+This method does not return a value. However, it updates the status of the operation in the `setStat` parameter of type `SuccessMsgResult`. The `setStat` parameter has the following fields:
+
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| setStat | SuccessMsgResult | The result of the operation, "success": true, "message": " " |
+| success | bool | Indicates whether the operation was successful |
+| message | string | Contains a message about the operation |
 
 ### Example
 #### Request
@@ -1499,7 +1523,7 @@ curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "met
 
 <details>
  <summary><kbd>JS</kbd></summary>
-
+ 
  ```javascript
 
 <!doctype html>
@@ -1546,7 +1570,7 @@ function log(msg, content) {
 
 <details>
  <summary><kbd>CPP</kbd></summary>
-
+ 
  ```cpp
 
 void SetServiceAccountId(std::string methodName, JSONRPC::LinkType<Core::JSON::IElement> *remoteObject)
@@ -1592,11 +1616,12 @@ This API sets the authorization ID token. It is used to authenticate the user an
 
 ### Result
 
+This method does not return a value. However, it does modify the `setStat` parameter, which is an output parameter of type `SuccessMsgResult`. This parameter contains two fields:
+
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| setStat | SuccessMsgResult | "success": true, "message": " " |
-
-This method does not trigger any events.
+| success | bool | Indicates whether the operation was successful |
+| message | string | Contains a message about the operation |
 
 ### Example
 #### Request
@@ -1623,7 +1648,7 @@ curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "met
 
 <details>
  <summary><kbd>JS</kbd></summary>
-
+ 
  ```javascript
 
 <!doctype html>
@@ -1670,7 +1695,7 @@ function log(msg, content) {
 
 <details>
  <summary><kbd>CPP</kbd></summary>
-
+ 
  ```cpp
 
 void SetAuthIdToken(std::string methodName, JSONRPC::LinkType<Core::JSON::IElement> *remoteObject)
@@ -1678,8 +1703,8 @@ void SetAuthIdToken(std::string methodName, JSONRPC::LinkType<Core::JSON::IEleme
     printf("[%llu] Inside (%s)
 ", TimeStamp(), __FUNCTION__);
     JsonObject parameters, response;
+    parameters["authIdToken"] = "your_auth_id_token";
     std::string result;
-    parameters["authIdToken"] = "your_auth_id_token_value";
     if (invokeJSONRPC(remoteObject, methodName, parameters, response)) {
         response.ToString(result);
         printf("
@@ -1718,7 +1743,8 @@ This API lets the Auth Service know that the device's provisioned keys, certific
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| setStat | SuccessMsgResult | The result of the readiness check, returns "success": true, "message": " " |
+| success | boolean | Returns true if the operation was successful |
+| message | string | Returns a message related to the operation's success or failure |
 
 ### Example
 #### Request
@@ -1737,7 +1763,7 @@ This API lets the Auth Service know that the device's provisioned keys, certific
 
  ```bash
 
-curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "method":"org.rdk.AuthService.1.Ready", "params":{"status":"value"}}'http://127.0.0.1:9998/jsonrpc
+curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "method":"org.rdk.AuthService.1.Ready", "params":{"status":"true"}}'http://127.0.0.1:9998/jsonrpc
 
 ```
 </details>
@@ -1745,7 +1771,7 @@ curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "met
 
 <details>
  <summary><kbd>JS</kbd></summary>
-
+ 
  ```javascript
 
 <!doctype html>
@@ -1792,7 +1818,7 @@ function log(msg, content) {
 
 <details>
  <summary><kbd>CPP</kbd></summary>
-
+ 
  ```cpp
 
 void Ready(std::string methodName, JSONRPC::LinkType<Core::JSON::IElement> *remoteObject)
@@ -1828,21 +1854,21 @@ Response: '%s'
 <a name="method.GetBootstrapProperty"></a>
 ## GetBootstrapProperty<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API returns the bootstrap property associated with the current partnerId. It is a virtual method that takes a string parameter and returns a result object containing the bootstrap property details.
+This API returns the bootstrap property associated with the current partnerId. It is used to retrieve specific bootstrap properties based on the input string provided. 
 
 ### Parameters
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| bootstrapProperty | string | The bootstrap property associated with the current partnerId |
+| bootstrapProperty | string | The bootstrap property to be retrieved |
 
 ### Result
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| setStat | GetBootstrapPropResult | The result object containing the bootstrap property details |
-
-Please note that this method does not trigger any events.
+| ntpHost | string | The NTP host associated with the bootstrap property |
+| success | boolean | Indicates whether the retrieval was successful |
+| message | string | A message indicating the status of the retrieval |
 
 ### Example
 #### Request
@@ -1869,7 +1895,7 @@ curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "met
 
 <details>
  <summary><kbd>JS</kbd></summary>
-
+ 
  ```javascript
 
 <!doctype html>
@@ -1916,7 +1942,7 @@ function log(msg, content) {
 
 <details>
  <summary><kbd>CPP</kbd></summary>
-
+ 
  ```cpp
 
 void GetBootstrapProperty(std::string methodName, JSONRPC::LinkType<Core::JSON::IElement> *remoteObject)
@@ -1953,7 +1979,7 @@ Response: '%s'
 <a name="method.ActivationStarted"></a>
 ## ActivationStarted<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API lets the auth service know that the device's activation has started. It is used to initiate the activation process and ensure that the device is ready for use.
+This API lets the auth service know that the device's activation has started. It is a crucial step in the device activation process, ensuring that the auth service is aware of the device's status. This method is typically called when the device is in the process of being activated.
 
 ### Parameters
 
@@ -1963,7 +1989,7 @@ This method takes no parameters.
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| successResult | SuccessResult | The result of the activation process, returns "success": true if the activation has started successfully. |
+| successResult | SuccessResult | This API returns "success": true, indicating that the device's activation has started successfully. |
 
 ### Example
 #### Request
@@ -1989,7 +2015,7 @@ curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "met
 
 <details>
  <summary><kbd>JS</kbd></summary>
-
+ 
  ```javascript
 
 <!doctype html>
@@ -2036,7 +2062,7 @@ function log(msg, content) {
 
 <details>
  <summary><kbd>CPP</kbd></summary>
-
+ 
  ```cpp
 
 void ActivationStarted(std::string methodName, JSONRPC::LinkType<Core::JSON::IElement> *remoteObject)
@@ -2070,7 +2096,7 @@ Response: '%s'
 <a name="method.ActivationComplete"></a>
 ## ActivationComplete<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API lets the auth service know that the device's activation is completed. It is used to signal the completion of the device activation process to the authentication service. The method returns a success result indicating the status of the operation.
+This API lets the auth service know that the device's activation is completed. It is used to signal the completion of the device activation process. The API returns a success result indicating the status of the operation.
 
 ### Parameters
 
@@ -2080,7 +2106,7 @@ This method takes no parameters.
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| successResult | SuccessResult | "success": true |
+| successResult | SuccessResult | This is the result of the activation completion process. It returns "success": true if the activation is completed successfully. |
 
 ### Example
 #### Request
@@ -2106,7 +2132,7 @@ curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "met
 
 <details>
  <summary><kbd>JS</kbd></summary>
-
+ 
  ```javascript
 
 <!doctype html>
@@ -2153,7 +2179,7 @@ function log(msg, content) {
 
 <details>
  <summary><kbd>CPP</kbd></summary>
-
+ 
  ```cpp
 
 void ActivationComplete(std::string methodName, JSONRPC::LinkType<Core::JSON::IElement> *remoteObject)
@@ -2187,7 +2213,7 @@ Response: '%s'
 <a name="method.GetLostAndFoundAccessToken"></a>
 ## GetLostAndFoundAccessToken<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API returns the stored Lost and Found access token (LFAT) if one is available. It provides a secure way to retrieve the LFAT, which is essential for lost and found operations. The method ensures that the LFAT is only accessible when it is available, enhancing the security of the system.
+This API returns the stored Lost and Found access token (LFAT) if one is available. It is a virtual method that retrieves the LFAT, which is a unique identifier for lost and found items. The method also provides information about the token's expiration, version, and the time it was received.
 
 ### Parameters
 
@@ -2197,9 +2223,9 @@ This method takes no parameters.
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| lostAndFoundAccessToken | string | The Lost and Found access token (LFAT) |
-| message | string | A message indicating the status of the operation |
-| success | bool | A boolean value indicating the success or failure of the operation |
+| lostAndFoundAccessToken | string | The Lost and Found access token. |
+| message | string | A message related to the retrieval of the token. |
+| success | bool | Indicates whether the retrieval was successful. |
 
 ### Example
 #### Request
@@ -2225,7 +2251,7 @@ curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "met
 
 <details>
  <summary><kbd>JS</kbd></summary>
-
+ 
  ```javascript
 
 <!doctype html>
@@ -2272,7 +2298,7 @@ function log(msg, content) {
 
 <details>
  <summary><kbd>CPP</kbd></summary>
-
+ 
  ```cpp
 
 void GetLostAndFoundAccessToken(std::string methodName, JSONRPC::LinkType<Core::JSON::IElement> *remoteObject)
@@ -2324,11 +2350,12 @@ This API sets the lost and found access token. It is used to update the access t
 
 ### Result
 
+This method does not return a value. However, it updates the `setStat` parameter with the result of the operation.
+
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| setStat | SuccessMsgResult | The result of the operation, indicating success or failure |
-
-This method does not trigger any events.
+| success | boolean | Indicates whether the operation was successful |
+| message | string | Provides additional information about the operation result |
 
 ### Example
 #### Request
@@ -2338,7 +2365,7 @@ This method does not trigger any events.
 "jsonrpc":"2.0",
 "id":3,
 "method":"org.rdk.AuthService.1.SetLostAndFoundAccessToken",
-"params":{"lostAndFoundAccessToken":"your_token_value"}
+"params":{"lostAndFoundAccessToken":"your_token_value_here"}
 }
 ```
 
@@ -2347,7 +2374,7 @@ This method does not trigger any events.
 
  ```bash
 
-curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "method":"org.rdk.AuthService.1.SetLostAndFoundAccessToken", "params":{"lostAndFoundAccessToken":"your_token_here"}}'http://127.0.0.1:9998/jsonrpc
+curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "method":"org.rdk.AuthService.1.SetLostAndFoundAccessToken", "params":{"lostAndFoundAccessToken":"your_token_value"}}'http://127.0.0.1:9998/jsonrpc
 
 ```
 </details>
@@ -2355,7 +2382,7 @@ curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "met
 
 <details>
  <summary><kbd>JS</kbd></summary>
-
+ 
  ```javascript
 
 <!doctype html>
@@ -2402,7 +2429,7 @@ function log(msg, content) {
 
 <details>
  <summary><kbd>CPP</kbd></summary>
-
+ 
  ```cpp
 
 void SetLostAndFoundAccessToken(std::string methodName, JSONRPC::LinkType<Core::JSON::IElement> *remoteObject)
@@ -2440,8 +2467,6 @@ Response: '%s'
 
 This API returns the xDevice ID. It is a unique identifier for the xDevice. This method is used when you need to retrieve the ID of a specific xDevice.
 
-This method does not trigger any events.
-
 ### Parameters
 
 This method takes no parameters.
@@ -2478,7 +2503,7 @@ curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "met
 
 <details>
  <summary><kbd>JS</kbd></summary>
-
+ 
  ```javascript
 
 <!doctype html>
@@ -2525,7 +2550,7 @@ function log(msg, content) {
 
 <details>
  <summary><kbd>CPP</kbd></summary>
-
+ 
  ```cpp
 
 void GetXDeviceId(std::string methodName, JSONRPC::LinkType<Core::JSON::IElement> *remoteObject)
@@ -2561,7 +2586,7 @@ Response: '%s'
 <a name="method.SetXDeviceId"></a>
 ## SetXDeviceId<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API sets the xDevice ID. It is used to assign a unique identifier to the device for tracking and management purposes. The xDevice ID is a string parameter that is passed into the function.
+This API sets the xDevice ID. It is used to assign a unique identifier to the device for tracking and management purposes. The ID is a string value that is passed as an input parameter to the function.
 
 ### Parameters
 
@@ -2573,7 +2598,8 @@ This API sets the xDevice ID. It is used to assign a unique identifier to the de
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| setStat | SuccessMsgResult | The result of the operation, returns "success": true, "message": " " on successful execution |
+| success | boolean | Returns true if the operation was successful |
+| message | string | Returns a message indicating the status of the operation |
 
 ### Example
 #### Request
@@ -2583,7 +2609,7 @@ This API sets the xDevice ID. It is used to assign a unique identifier to the de
 "jsonrpc":"2.0",
 "id":3,
 "method":"org.rdk.AuthService.1.SetXDeviceId",
-"params":{"xDeviceId":"your_value_here"}
+"params":{"xDeviceId":"your_value"}
 }
 ```
 
@@ -2600,7 +2626,7 @@ curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "met
 
 <details>
  <summary><kbd>JS</kbd></summary>
-
+ 
  ```javascript
 
 <!doctype html>
@@ -2637,7 +2663,7 @@ function log(msg, content) {
   el.innerHTML += entry
 }
 </script>
-<button onclick="setXDeviceId('your_xDeviceId')">setXDeviceId</button>
+<button onclick="setXDeviceId('your_xDeviceId')">SetXDeviceId</button>
 </body>
 </html>
 
@@ -2647,7 +2673,7 @@ function log(msg, content) {
 
 <details>
  <summary><kbd>CPP</kbd></summary>
-
+ 
  ```cpp
 
 void SetXDeviceId(std::string methodName, JSONRPC::LinkType<Core::JSON::IElement> *remoteObject)
@@ -2655,8 +2681,8 @@ void SetXDeviceId(std::string methodName, JSONRPC::LinkType<Core::JSON::IElement
     printf("[%llu] Inside (%s)
 ", TimeStamp(), __FUNCTION__);
     JsonObject parameters, response;
-    parameters["xDeviceId"] = "value";
     std::string result;
+    parameters["xDeviceId"] = "value_for_xDeviceId";
     if (invokeJSONRPC(remoteObject, methodName, parameters, response)) {
         response.ToString(result);
         printf("
@@ -2683,7 +2709,9 @@ Response: '%s'
 <a name="method.GetExperience"></a>
 ## GetExperience<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API returns the experience. It is a virtual method that retrieves the experience value and indicates the success of the operation. The experience is returned as a string value.
+This API returns the experience. It is a property that provides the experience value of a user or an entity. The experience is returned as a string value.
+
+This method does not trigger any events.
 
 ### Parameters
 
@@ -2693,9 +2721,8 @@ This method takes no parameters.
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| expdResult | GetExpResult | The experience value and the success status of the operation. |
-
-Please note that the return type is `GetExpResult`, which is an object containing the experience value and a boolean indicating the success of the operation. The possible return value is "experience": "x1", "success": true.
+| experience | string | The experience value |
+| success | boolean | The status of the operation, true if successful |
 
 ### Example
 #### Request
@@ -2721,7 +2748,7 @@ curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "met
 
 <details>
  <summary><kbd>JS</kbd></summary>
-
+ 
  ```javascript
 
 <!doctype html>
@@ -2768,7 +2795,7 @@ function log(msg, content) {
 
 <details>
  <summary><kbd>CPP</kbd></summary>
-
+ 
  ```cpp
 
 void GetExperience(std::string methodName, JSONRPC::LinkType<Core::JSON::IElement> *remoteObject)
@@ -2803,21 +2830,20 @@ Response: '%s'
 <a name="method.SetExperience"></a>
 ## SetExperience<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API sets the experience. It takes a string as input and returns a success message. This method is used to update the experience level of a user in a game or application.
+This API sets the experience. It takes a string as an input parameter and returns a success message. The experience can be any valid string value. The success message is a structured output that contains a boolean value indicating the success status and a message string.
 
 ### Parameters
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| experience | string | The experience level to be set |
+| experience | string | The experience to be set |
 
 ### Result
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| setStat | SuccessMsgResult | The result of the operation, "success": true, "message": " " |
-
-Note: This method does not trigger any event.
+| success | boolean | Indicates the success status |
+| message | string | The success message |
 
 ### Example
 #### Request
@@ -2844,7 +2870,7 @@ curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "met
 
 <details>
  <summary><kbd>JS</kbd></summary>
-
+ 
  ```javascript
 
 <!doctype html>
@@ -2891,7 +2917,7 @@ function log(msg, content) {
 
 <details>
  <summary><kbd>CPP</kbd></summary>
-
+ 
  ```cpp
 
 void SetExperience(std::string methodName, JSONRPC::LinkType<Core::JSON::IElement> *remoteObject)
@@ -2899,7 +2925,7 @@ void SetExperience(std::string methodName, JSONRPC::LinkType<Core::JSON::IElemen
     printf("[%llu] Inside (%s)
 ", TimeStamp(), __FUNCTION__);
     JsonObject parameters, response;
-    parameters["experience"] = "value"; // replace "value" with actual value
+    parameters["experience"] = "5 years"; // replace "5 years" with actual experience value
     std::string result;
     if (invokeJSONRPC(remoteObject, methodName, parameters, response)) {
         response.ToString(result);
@@ -2927,7 +2953,7 @@ Response: '%s'
 <a name="method.GetXifaId"></a>
 ## GetXifaId<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API returns the xifaId. It is a virtual method that is used to retrieve the xifaId from the system. The method returns a success message if the operation is successful.
+This API returns the xifaId. It is a virtual method that is used to retrieve the xifaId from the system. The method returns a success status if the operation is successful.
 
 ### Parameters
 
@@ -2937,7 +2963,8 @@ This method takes no parameters.
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| xifaIdResult | GetxifaIdResult | The xifaId retrieved from the system. If the operation is successful, the return value is "success": true. |
+| xifaIdResult | GetxifaIdResult | This is the result of the API call, which contains the xifaId. |
+
 
 ### Example
 #### Request
@@ -2963,7 +2990,7 @@ curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "met
 
 <details>
  <summary><kbd>JS</kbd></summary>
-
+ 
  ```javascript
 
 <!doctype html>
@@ -3010,7 +3037,7 @@ function log(msg, content) {
 
 <details>
  <summary><kbd>CPP</kbd></summary>
-
+ 
  ```cpp
 
 void GetXifaId(std::string methodName, JSONRPC::LinkType<Core::JSON::IElement> *remoteObject)
@@ -3044,21 +3071,19 @@ Response: '%s'
 <a name="method.SetXifaId"></a>
 ## SetXifaId<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API sets the xifaId. It takes a string as an input parameter and returns a success message if the operation is successful.
+This API sets the xifaId. It is a virtual method that takes a string as an input parameter and returns a success message. The xifaId is a unique identifier used in the system.
 
 ### Parameters
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| xifaId | string | The xifaId to be set |
+| xifaId | string | Unique identifier to be set |
 
 ### Result
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| setStat | SuccessMsgResult | The result of the operation, returns "success": true if the operation is successful |
-
-Please note that this method does not trigger any events.
+| success | boolean | Returns true if the xifaId is successfully set |
 
 ### Example
 #### Request
@@ -3085,7 +3110,7 @@ curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "met
 
 <details>
  <summary><kbd>JS</kbd></summary>
-
+ 
  ```javascript
 
 <!doctype html>
@@ -3122,7 +3147,7 @@ function log(msg, content) {
   el.innerHTML += entry
 }
 </script>
-<button onclick="setXifaId('123456')">setXifaId</button>
+<button onclick="setXifaId('your_xifaId')">setXifaId</button>
 </body>
 </html>
 
@@ -3132,7 +3157,7 @@ function log(msg, content) {
 
 <details>
  <summary><kbd>CPP</kbd></summary>
-
+ 
  ```cpp
 
 void SetXifaId(std::string methodName, JSONRPC::LinkType<Core::JSON::IElement> *remoteObject)
@@ -3167,7 +3192,7 @@ Response: '%s'
 <a name="method.GetAdvtOptOut"></a>
 ## GetAdvtOptOut<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API returns the advertisement opt-out status. It is a virtual method that checks if the user has opted out of advertisements. The method returns a success status if the operation is successful.
+This API returns the advertisement opt-out status. It checks whether the user has opted out of advertisements or not. The method returns a success status if the operation is successful.
 
 ### Parameters
 
@@ -3177,7 +3202,9 @@ This method takes no parameters.
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| advtOptOutResult | AdvtOptOutResult | This is the output parameter that holds the advertisement opt-out status. If the operation is successful, the return value is "success": true. |
+| advtOptOutResult | AdvtOptOutResult | The advertisement opt-out status of the user. |
+
+Please note that the return type `AdvtOptOutResult` is a user-defined type. The possible values for `AdvtOptOutResult` are defined in the `AdvtOptOutResult` enumeration.
 
 ### Example
 #### Request
@@ -3203,7 +3230,7 @@ curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "met
 
 <details>
  <summary><kbd>JS</kbd></summary>
-
+ 
  ```javascript
 
 <!doctype html>
@@ -3250,7 +3277,7 @@ function log(msg, content) {
 
 <details>
  <summary><kbd>CPP</kbd></summary>
-
+ 
  ```cpp
 
 void GetAdvtOptOut(std::string methodName, JSONRPC::LinkType<Core::JSON::IElement> *remoteObject)
@@ -3284,7 +3311,7 @@ Response: '%s'
 <a name="method.SetAdvtOptOut"></a>
 ## SetAdvtOptOut<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API sets the advertisement opt-out. It takes a boolean value as input and sets the advertisement opt-out accordingly. If the operation is successful, it returns a success message.
+This API sets the advertisement opt-out. It takes a boolean value as input and sets the advertisement opt-out accordingly. The method returns a success message upon successful execution.
 
 ### Parameters
 
@@ -3296,7 +3323,7 @@ This API sets the advertisement opt-out. It takes a boolean value as input and s
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| setStat | SuccessMsgResult | Returns "success": true if the operation is successful |
+| setStat | SuccessMsgResult | Return of the API indicating the success status of the operation |
 
 ### Example
 #### Request
@@ -3323,7 +3350,7 @@ curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "met
 
 <details>
  <summary><kbd>JS</kbd></summary>
-
+ 
  ```javascript
 
 <!doctype html>
@@ -3360,7 +3387,7 @@ function log(msg, content) {
   el.innerHTML += entry
 }
 </script>
-<button onclick="setAdvtOptOut(true)">SetAdvtOptOut</button>
+<button onclick="setAdvtOptOut(true)">setAdvtOptOut</button>
 </body>
 </html>
 
@@ -3370,7 +3397,7 @@ function log(msg, content) {
 
 <details>
  <summary><kbd>CPP</kbd></summary>
-
+ 
  ```cpp
 
 void SetAdvtOptOut(std::string methodName, JSONRPC::LinkType<Core::JSON::IElement> *remoteObject)
@@ -3380,7 +3407,7 @@ void SetAdvtOptOut(std::string methodName, JSONRPC::LinkType<Core::JSON::IElemen
     JsonObject parameters, response;
     parameters["advtOptOut"] = true; // replace with actual value
     std::string result;
-    if (invokeJSONRPC(remoteObject, "AuthService.SetAdvtOptOut", parameters, response)) {
+    if (invokeJSONRPC(remoteObject, methodName, parameters, response)) {
         response.ToString(result);
         printf("
 Response: '%s'
@@ -3405,7 +3432,7 @@ Response: '%s'
 <a name="method.GetActivationStatus"></a>
 ## GetActivationStatus<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API returns the activation status. It provides information about whether the system or service is activated or not. The status can be either "activated" or "not-activated".
+This API returns the activation status. It provides information about whether the system or service is activated or not. The status is returned as a string, with possible values being "not-activated" or "activated".
 
 ### Parameters
 
@@ -3415,9 +3442,8 @@ This method takes no parameters.
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| statusResult | ActivationStatusResult | The activation status of the system or service. Possible values are "not-activated" and "activated". |
-
-Please note that the success of the operation is indicated by the boolean value "success". If the operation is successful, "success" will be true. If the operation fails, "success" will be false.
+| status | string | The activation status of the system or service. Possible values are "not-activated" or "activated". |
+| success | boolean | Indicates whether the operation was successful. Returns true if the operation was successful, false otherwise. |
 
 ### Example
 #### Request
@@ -3443,7 +3469,7 @@ curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "met
 
 <details>
  <summary><kbd>JS</kbd></summary>
-
+ 
  ```javascript
 
 <!doctype html>
@@ -3490,7 +3516,7 @@ function log(msg, content) {
 
 <details>
  <summary><kbd>CPP</kbd></summary>
-
+ 
  ```cpp
 
 void GetActivationStatus(std::string methodName, JSONRPC::LinkType<Core::JSON::IElement> *remoteObject)
@@ -3499,7 +3525,7 @@ void GetActivationStatus(std::string methodName, JSONRPC::LinkType<Core::JSON::I
 ", TimeStamp(), __FUNCTION__);
     JsonObject parameters, response;
     std::string result;
-    if (invokeJSONRPC(remoteObject, "AuthService.GetActivationStatus", parameters, response)) {
+    if (invokeJSONRPC(remoteObject, methodName, parameters, response)) {
         response.ToString(result);
         printf("
 Response: '%s'
@@ -3525,7 +3551,7 @@ Response: '%s'
 <a name="method.SetActivationStatus"></a>
 ## SetActivationStatus<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API is used to set the activation status. It takes a string as an input parameter and returns a success message. The status of the activation is changed based on the input string.
+This API sets the activation status of a device or service. It takes a string parameter representing the desired status and returns a success message if the operation is successful. 
 
 This method triggers the [OnActivationStatusChanged](#event.OnActivationStatusChanged)
 
@@ -3533,13 +3559,14 @@ This method triggers the [OnActivationStatusChanged](#event.OnActivationStatusCh
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| status | string | The status to be set for activation |
+| status | string | The desired activation status |
 
 ### Result
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| setStat | SuccessMsgResult | The result of the operation, "success": true, "message": " " |
+| success | bool | Indicates whether the operation was successful |
+| message | string | A message indicating the result of the operation |
 
 ### Example
 #### Request
@@ -3549,7 +3576,7 @@ This method triggers the [OnActivationStatusChanged](#event.OnActivationStatusCh
 "jsonrpc":"2.0",
 "id":3,
 "method":"org.rdk.AuthService.1.SetActivationStatus",
-"params":{"status":"active"}
+"params":{"status":"value"}
 }
 ```
 
@@ -3566,7 +3593,7 @@ curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "met
 
 <details>
  <summary><kbd>JS</kbd></summary>
-
+ 
  ```javascript
 
 <!doctype html>
@@ -3613,7 +3640,7 @@ function log(msg, content) {
 
 <details>
  <summary><kbd>CPP</kbd></summary>
-
+ 
  ```cpp
 
 void SetActivationStatus(std::string methodName, JSONRPC::LinkType<Core::JSON::IElement> *remoteObject)
@@ -3649,9 +3676,7 @@ Response: '%s'
 <a name="method.ClearAuthToken"></a>
 ## ClearAuthToken<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API clears the authorization token. It is used when the user wants to log out or when the token is no longer valid. The method ensures that the user's session is securely terminated.
-
-This method does not trigger any events.
+This API clears the authorization token. It is used when the user wants to log out or when the token is expired and needs to be refreshed. The method returns a success message upon successful execution.
 
 ### Parameters
 
@@ -3661,7 +3686,8 @@ This method takes no parameters.
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| setStat | SuccessMsgResult | The result of the operation, returns "success": true, "message": " " on successful execution |
+| success | bool | Indicates the success or failure of the operation |
+| message | string | Provides additional information about the operation's result |
 
 ### Example
 #### Request
@@ -3679,7 +3705,7 @@ This method takes no parameters.
 
  ```bash
 
-curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "method":"org.rdk.AuthService.1.ClearAuthToken"}'http://127.0.0.1:9998/jsonrpc
+curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "method":"org.rdk.AuthService.1.ClearAuthToken"}' http://127.0.0.1:9998/jsonrpc
 
 ```
 </details>
@@ -3687,7 +3713,7 @@ curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "met
 
 <details>
  <summary><kbd>JS</kbd></summary>
-
+ 
  ```javascript
 
 <!doctype html>
@@ -3734,7 +3760,7 @@ function log(msg, content) {
 
 <details>
  <summary><kbd>CPP</kbd></summary>
-
+ 
  ```cpp
 
 void ClearAuthToken(std::string methodName, JSONRPC::LinkType<Core::JSON::IElement> *remoteObject)
@@ -3769,7 +3795,7 @@ Response: '%s'
 <a name="method.ClearSessionToken"></a>
 ## ClearSessionToken<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API clears the session token. It is a crucial step in maintaining the security of the session. By clearing the session token, it ensures that the session cannot be hijacked or misused.
+This API is used to clear the session token. It is a crucial step in maintaining the security of the session. By clearing the session token, it ensures that the session cannot be hijacked or misused.
 
 ### Parameters
 
@@ -3779,7 +3805,7 @@ This method takes no parameters.
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| result | SuccessMsgResult | "success": true |
+| setStat | SuccessMsgResult | The result of the operation, returns "success": true if the session token is successfully cleared. |
 
 ### Example
 #### Request
@@ -3805,7 +3831,7 @@ curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "met
 
 <details>
  <summary><kbd>JS</kbd></summary>
-
+ 
  ```javascript
 
 <!doctype html>
@@ -3852,7 +3878,7 @@ function log(msg, content) {
 
 <details>
  <summary><kbd>CPP</kbd></summary>
-
+ 
  ```cpp
 
 void ClearSessionToken(std::string methodName, JSONRPC::LinkType<Core::JSON::IElement> *remoteObject)
@@ -3896,7 +3922,8 @@ This method takes no parameters.
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| setStat | SuccessMsgResult | The result of the API call, returns "success": true, "message": " " upon successful execution |
+| success | bool | Indicates the success or failure of the operation |
+| message | string | Provides additional information about the operation's result |
 
 ### Example
 #### Request
@@ -3922,7 +3949,7 @@ curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "met
 
 <details>
  <summary><kbd>JS</kbd></summary>
-
+ 
  ```javascript
 
 <!doctype html>
@@ -3969,7 +3996,7 @@ function log(msg, content) {
 
 <details>
  <summary><kbd>CPP</kbd></summary>
-
+ 
  ```cpp
 
 void ClearServiceAccessToken(std::string methodName, JSONRPC::LinkType<Core::JSON::IElement> *remoteObject)
@@ -4004,7 +4031,7 @@ Response: '%s'
 <a name="method.ClearLostAndFoundAccessToken"></a>
 ## ClearLostAndFoundAccessToken<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API clears the lost and found access token. It is used when there is a need to invalidate the current access token for the lost and found service. The method returns a success message upon successful execution.
+This API clears the lost and found access token. It is used when the access token for the lost and found service needs to be reset or removed. This operation is typically performed when the token is no longer valid or has been compromised.
 
 ### Parameters
 
@@ -4014,7 +4041,7 @@ This method takes no parameters.
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| setStat | SuccessMsgResult | The result of the operation, returns "success": true, "message": " " upon successful execution. |
+| setStat | SuccessMsgResult | The result of the operation, indicating whether the token was successfully cleared. "success": true, "message": " " |
 
 ### Example
 #### Request
@@ -4032,7 +4059,7 @@ This method takes no parameters.
 
  ```bash
 
-curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "method":"org.rdk.AuthService.1.ClearLostAndFoundAccessToken"}' http://127.0.0.1:9998/jsonrpc
+curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "method":"org.rdk.AuthService.1.ClearLostAndFoundAccessToken"}'http://127.0.0.1:9998/jsonrpc
 
 ```
 </details>
@@ -4040,7 +4067,7 @@ curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "met
 
 <details>
  <summary><kbd>JS</kbd></summary>
-
+ 
  ```javascript
 
 <!doctype html>
@@ -4087,7 +4114,7 @@ function log(msg, content) {
 
 <details>
  <summary><kbd>CPP</kbd></summary>
-
+ 
  ```cpp
 
 void ClearLostAndFoundAccessToken(std::string methodName, JSONRPC::LinkType<Core::JSON::IElement> *remoteObject)
@@ -4132,7 +4159,8 @@ This method takes no parameters.
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| setStat | SuccessMsgResult | The result of the operation, returns "success": true, if the service account ID is successfully cleared. |
+| success | bool | Indicates the success or failure of the operation |
+| message | string | Provides additional information about the operation result |
 
 ### Example
 #### Request
@@ -4158,7 +4186,7 @@ curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "met
 
 <details>
  <summary><kbd>JS</kbd></summary>
-
+ 
  ```javascript
 
 <!doctype html>
@@ -4205,7 +4233,7 @@ function log(msg, content) {
 
 <details>
  <summary><kbd>CPP</kbd></summary>
-
+ 
  ```cpp
 
 void ClearServiceAccountId(std::string methodName, JSONRPC::LinkType<Core::JSON::IElement> *remoteObject)
@@ -4240,7 +4268,9 @@ Response: '%s'
 <a name="method.ClearCustomProperties"></a>
 ## ClearCustomProperties<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API clears the custom properties. It is used when there is a need to reset or remove all the custom properties that have been set previously. The operation is successful when the return message is "success": true.
+This API clears the custom properties. It is a virtual method that returns a success message if the operation is successful. 
+
+This method does not trigger any events.
 
 ### Parameters
 
@@ -4250,9 +4280,8 @@ This method takes no parameters.
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| setStat | SuccessMsgResult | The result of the operation, returns "success": true, if the operation is successful |
-
-Note: The return type 'SuccessMsgResult' is a structure that contains a boolean 'success' and a string 'message'. The 'success' indicates whether the operation was successful or not and 'message' provides additional information about the operation.
+| success | bool | Indicates the success of the operation |
+| message | string | Provides additional information about the operation |
 
 ### Example
 #### Request
@@ -4270,7 +4299,7 @@ Note: The return type 'SuccessMsgResult' is a structure that contains a boolean 
 
  ```bash
 
-curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "method":"org.rdk.AuthService.1.ClearCustomProperties"}'http://127.0.0.1:9998/jsonrpc
+curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "method":"org.rdk.AuthService.1.ClearCustomProperties"}' http://127.0.0.1:9998/jsonrpc
 
 ```
 </details>
@@ -4278,7 +4307,7 @@ curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "met
 
 <details>
  <summary><kbd>JS</kbd></summary>
-
+ 
  ```javascript
 
 <!doctype html>
@@ -4325,7 +4354,7 @@ function log(msg, content) {
 
 <details>
  <summary><kbd>CPP</kbd></summary>
-
+ 
  ```cpp
 
 void ClearCustomProperties(std::string methodName, JSONRPC::LinkType<Core::JSON::IElement> *remoteObject)
@@ -4360,7 +4389,7 @@ Response: '%s'
 <a name="method.GetCustomProperties"></a>
 ## GetCustomProperties<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API returns the custom properties. It is a virtual method that retrieves the custom properties of an object and indicates the success of the operation.
+This API returns the custom properties. It is a virtual method that retrieves the custom properties of an object. The properties are returned as a string and a success flag indicates whether the operation was successful or not.
 
 ### Parameters
 
@@ -4371,7 +4400,7 @@ This method takes no parameters.
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
 | customProperties | string | The custom properties of the object |
-| success | bool | Indicates whether the operation was successful or not |
+| success | bool | A flag indicating whether the operation was successful or not |
 
 ### Example
 #### Request
@@ -4397,7 +4426,7 @@ curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "met
 
 <details>
  <summary><kbd>JS</kbd></summary>
-
+ 
  ```javascript
 
 <!doctype html>
@@ -4444,7 +4473,7 @@ function log(msg, content) {
 
 <details>
  <summary><kbd>CPP</kbd></summary>
-
+ 
  ```cpp
 
 void GetCustomProperties(std::string methodName, JSONRPC::LinkType<Core::JSON::IElement> *remoteObject)
@@ -4479,19 +4508,19 @@ Response: '%s'
 <a name="method.SetCustomProperties"></a>
 ## SetCustomProperties<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API sets the custom properties. It takes a JSON string as input and returns a success status. This method is used to customize the properties as per the user's requirements.
+This API sets the custom properties. It takes a JSON string as input and returns a boolean value indicating the success of the operation.
 
 ### Parameters
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| customProperties | JSON string | This is the custom properties that needs to be set |
+| customProperties | string (JSON) | The custom properties to be set |
 
 ### Result
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| success | boolean | This returns true if the custom properties are set successfully |
+| success | boolean | Indicates whether the operation was successful or not |
 
 ### Example
 #### Request
@@ -4510,7 +4539,7 @@ This API sets the custom properties. It takes a JSON string as input and returns
 
  ```bash
 
-curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "method":"org.rdk.AuthService.1.SetCustomProperties", "params":{"customProperties":"value"}}'http://127.0.0.1:9998/jsonrpc
+curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "method":"org.rdk.AuthService.1.SetCustomProperties", "params":{"customProperties":"your_value"}}' http://127.0.0.1:9998/jsonrpc
 
 ```
 </details>
@@ -4518,7 +4547,7 @@ curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "met
 
 <details>
  <summary><kbd>JS</kbd></summary>
-
+ 
  ```javascript
 
 <!doctype html>
@@ -4565,7 +4594,7 @@ function log(msg, content) {
 
 <details>
  <summary><kbd>CPP</kbd></summary>
-
+ 
  ```cpp
 
 void SetCustomProperties(std::string methodName, JSONRPC::LinkType<Core::JSON::IElement> *remoteObject)
@@ -4600,7 +4629,7 @@ Response: '%s'
 <a name="method.GetAlternateIds"></a>
 ## GetAlternateIds<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API returns alternate IDs as key/value pairs. It is a virtual method that retrieves the alternate IDs and provides a success status and a message.
+This API returns alternate IDs as key/value pairs. It is a virtual method that provides a mechanism to retrieve alternate identifiers for a given entity. The alternate IDs are returned as a string in an opaque format.
 
 This method does not trigger any events.
 
@@ -4612,9 +4641,9 @@ This method takes no parameters.
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| alternateIds | string | The alternate IDs returned by the API |
-| message | string | The message returned by the API |
-| success | bool | The success status of the API call |
+| alternateIds | string | The alternate IDs returned by the API in an opaque format |
+| message | string | A message indicating the status or result of the operation |
+| success | bool | A boolean value indicating whether the operation was successful or not |
 
 ### Example
 #### Request
@@ -4640,7 +4669,7 @@ curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "met
 
 <details>
  <summary><kbd>JS</kbd></summary>
-
+ 
  ```javascript
 
 <!doctype html>
@@ -4687,7 +4716,7 @@ function log(msg, content) {
 
 <details>
  <summary><kbd>CPP</kbd></summary>
-
+ 
  ```cpp
 
 void GetAlternateIds(std::string methodName, JSONRPC::LinkType<Core::JSON::IElement> *remoteObject)
@@ -4723,13 +4752,13 @@ Response: '%s'
 <a name="method.SetAlternateIds"></a>
 ## SetAlternateIds<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API sets alternate IDs as key/value pairs. It takes a JSON string as input and returns a success status and a message. The alternate IDs can be used for various purposes such as identification, tracking, etc.
+This API sets alternate IDs as key/value pairs. It takes a JSON string as input and returns a success status and a message. The alternate IDs can be used for various purposes such as identification, tracking, or data mapping.
 
 ### Parameters
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| alternateIds | JSON string | A JSON string containing alternate IDs as key/value pairs |
+| alternateIds | JSON string | A JSON string containing key/value pairs of alternate IDs |
 
 ### Result
 
@@ -4765,7 +4794,7 @@ curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "met
 
 <details>
  <summary><kbd>JS</kbd></summary>
-
+ 
  ```javascript
 
 <!doctype html>
@@ -4812,7 +4841,7 @@ function log(msg, content) {
 
 <details>
  <summary><kbd>CPP</kbd></summary>
-
+ 
  ```cpp
 
 void SetAlternateIds(std::string methodName, JSONRPC::LinkType<Core::JSON::IElement> *remoteObject)
@@ -4848,7 +4877,7 @@ Response: '%s'
 <a name="method.GetTransitionData"></a>
 ## GetTransitionData<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-This API returns the transition data. It provides a mechanism to retrieve the data related to transitions in the system. The transition data is returned as a string, and the success of the operation is indicated by a boolean value.
+This API returns the transition data. It provides a mechanism to retrieve the data related to a specific transition. The transition data is returned as a string, along with a success status and a message.
 
 ### Parameters
 
@@ -4859,8 +4888,8 @@ This method takes no parameters.
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
 | transitionData | string | The transition data returned by the API |
-| message | string | A message indicating the status or result of the operation |
-| success | bool | A boolean value indicating the success of the operation |
+| message | string | A message indicating the status of the operation |
+| success | bool | A boolean value indicating the success or failure of the operation |
 
 ### Example
 #### Request
@@ -4869,7 +4898,8 @@ This method takes no parameters.
 {
 "jsonrpc":"2.0",
 "id":3,
-"method":"org.rdk.AuthService.1.GetTransitionData"
+"method":"org.rdk.AuthService.1.GetTransitionData",
+"params":{}
 }
 ```
 
@@ -4886,7 +4916,7 @@ curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc":"2.0", "id":3, "met
 
 <details>
  <summary><kbd>JS</kbd></summary>
-
+ 
  ```javascript
 
 <!doctype html>
@@ -4933,7 +4963,7 @@ function log(msg, content) {
 
 <details>
  <summary><kbd>CPP</kbd></summary>
-
+ 
  ```cpp
 
 void GetTransitionData(std::string methodName, JSONRPC::LinkType<Core::JSON::IElement> *remoteObject)
@@ -4983,8 +5013,8 @@ This event is triggered by [SetActivationStatus](#method.SetActivationStatus)
 | newActivationStatus | string | The new activation status |
 
 ### Example
-
-
+        
+        
 ```json
 {
   "jsonrpc": "2.0",
@@ -5007,13 +5037,13 @@ This event is triggered by [SetServiceAccountId](#method.SetServiceAccountId)
 | newServiceAccountId | string | The new service account id |
 
 ### Example
-
-
+        
+        
 ```json
 {
   "jsonrpc": "2.0",
   "method": "client.events.OnServiceAccountIdChanged",
-  "params": {"oldServiceAccountId": "old_id", "newServiceAccountId": "new_id"}
+  "params": {"oldServiceAccountId": "oldId", "newServiceAccountId": "newId"}
 }
 ```
 
@@ -5030,8 +5060,8 @@ This event is triggered by [GetAuthToken](#method.GetAuthToken)
 | params | Object | The new auth token |
 
 ### Example
-
-
+        
+        
 ```json
 {
   "jsonrpc": "2.0",
@@ -5043,7 +5073,7 @@ This event is triggered by [GetAuthToken](#method.GetAuthToken)
 <a name="event.SessionTokenChanged"></a>
 ## SessionTokenChanged<div align="right">[<sup>methods & notifications</sup>](#head.Methods)</div>
 
-The session token has changed.
+This event is triggered when the session token has changed. 
 
 This event is triggered by [SetSessionToken](#method.SetSessionToken)
 
@@ -5053,13 +5083,13 @@ This event is triggered by [SetSessionToken](#method.SetSessionToken)
 | params | Object | The new session token |
 
 ### Example
-
-
+        
+        
 ```json
 {
   "jsonrpc": "2.0",
   "method": "client.events.SessionTokenChanged",
-  "params": {"token": "new_token_value"}
+  "params": {"token": "new_session_token"}
 }
 ```
 
@@ -5076,8 +5106,8 @@ This event is triggered by [SetServiceAccessToken](#method.SetServiceAccessToken
 | params | Object | The new service access token |
 
 ### Example
-
-
+        
+        
 ```json
 {
   "jsonrpc": "2.0",
@@ -5085,3 +5115,5 @@ This event is triggered by [SetServiceAccessToken](#method.SetServiceAccessToken
   "params": {"token": "new_access_token"}
 }
 ```
+
+
