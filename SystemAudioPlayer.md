@@ -30,38 +30,6 @@ The table below lists configuration options of the plugin.
 <a name="head.Methods"></a>
 # Methods and Notifications
 The following methods are provided by the org.rdk.SystemAudioPlayer plugin:
-# SystemAudioPlayer Plugin
-**Version: [1.0.10](https://github.com/rdkcentral/rdkservices/blob/main/SystemAudioPlayer/CHANGELOG.md)**
-### Table of Contents
-- [Abbreviation, Acronyms and Terms](#head.Abbreviation,_Acronyms_and_Terms)
-- [Description](#head.Description)
-- [Configuration](#head.Configuration)
-- [Methods](#head.Methods)
-- [Notifications](#head.Notifications)
-<a name="head.Abbreviation,_Acronyms_and_Terms"></a>
-# Abbreviation, Acronyms and Terms
- [[Refer to this link](userguide/aat.md)]
-<a name="head.Description"></a>
-# Description
-
- The `SystemAudioPlayer` plugin provides system audio playback functionality for client applications. It supports various audio types (viz., pcm, mp3, wav) and can play them from various sources (viz., websocket, httpsrc, filesrc, data buffer).  
-
-**Note**: MP3 playback development remains a work-in-progress.
-
-The plugin is designed to be loaded and executed within the Thunder framework. For more information about the framework refer to [[Thunder](#ref.Thunder)].
-<a name="head.Configuration"></a>
-# Configuration
-The table below lists configuration options of the plugin.
-| Name | Type | Description |
-| :-------- | :-------- | :-------- |
-| callsign | string | Plugin instance name (default: *org.rdk.SystemAudioPlayer*) |
-| classname | string | Class name: *org.rdk.SystemAudioPlayer* |
-| locator | string | Library name: *libWPEFrameworkSystemAudioPlayer.so* |
-| autostart | boolean | Determines if the plugin shall be started automatically along with the framework |
-
-<a name="head.Methods"></a>
-# Methods and Notifications
-The following methods are provided by the org.rdk.SystemAudioPlayer plugin:
 | Method | Description |Event|
 | :-------- | :-------- | :-------- |
 | [Open](#method.Open) | Opens a player instance | NA |
