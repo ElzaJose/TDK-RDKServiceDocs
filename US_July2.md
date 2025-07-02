@@ -2414,7 +2414,6 @@ org.rdk.UserSettings interface events:
 ## *onAudioDescriptionChanged*
 
 
-## onAudioDescriptionChanged
 The `onAudioDescriptionChanged` event is triggered whenever there is a change in the audio description setting of the system. Audio description is a feature designed to improve accessibility for visually impaired users by providing additional audio narration that describes visual elements of the content, such as actions, scenes, or text displayed on the screen. This event notifies the user when the audio description feature is enabled or disabled, allowing them to stay informed about the current accessibility settings.
 
 This event is particularly useful for users who rely on audio descriptions to enhance their viewing experience. It ensures that users are aware of any changes to this setting, whether they are made manually or programmatically, so they can adjust their preferences accordingly.
@@ -2595,7 +2594,6 @@ This event is particularly useful for accessibility settings, enabling users to 
 ## *onPrivacyModeChanged*
 
 
-## onPrivacyModeChanged
 The `onPrivacyModeChanged` event is triggered whenever there is a change in the privacy mode setting of the device. Privacy mode determines how user data is shared or restricted. This event notifies the user about the updated privacy mode, which can either be "SHARE" (indicating that user data can be shared) or "DO_NOT_SHARE" (indicating that user data sharing is restricted).
 
 This event is particularly useful for users who want to stay informed about changes to their privacy preferences, ensuring that they are aware of how their data is being handled. For example, if the privacy mode is changed by another application or a system-level setting, this event will notify the user about the change.
@@ -2718,7 +2716,6 @@ This event is particularly useful for users who want to manage content accessibi
 ## *onLiveWatershedChanged*
 
 
-## onLiveWatershedChanged
 The `onLiveWatershedChanged` event is triggered whenever there is a change in the "Live Watershed" setting. The "Live Watershed" setting is typically used to enforce content restrictions based on age ratings or other criteria during live broadcasts. This event notifies the system or application that the status of the "Live Watershed" setting has been updated, allowing it to take appropriate actions, such as enabling or disabling access to certain content.
 
 This event is particularly useful for users who want to manage content restrictions dynamically, ensuring that live content adheres to their preferences or regulatory requirements. For example, parents can use this feature to restrict access to certain live programs for their children.
@@ -2811,7 +2808,6 @@ This event is designed to enhance parental controls and user customization, ensu
 ## *onPinOnPurchaseChanged*
 
 
-## onPinOnPurchaseChanged
 The `onPinOnPurchaseChanged` event is triggered whenever there is a change in the "Pin on Purchase" setting. This setting determines whether a PIN is required to authorize purchases, providing an additional layer of security for users. When this event is fired, it indicates that the user has either enabled or disabled the requirement for a PIN during purchase transactions. This event is particularly useful for applications or systems that need to monitor or respond to changes in user preferences related to purchase security.
 
 For example, if a user decides to enable the "Pin on Purchase" feature, this event will notify the system, allowing it to update its behavior accordingly, such as prompting for a PIN during the next purchase attempt. Conversely, if the user disables this feature, the system will stop requiring a PIN for purchases.
@@ -2932,7 +2928,6 @@ This event is particularly useful for users who rely on voice guidance for acces
 ## *onVoiceGuidanceHintsChanged*
 
 
-## onVoiceGuidanceHintsChanged
 The `onVoiceGuidanceHintsChanged` event is triggered whenever there is a change in the status of voice guidance hints. Voice guidance hints are additional auditory cues or instructions provided to assist users, particularly those with visual impairments, in navigating and interacting with a device or application. This event notifies the system or application that the state of these hints has been updated, enabling it to respond accordingly, such as by updating the user interface or adjusting the auditory feedback.
 
 This event is particularly useful for users who rely on accessibility features, as it ensures that they are informed about changes in the availability or activation of voice guidance hints. For example, if a user enables or disables voice guidance hints through the settings, this event ensures that the system reflects the change immediately.
