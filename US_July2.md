@@ -277,7 +277,6 @@ Internally, the `setPresentationLanguage` API calls the `SetUserSettingsValue` f
 ## *setCaptions*
 
 
-## setCaptions
 The `setCaptions` API is designed to enable or disable captions for the user. Captions are textual representations of spoken dialogue, sound effects, and other audio elements in video content, making it accessible for individuals who are deaf, hard of hearing, or prefer to watch content with text-based assistance. This API allows users to control whether captions are displayed during playback, providing a customizable viewing experience.
 
 When captions are enabled, the system ensures that the appropriate settings are updated to reflect the user's preference. Conversely, disabling captions will turn off the display of text-based assistance during playback. This API is particularly useful for accessibility settings and user preferences in multimedia applications.
@@ -455,7 +454,6 @@ Internally, this function updates the user settings by storing the preferred clo
 ## *setPrivacyMode*
 
 
-## setPrivacyMode
 The `setPrivacyMode` function allows users to configure the privacy settings of their device by specifying whether their data should be shared or not. This function accepts a privacy mode value, which can either be "SHARE" or "DO_NOT_SHARE". By setting this value, users can control how their personal data is handled, ensuring compliance with their privacy preferences. If an invalid value is provided, the function logs an error and retains the default privacy mode.
 
 This function is particularly useful for users who are concerned about data privacy and want to ensure that their preferences are respected. It updates the privacy mode setting in the device's storage and triggers an event to notify other components of the change.
@@ -520,7 +518,6 @@ This function is particularly useful for users who are concerned about data priv
 ## *setPinControl*
 
 
-## setPinControl
 The `setPinControl` API is used to enable or disable the PIN control feature in the user settings. This feature is typically used to enforce parental controls or restrict access to certain content based on user preferences. By setting the PIN control to `true`, the system ensures that a PIN is required for accessing restricted content or performing specific actions. Conversely, setting it to `false` disables this requirement.
 
 This API is particularly useful for users who want to manage content access for children or other users of the system. It provides a straightforward way to toggle the PIN control feature on or off, ensuring a secure and customizable user experience.
@@ -586,7 +583,6 @@ The function logs the input value for debugging purposes using `LOGINFO`.
 ## *setViewingRestrictions*
 
 
-## setViewingRestrictions
 The `setViewingRestrictions` API is designed to configure and enforce specific viewing restrictions for a user. This function allows the system to store and apply restrictions based on the provided input, ensuring that content access aligns with user preferences or regulatory requirements. The restrictions could include parental controls, content ratings, or other criteria that limit what content can be viewed. This API is particularly useful for managing content accessibility in shared environments, such as households with children, or in compliance with content guidelines.
 
 ### Related Functions
@@ -765,7 +761,6 @@ The `setLiveWatershed` API is used to enable or disable the live watershed setti
 ## *setPlaybackWatershed*
 
 
-## setPlaybackWatershed
 The `setPlaybackWatershed` API is used to configure the "Playback Watershed" setting for a user. This setting determines whether certain content, based on its classification or rating, is restricted during playback. By enabling or disabling this setting, users can control access to specific types of content, ensuring that playback adheres to their preferences or parental control requirements. This API is particularly useful for managing content restrictions in environments where content sensitivity is a concern.
 
 When the `playbackWatershed` parameter is set to `true`, the restriction is enabled, and content that falls under the defined watershed criteria will be blocked during playback. Conversely, setting it to `false` disables the restriction, allowing unrestricted playback of all content.
@@ -886,7 +881,6 @@ When this API is called, it updates the internal user settings to reflect the de
 ## *setPinOnPurchase*
 
 
-## setPinOnPurchase
 The `setPinOnPurchase` API allows users to enable or disable the requirement of a PIN when making purchases. This feature is designed to enhance security and prevent unauthorized transactions, especially in shared environments or when children have access to the device. By enabling this setting, users can ensure that a PIN must be entered before completing any purchase, adding an extra layer of protection.
 
 This API is particularly useful for parents or individuals who want to control spending on their devices. When the setting is turned off, purchases can be made without requiring a PIN, which may be convenient in secure, single-user environments.
@@ -1307,7 +1301,6 @@ This method takes no parameters.
 ## *getPreferredAudioLanguages*
 
 
-## getPreferredAudioLanguages
 The `getPreferredAudioLanguages` API retrieves the user's preferred audio language settings. This function is particularly useful for applications or services that provide multilingual audio options, such as streaming platforms or media players. By calling this API, the application can determine the user's preferred audio language(s) and adjust the audio track accordingly, ensuring a personalized and seamless user experience.
 
 This API fetches the value stored under the `USERSETTINGS_PREFERRED_AUDIO_LANGUAGES_KEY` in the user settings database. If the preferred audio languages have been set previously, the function returns the corresponding value. If not, it may return an error or a default value, depending on the implementation.
@@ -1621,7 +1614,6 @@ This method takes no parameters.
 ## *getPinControl*
 
 
-## getPinControl
 The `getPinControl` API is used to retrieve the current status of the "Pin Control" setting in the user settings. This setting typically determines whether a PIN is required to access certain features or content, providing an additional layer of security or parental control. By calling this function, users can check if the "Pin Control" feature is enabled or disabled.
 
 ### Related Functions
@@ -1672,7 +1664,6 @@ This method takes no parameters.
 ## *getViewingRestrictions*
 
 
-## getViewingRestrictions
 The `getViewingRestrictions` API is designed to retrieve the current viewing restrictions set for a user. Viewing restrictions are typically used to enforce content access limitations based on criteria such as age ratings, parental controls, or other user-defined preferences. This API ensures that the application can fetch and display the current restrictions, enabling users to understand the limitations applied to their content consumption.
 
 This function is particularly useful in scenarios where parental controls or content filtering are implemented, as it allows the system to query and enforce the appropriate restrictions dynamically. The retrieved information can be used to display the current settings in the user interface or to validate content access requests.
@@ -1781,7 +1772,6 @@ This method takes no parameters.
 ## *getLiveWatershed*
 
 
-## getLiveWatershed
 The `getLiveWatershed` API is used to retrieve the current status of the "Live Watershed" setting. This setting typically determines whether certain content restrictions or guidelines are applied during live content playback. For example, it may be used to enforce parental controls or content filtering based on user preferences. The API fetches the stored value of the "Live Watershed" setting and returns it as a boolean value, where `true` indicates that the setting is enabled, and `false` indicates that it is disabled.
 
 This API is particularly useful for applications or systems that need to check the current status of content restrictions before allowing live content playback. It ensures that the user’s preferences are respected and applied consistently.
