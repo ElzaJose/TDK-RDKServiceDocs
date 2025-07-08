@@ -1284,7 +1284,9 @@ The `setViewingRestrictionsWindow` API allows users to define a specific time wi
 
 ### Related Functions
 [getViewingRestrictionsWindow](#getViewingRestrictionsWindow) : Retrieves the currently configured viewing restrictions window, allowing users to verify or review the active time window for restrictions.
+
 [setViewingRestrictions](#setViewingRestrictions) : Sets general viewing restrictions, which can work in conjunction with the viewing restrictions window to enforce content limitations.
+
 [getViewingRestrictions](#getViewingRestrictions) : Retrieves the current viewing restrictions settings, providing insight into the active content limitations.
 
 ### Events
@@ -2076,9 +2078,13 @@ This API is particularly useful for users who rely on auditory assistance to nav
 
 ### Related Functions
 [getVoiceGuidance](#getVoiceGuidance) : Retrieves the current status of the voice guidance feature (enabled or disabled), allowing users to check whether the feature is active.
+
 [setVoiceGuidanceRate](#setVoiceGuidanceRate) : Adjusts the speed at which the voice guidance audio is delivered, providing users with control over the pace of spoken feedback.
+
 [setVoiceGuidanceHints](#setVoiceGuidanceHints) : Configures additional hints or contextual information provided by the voice guidance feature, enhancing the level of detail in the audio feedback.
+
 [getVoiceGuidanceRate](#getVoiceGuidanceRate) : Retrieves the current rate of voice guidance audio playback.
+
 [getVoiceGuidanceHints](#getVoiceGuidanceHints) : Retrieves the current status of voice guidance hints (enabled or disabled).
 
 ### Events
@@ -3705,6 +3711,7 @@ The `getViewingRestrictionsWindow` API retrieves the current time window during 
 
 ### Related Functions
 [getViewingRestrictions](#getViewingRestrictions) : Retrieves the current viewing restrictions applied to the content.
+
 [setViewingRestrictionsWindow](#setViewingRestrictionsWindow) : Allows users to set or modify the time window during which viewing restrictions are enforced.
 
 ### Events
