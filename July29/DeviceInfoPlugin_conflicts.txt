@@ -1,0 +1,6 @@
+-> Additonal apis present in existing md file, but not present in source code
+{'modelname', 'socketinfo', 'firmwareversion', 'addresses', 'modelid', 'systeminfo'}
+
+-> Additonal apis present in the source code, but not present in existing md file
+{'brand', 'model', 'sku'}
+
