@@ -1,0 +1,12 @@
+ -> There is a conflict for the event triggered by setdisplayframerate
+    The event according to existing md file : ondisplayframeratechanging,ondisplayframeratechanged
+    The event according to source code :na
+
+ -> There is a conflict for the event triggered by startfpscollection
+    The event according to existing md file : onfpsevent
+    The event according to source code :na
+
+ -> There is a conflict for the event triggered by updatefps
+    The event according to existing md file : na
+    The event according to source code :onfpsevent
+
