@@ -21,7 +21,7 @@ A org.rdk.UsbMassStorage plugin for Thunder framework.
 # Description
 
 
-The **USBMassStorage** service is a plugin designed to manage USB mass storage devices. It handles the detection, mounting, and unmounting of USB storage devices and partitions, while also storing and providing information about their mount points, file systems, and partition details. This service supports various file systems (e.g., VFAT, EXT4, EXFAT) and mount flags (e.g., READ_ONLY, READ_WRITE) to ensure flexible and efficient device management.
+The USBMassStorage service is a plugin designed to manage USB mass storage devices. It handles the mounting of devices and partitions, tracks their mount information, and provides details about the file system, partition size, and mount flags. This service facilitates interaction with USB storage devices, ensuring proper access and management of their data.
 
 The plugin is designed to be loaded and executed within the Thunder framework. For more information about the framework refer to [[Thunder](#Thunder)].
 
@@ -55,11 +55,11 @@ org.rdk.UsbMassStorage interface methods:
 ## *getDeviceList*
 
 
-Retrieve a comprehensive list of devices currently connected or mounted in the system, including details such as device ID, name, type, and active state. This API is essential for users who need to monitor or manage connected devices efficiently, ensuring seamless interaction with hardware components.
+Retrieves a comprehensive list of devices, including connected, discovered, and paired devices, along with their detailed properties such as device ID, name, type, power status, supported profiles, and raw specifications. This API is essential for managing and monitoring devices across various states, ensuring seamless integration and accessibility for applications requiring device information.
 
 ### Related Functions  
-[getMountPoints](#getMountPoints) : Provides information about the mount points of connected storage devices.  
-[getPartitionInfo](#getPartitionInfo) : Offers detailed insights into the partitions of connected storage devices.
+[getMountPoints](#getMountPoints) : Provides information about the mount points of storage devices.  
+[getPartitionInfo](#getPartitionInfo) : Retrieves detailed partition information for storage devices.
 
 ### Events
 
@@ -187,11 +187,11 @@ function log(msg, content) {
 ## *getMountPoints*
 
 
-Retrieves detailed information about the mount points for a specified USB storage device. This includes data such as the partition name, mount path, file system type, and mount flags, helping users understand where and how their device is mounted. It is particularly useful for managing and troubleshooting USB storage devices.  
+Retrieves detailed information about the mount points for a specified USB storage device. This API is essential for identifying the paths where the device's partitions are mounted, enabling efficient management and access to the device's storage. It ensures accurate retrieval of mount point data by validating the device name and iterating through the associated mount points.
 
 ### Related Functions  
-[getDeviceList](#getDeviceList) : Provides a list of connected USB storage devices.  
-[getPartitionInfo](#getPartitionInfo) : Retrieves detailed information about the partitions on a USB storage device.
+[getDeviceList](#getDeviceList) : Retrieves a list of connected USB storage devices.  
+[getPartitionInfo](#getPartitionInfo) : Provides detailed information about the partitions of a specified USB storage device.
 
 ### Events
 
@@ -333,11 +333,11 @@ function log(msg, content) {
 ## *getPartitionInfo*
 
 
-Retrieves detailed information about a specific partition, including its file system type, size, sector details, and available space. This API is useful for understanding the storage characteristics of a partition and managing storage devices effectively.
+Retrieves detailed information about a specific partition based on its mount path. This API provides essential data such as the file system type, partition size, sector details, total space, used space, and available space, enabling users to understand and manage storage partitions effectively.
 
 ### Related Functions  
 [getDeviceList](#getDeviceList) : Provides a list of connected storage devices.  
-[getMountPoints](#getMountPoints) : Retrieves the mount points of partitions on storage devices.
+[getMountPoints](#getMountPoints) : Retrieves the mount points of storage partitions.
 
 ### Events
 
@@ -404,7 +404,7 @@ No Events
 <summary><kbd>CURL</kbd></summary>
 
 ```bash
-curl -H 'content-type:text/plain;' --data-binary
+curl -H 'content-type:text/plain;' --data-binary \
 '{
 "jsonrpc": "2.0",
 "id": 42,
@@ -412,7 +412,7 @@ curl -H 'content-type:text/plain;' --data-binary
 "params": {
 "mountPath": "/tmp/media/usb2"
 }
-}'
+}' \
 http://127.0.0.1:9998/jsonrpc
 ```
 </details>
@@ -499,12 +499,12 @@ org.rdk.UsbMassStorage interface events:
 ## *onDeviceMounted*
 
 
-The **onDeviceMounted** event is triggered when a USB storage device is successfully mounted to the system. This event provides users with information about the mounted device, including its name, device path, and a list of mount points associated with it. It ensures users are notified whenever a new USB storage device becomes available for use.
+The *onDeviceMounted* event is triggered when a USB storage device is successfully connected and mounted to the system. This event provides users with detailed information about the mounted device, including its name, device path, and a list of mount points associated with it. It ensures users are notified whenever a new device becomes available for use, making it easier to access and manage external storage devices.
 
 ### Related Functions  
-[getDeviceList](#getDeviceList) : This function helps identify the connected USB storage devices, which can trigger the **onDeviceMounted** event when a new device is detected and mounted.  
+[getDeviceList](#getDeviceList) : This function retrieves the list of connected USB devices, enabling the identification of newly mounted devices that trigger the *onDeviceMounted* event.  
 
-[getMountPoints](#getMountPoints) : This function retrieves the list of mount points for a USB storage device, which is included in the event payload when the device is mounted.
+[getMountPoints](#getMountPoints) : This function provides information about the mount points associated with a device, which is included in the event payload when *onDeviceMounted* is triggered.
 
 ### Parameters
 
@@ -548,10 +548,10 @@ The **onDeviceMounted** event is triggered when a USB storage device is successf
 ## *onDeviceUnmounted*
 
 
-This event is triggered when a USB mass storage device is successfully unmounted from the system. It provides users with information about the unmounted device, including its name and device path, as well as details about the mount points that were associated with the device. This event helps users stay informed about changes in the system's connected storage devices.
+This event is triggered when a USB mass storage device is successfully unmounted from the system. It provides users with information about the device that was unmounted, including its name and device path, as well as details about the mount points that were associated with the device. This event is useful for tracking the removal of external storage devices and ensuring that all related resources are properly released.
 
 ### Related Functions  
-[getMountPoints](#getMountPoints) : This function retrieves information about the mount points associated with a device. It is used to gather details about the mount points that are included in the event payload when the device is unmounted.
+[getMountPoints](#getMountPoints) : This function retrieves information about the mount points associated with the device. It is directly related to the event as it helps identify the specific mount points that were unmounted when the device was removed.
 
 ### Parameters
 
