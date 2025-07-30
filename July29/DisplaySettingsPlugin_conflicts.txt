@@ -1,0 +1,100 @@
+-> Additonal apis present in existing md file, but not present in source code
+{'setaudiodelayoffset', 'getaudiodelayoffset'}
+
+-> Additonal apis present in the source code, but not present in existing md file
+{'deinitialize', 'setsurroundvirtualizer2', 'getsurroundvirtualizer2', 'initialize', 'getvolumeleveller2', 'information', 'registereventhandlers', 'onpowermodechanged', 'request', 'setvolumeleveller2'}
+
+ -> There is a conflict for the event triggered by getactiveinput
+    The event according to existing md file : activeinputchanged
+    The event according to source code :None
+
+ -> There is a conflict for the event triggered by getaudioformat
+    The event according to existing md file : audioformatchanged
+    The event according to source code :None
+
+ -> There is a conflict for the event triggered by getconnectedaudioports
+    The event according to existing md file : connectedaudioportupdated
+    The event according to source code :None
+
+ -> There is a conflict for the event triggered by getconnectedvideodisplays
+    The event according to existing md file : connectedvideodisplaysupdated
+    The event according to source code :None
+
+ -> There is a conflict for the event triggered by getcurrentresolution
+    The event according to existing md file : resolutionprechange
+    The event according to source code :None
+
+ -> There is a conflict for the event triggered by getmuted
+    The event according to existing md file : mutestatuschanged
+    The event according to source code :None
+
+ -> There is a conflict for the event triggered by getsinkatmoscapability
+    The event according to existing md file : atmoscapabilitychanged
+    The event according to source code :None
+
+ -> There is a conflict for the event triggered by getvideoformat
+    The event according to existing md file : videoformatchanged
+    The event according to source code :None
+
+ -> There is a conflict for the event triggered by onpowermodechanged
+    The event according to existing md file : None
+    The event according to source code :onpowermodechanged
+
+ -> There is a conflict for the event triggered by requestshortaudiodescriptor
+    The event according to existing md file : None
+    The event according to source code :onshortaudiodescriptoreventhandler
+
+ -> There is a conflict for the event triggered by setenableaudioport
+    The event according to existing md file : None
+    The event according to source code :onaudiodevicepowerstatuseventhandler
+
+ -> There is a conflict for the event triggered by setuphdmicecsinkarcrouting
+    The event according to existing md file : None
+    The event according to source code :onarcinitiationeventhandler
+
+ -> There is a conflict for the event triggered by setvolumelevel
+    The event according to existing md file : volumelevelchanged
+    The event according to source code :None
+
+ -> There is a conflict for the event triggered by setzoomsetting
+    The event according to existing md file : zoomsettingupdated
+    The event according to source code :None
+
+-> Additonal apis present in existing md file, but not present in source code
+{'getaudiodelayoffset', 'setaudiodelayoffset'}
+
+-> Additonal apis present in the source code, but not present in existing md file
+{'setsurroundvirtualizer2', 'registereventhandlers', 'setvolumeleveller2', 'initialize', 'getsurroundvirtualizer2', 'request', 'onpowermodechanged', 'deinitialize', 'information', 'getvolumeleveller2'}
+
+ -> There is a conflict for the event triggered by getactiveinput
+    The event according to existing md file : na
+    The event according to source code :<answer>na</answer>
+
+ -> There is a conflict for the event triggered by onpowermodechanged
+    The event according to existing md file : na
+    The event according to source code :onpowermodechanged
+
+ -> There is a conflict for the event triggered by registereventhandlers
+    The event according to existing md file : na
+    The event according to source code :<answer>onsystemaudiomodeeventhandler,oncecenabledeventhandler,onarcterminationeventhandler,onshortaudiodescriptoreventhandler,onarcinitiationeventhandler,onarcaudiostatuseventhandler,onaudiodeviceconnectedstatuseventhandler,onaudiodevicepowerstatuseventhandler</answer>
+
+ -> There is a conflict for the event triggered by setcurrentresolution
+    The event according to existing md file : resolutionprechange,resolutionchanged
+    The event according to source code :na
+
+ -> There is a conflict for the event triggered by setms12audiocompression
+    The event according to existing md file : na
+    The event according to source code :<answer>onarcterminationeventhandler,onshortaudiodescriptoreventhandler,onarcaudiostatuseventhandler,onaudiodeviceconnectedstatuseventhandler,onsystemaudiomodeeventhandler</answer>
+
+ -> There is a conflict for the event triggered by setmuted
+    The event according to existing md file : mutestatuschanged
+    The event according to source code :na
+
+ -> There is a conflict for the event triggered by setvolumelevel
+    The event according to existing md file : volumelevelchanged
+    The event according to source code :na
+
+ -> There is a conflict for the event triggered by setzoomsetting
+    The event according to existing md file : zoomsettingupdated
+    The event according to source code :na
+

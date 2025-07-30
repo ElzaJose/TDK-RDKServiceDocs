@@ -1,0 +1,38 @@
+-> Additonal apis present in existing md file, but not present in source code
+{'sendaudioplaybackcommand', 'getconnecteddevices', 'setdevicevolumemuteinfo', 'getaudioinfo', 'getdevicevolumemuteinfo', 'pair', 'stopscan', 'setaudiostream', 'connect', 'getdiscovereddevices', 'startscan', 'setdiscoverable', 'disable', 'disconnect', 'getname', 'enable', 'isdiscoverable', 'respondtoevent', 'setname', 'unpair', 'getdeviceinfo', 'getpaireddevices'}
+
+-> Additonal apis present in the source code, but not present in existing md file
+{'isdiscoverablewrapper', 'setnamewrapper', 'deinitialize', 'getconnecteddeviceswrapper', 'initialize', 'stopscanwrapper', 'enablewrapper', 'getmediatrackinfowrapper', 'getdevicevolumemuteinfowrapper', 'getdeviceinfowrapper', 'sendaudioplaybackcommandwrapper', 'pairwrapper', 'getpaireddeviceswrapper', 'getnamewrapper', 'setaudiostreamwrapper', 'information', 'setdiscoverablewrapper', 'getdiscovereddeviceswrapper', 'disconnectwrapper', 'seteventresponsewrapper', 'unpairwrapper', 'disablewrapper', 'startscanwrapper', 'setdevicevolumemuteinfowrapper', 'connectwrapper'}
+
+ -> There is a conflict for the event triggered by connect
+    The event according to existing md file : onstatuschanged
+    The event according to source code :na
+
+ -> There is a conflict for the event triggered by disconnect
+    The event according to existing md file : onstatuschanged
+    The event according to source code :na
+
+ -> There is a conflict for the event triggered by pair
+    The event according to existing md file : onstatuschanged,onrequestfailed
+    The event according to source code :na
+
+ -> There is a conflict for the event triggered by setdevicevolumemuteinfo
+    The event according to existing md file : ondevicemediastatus
+    The event according to source code :na
+
+ -> There is a conflict for the event triggered by startscan
+    The event according to existing md file : onstatuschanged,ondiscovereddevice
+    The event according to source code :na
+
+ -> There is a conflict for the event triggered by stopscan
+    The event according to existing md file : onstatuschanged
+    The event according to source code :na
+
+ -> There is a conflict for the event triggered by unpair
+    The event according to existing md file : onstatuschanged
+    The event according to source code :na
+
+ -> There is a conflict for the event triggered by unpairwrapper
+    The event according to existing md file : na
+    The event according to source code :""
+
