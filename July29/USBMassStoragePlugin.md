@@ -55,7 +55,7 @@ org.rdk.UsbMassStorage interface methods:
 ## *getDeviceList*
 
 
-Retrieves a comprehensive list of devices, including connected, discovered, and paired devices, along with their detailed properties such as device ID, name, type, power status, supported profiles, and raw specifications. This API is essential for managing and monitoring devices across various states, ensuring seamless integration and accessibility for applications requiring device information.
+Retrieves a comprehensive list of devices, including connected, discovered, and paired devices. This API is essential for managing and monitoring devices across various states, ensuring seamless integration and accessibility for applications requiring device information.
 
 ### Related Functions  
 [getMountPoints](#getMountPoints) : Provides information about the mount points of storage devices.  
