@@ -21,7 +21,6 @@ A org.rdk.DeviceDiagnostics plugin for Thunder framework.
 # Description
 
 
-**Overview of DeviceDiagnostics**
 The **DeviceDiagnostics** RDK service is a plugin registered within the WPEFramework that provides enhanced diagnostics capabilities for devices. It offers detailed information about device configurations and the status of AV decoders, such as their operational states (e.g., IDLE, PAUSED, ACTIVE). This service is designed to assist in monitoring and troubleshooting device performance and behavior.
 
 The plugin is designed to be loaded and executed within the Thunder framework. For more information about the framework refer to [[Thunder](#Thunder)].
