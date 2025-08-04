@@ -23,7 +23,7 @@ A org.rdk.UserSettings plugin for Thunder framework.
 # Description
 
 
-The **UserSettings** service in RDK provides a centralized interface for managing and inspecting user preferences and accessibility settings. It supports configuration of features such as preferred audio languages, captions, audio descriptions, parental controls, and accessibility options like voice guidance. This service ensures seamless integration and customization of user-specific settings across the platform.
+The **UserSettings** service in the RDK framework is a plugin designed to manage and inspect user preferences related to audio, captions, and presentation settings. It provides interfaces for configuring and retrieving settings such as preferred audio languages, audio descriptions, captions, and their respective languages. This service ensures a customizable and accessible user experience by allowing applications to interact with these settings programmatically.
 
 The plugin is designed to be loaded and executed within the Thunder framework. For more information about the framework refer to [[Thunder](#Thunder)].
 
@@ -46,58 +46,58 @@ The following methods are provided by the org.rdk.UserSettings plugin:
 
 org.rdk.UserSettings interface methods:
 
-| Method | Description | Events |
+| Method | Description |Event|
 | :-------- | :-------- | :-------- |
-| [setAudioDescription](#setAudioDescription) | Setting Audio Description | [onAudioDescriptionChanged](#onAudioDescriptionChanged) |
-| [setPreferredAudioLanguages](#setPreferredAudioLanguages) | Setting Preferred Audio Languages | [onPreferredAudioLanguagesChanged](#onPreferredAudioLanguagesChanged) |
-| [setPresentationLanguage](#setPresentationLanguage) | Setting Presentation Languages | [onPresentationLanguageChanged](#onPresentationLanguageChanged) |
-| [setCaptions](#setCaptions) | Setting Captions | [onCaptionsChanged](#onCaptionsChanged) |
-| [setPreferredCaptionsLanguages](#setPreferredCaptionsLanguages) | Setting PreferredCaption Languages | [onPreferredCaptionsLanguagesChanged](#onPreferredCaptionsLanguagesChanged) |
-| [setPreferredClosedCaptionService](#setPreferredClosedCaptionService) | Setting Preferred Closed Caption Service | [onPreferredClosedCaptionServiceChanged](#onPreferredClosedCaptionServiceChanged) |
-| [setPrivacyMode](#setPrivacyMode) | Setting Privacy Mode | [onPrivacyModeChanged](#onPrivacyModeChanged) |
-| [setPinControl](#setPinControl) | Setting PinControl | [onPinControlChanged](#onPinControlChanged) |
-| [setViewingRestrictions](#setViewingRestrictions) | Setting ViewingRestrictions | [onViewingRestrictionsChanged](#onViewingRestrictionsChanged) |
-| [setViewingRestrictionsWindow](#setViewingRestrictionsWindow) | Setting viewingRestrictionsWindow | [onViewingRestrictionsWindowChanged](#onViewingRestrictionsWindowChanged) |
-| [setLiveWatershed](#setLiveWatershed) | Setting LiveWatershed | [onLiveWatershedChanged](#onLiveWatershedChanged) |
-| [setPlaybackWatershed](#setPlaybackWatershed) | Setting PlaybackWatershed | [onPlaybackWatershedChanged](#onPlaybackWatershedChanged) |
-| [setBlockNotRatedContent](#setBlockNotRatedContent) | Setting BlockNotRatedContent | [onBlockNotRatedContentChanged](#onBlockNotRatedContentChanged) |
-| [setPinOnPurchase](#setPinOnPurchase) | Setting setPinOnPurchase | [onPinOnPurchaseChanged](#onPinOnPurchaseChanged) |
-| [setHighContrast](#setHighContrast) | Sets highContrast | [onHighContrastChanged](#onHighContrastChanged) |
-| [setVoiceGuidance](#setVoiceGuidance) | Sets voiceGuidance | [onVoiceGuidanceChanged](#onVoiceGuidanceChanged) |
-| [setVoiceGuidanceRate](#setVoiceGuidanceRate) | Sets voiceGuidanceRate | [onVoiceGuidanceRateChanged](#onVoiceGuidanceRateChanged) |
-| [setVoiceGuidanceHints](#setVoiceGuidanceHints) | Sets voiceGuidanceHints ON/OFF | [onVoiceGuidanceHintsChanged](#onVoiceGuidanceHintsChanged) |
-| [setContentPin](#setContentPin) | Setting ContentPin | [onContentPinChanged](#onContentPinChanged) |
-| [getAudioDescription](#getAudioDescription) | Returns Audio Description | NA |
-| [getPreferredAudioLanguages](#getPreferredAudioLanguages) | Returns Preferred Audio Languages | NA |
-| [getPresentationLanguage](#getPresentationLanguage) | Getting Presentation Languages | NA |
-| [getCaptions](#getCaptions) | Getting Captions Enabled | NA |
-| [getPreferredCaptionsLanguages](#getPreferredCaptionsLanguages) | Getting Preferred Caption Languages | NA |
-| [getPreferredClosedCaptionService](#getPreferredClosedCaptionService) | Getting Preferred ClosedCaption Service | NA |
-| [getPrivacyMode](#getPrivacyMode) | Getting Privacy Mode | NA |
-| [getPinControl](#getPinControl) | Returns Pin Control | NA |
-| [getViewingRestrictions](#getViewingRestrictions) | Returns Get Viewing Restrictions | NA |
-| [getViewingRestrictionsWindow](#getViewingRestrictionsWindow) | Returns Get Viewing Restrictions Window | NA |
-| [getLiveWatershed](#getLiveWatershed) | Returns Live Watershed | NA |
-| [getPlaybackWatershed](#getPlaybackWatershed) | Returns Playback Watershed | NA |
-| [getBlockNotRatedContent](#getBlockNotRatedContent) | Returns BlockNotRatedContent | NA |
-| [getPinOnPurchase](#getPinOnPurchase) | Returns PinOnPurchase | NA |
-| [getHighContrast](#getHighContrast) | Gets the current highContrast setting | NA |
-| [getVoiceGuidance](#getVoiceGuidance) | Gets the current voiceGuidance setting | NA |
-| [getVoiceGuidanceRate](#getVoiceGuidanceRate) | Gets the current voiceGuidanceRate setting | NA |
-| [getVoiceGuidanceHints](#getVoiceGuidanceHints) | Gets the current voiceGuidanceHints setting | NA |
-| [getMigrationState](#getMigrationState) | Gets the migration state of the respective key | NA |
-| [getMigrationStates](#getMigrationStates) | Gets the migration state of all the defined keys | NA |
-| [getContentPin](#getContentPin) | Returns ContentPin | NA |
+| [setAudioDescription](#setAudioDescription) | set audio description | [onAudioDescriptionChanged](#onAudioDescriptionChanged) |
+| [setPreferredAudioLanguages](#setPreferredAudioLanguages) | Set preferred audio languages | [onPreferredAudioLanguagesChanged](#onPreferredAudioLanguagesChanged) |
+| [setPresentationLanguage](#setPresentationLanguage) | Sets presentation language | [onPresentationLanguageChanged](#onPresentationLanguageChanged) |
+| [setCaptions](#setCaptions) | manage captions settings | [onCaptionsChanged](#onCaptionsChanged) |
+| [setPreferredCaptionsLanguages](#setPreferredCaptionsLanguages) | Set preferred captions languages | [onPreferredCaptionsLanguagesChanged](#onPreferredCaptionsLanguagesChanged) |
+| [setPreferredClosedCaptionService](#setPreferredClosedCaptionService) | Set preferred caption service | [onPreferredClosedCaptionServiceChanged](#onPreferredClosedCaptionServiceChanged) |
+| [setPrivacyMode](#setPrivacyMode) | Set privacy mode | [onPrivacyModeChanged](#onPrivacyModeChanged) |
+| [setPinControl](#setPinControl) | set pin control | [onPinControlChanged](#onPinControlChanged) |
+| [setViewingRestrictions](#setViewingRestrictions) | set viewing restrictions | [onViewingRestrictionsChanged](#onViewingRestrictionsChanged) |
+| [setViewingRestrictionsWindow](#setViewingRestrictionsWindow) | Set viewing restrictions window | [onViewingRestrictionsWindowChanged](#onViewingRestrictionsWindowChanged) |
+| [setLiveWatershed](#setLiveWatershed) | set live watershed | [onLiveWatershedChanged](#onLiveWatershedChanged) |
+| [setPlaybackWatershed](#setPlaybackWatershed) | set playback watershed | [onPlaybackWatershedChanged](#onPlaybackWatershedChanged) |
+| [setBlockNotRatedContent](#setBlockNotRatedContent) | Block unrated content | [onBlockNotRatedContentChanged](#onBlockNotRatedContentChanged) |
+| [setPinOnPurchase](#setPinOnPurchase) | Set pin on purchase | [onPinOnPurchaseChanged](#onPinOnPurchaseChanged) |
+| [setHighContrast](#setHighContrast) | enable high contrast | [onHighContrastChanged](#onHighContrastChanged) |
+| [setVoiceGuidance](#setVoiceGuidance) | configure voice guidance | [onVoiceGuidanceChanged](#onVoiceGuidanceChanged) |
+| [setVoiceGuidanceRate](#setVoiceGuidanceRate) | Sets voice guidance rate | [onVoiceGuidanceRateChanged](#onVoiceGuidanceRateChanged) |
+| [setVoiceGuidanceHints](#setVoiceGuidanceHints) | set voice guidance hints | [onVoiceGuidanceHintsChanged](#onVoiceGuidanceHintsChanged) |
+| [setContentPin](#setContentPin) | set content pin | [onContentPinChanged](#onContentPinChanged) |
+| [getAudioDescription](#getAudioDescription) | audio description retrieval | NA |
+| [getPreferredAudioLanguages](#getPreferredAudioLanguages) | Get preferred audio languages | NA |
+| [getPresentationLanguage](#getPresentationLanguage) | presentation language retrieval | NA |
+| [getCaptions](#getCaptions) | fetch video captions | NA |
+| [getPreferredCaptionsLanguages](#getPreferredCaptionsLanguages) | preferred captions languages | NA |
+| [getPreferredClosedCaptionService](#getPreferredClosedCaptionService) | preferred caption service | NA |
+| [getPrivacyMode](#getPrivacyMode) | privacy mode details | NA |
+| [getPinControl](#getPinControl) | Pin control management | NA |
+| [getViewingRestrictions](#getViewingRestrictions) | viewing restrictions info | NA |
+| [getViewingRestrictionsWindow](#getViewingRestrictionsWindow) | viewing restrictions window | NA |
+| [getLiveWatershed](#getLiveWatershed) | live watershed data | NA |
+| [getPlaybackWatershed](#getPlaybackWatershed) | playback watershed details | NA |
+| [getBlockNotRatedContent](#getBlockNotRatedContent) | Get unrated content | NA |
+| [getPinOnPurchase](#getPinOnPurchase) | Get PIN on purchase | NA |
+| [getHighContrast](#getHighContrast) | high contrast settings | NA |
+| [getVoiceGuidance](#getVoiceGuidance) | voice guidance retrieval | NA |
+| [getVoiceGuidanceRate](#getVoiceGuidanceRate) | voice guidance rate | NA |
+| [getVoiceGuidanceHints](#getVoiceGuidanceHints) | voice guidance hints | NA |
+| [getMigrationState](#getMigrationState) | migration state retrieval | NA |
+| [getMigrationStates](#getMigrationStates) | migration states retrieval | NA |
+| [getContentPin](#getContentPin) | get content pin details | NA |
 
 
 <a name="setAudioDescription"></a>
 ## *setAudioDescription*
 
 
-Enables or disables the Audio Description feature, which prioritizes audio tracks with descriptive narration for visually impaired users over standard audio tracks. This API ensures accessibility by allowing users to toggle the feature based on their preferences.
+Enables or disables audio descriptions, which provide spoken narration of key visual elements in content for users with visual impairments. This feature enhances accessibility by making video content more inclusive and easier to follow for visually impaired audiences.
 
-### Related Functions  
-[getAudioDescription](#getAudioDescription) : Retrieves the current status of the Audio Description setting.
+### Related Functions
+[getAudioDescription](#getAudioDescription) : Retrieves the current status of the audio description setting.
 
 ### Events
 
@@ -182,7 +182,7 @@ thunderJS = ThunderJS({
   host: host,
 })
 function setAudioDescription(enabled) {
-  thunderJS.setAudioDescription({ enabled: enabled })
+  thunderJS.setAudioDescription(enabled)
     .then(function(result) {
       log('Success', result)
     })
@@ -229,10 +229,10 @@ function log(msg, content) {
 ## *setPreferredAudioLanguages*
 
 
-Allows users to set their preferred audio languages for media playback, ensuring a personalized viewing experience. This API updates the user settings with the specified audio language preferences, which can be used to tailor content delivery based on individual language choices.
+Allows users to set their preferred audio languages for content playback, ensuring a personalized and seamless viewing experience. This function helps prioritize audio tracks in the specified languages when available, enhancing accessibility and convenience.
 
-### Related Functions  
-[getPreferredAudioLanguages](#getPreferredAudioLanguages) : Retrieves the current preferred audio languages setting.
+### Related Functions
+[getPreferredAudioLanguages](#getPreferredAudioLanguages) : Retrieves the currently set preferred audio languages.
 
 ### Events
 
@@ -362,9 +362,9 @@ function log(msg, content) {
 ## *setPresentationLanguage*
 
 
-Sets the presentation language using a full BCP 47 value, including script, region, and variant (e.g., "en-US", "es-US"). This function allows users to customize the language settings for their interface or content presentation, enhancing accessibility and personalization.
+Allows users to set their preferred presentation language for content, ensuring a personalized viewing experience tailored to their language preferences. This setting impacts the language used for on-screen text, menus, and other presentation elements.
 
-### Related Functions  
+### Related Functions
 [getPresentationLanguage](#getPresentationLanguage) : Retrieves the currently set presentation language.
 
 ### Events
@@ -497,10 +497,10 @@ function log(msg, content) {
 ## *setCaptions*
 
 
-Sets the global Captions setting to ON or OFF, enabling or disabling subtitle track selection for presentation across all forms of text, including closed captions, captions, and timed text types. This setting is persisted globally and does not affect any currently running sessions, leaving enforcement to the player or app.
+Enables or disables captions for your viewing experience, allowing you to customize accessibility settings based on your preferences. This function is essential for users who rely on captions for better understanding or accessibility while watching content.
 
-### Related Functions  
-[getCaptions](#getCaptions) : Retrieves the current state of the Captions setting.
+### Related Functions
+[getCaptions](#getCaptions) : Retrieves the current status of captions (enabled or disabled).
 
 ### Events
 
@@ -632,10 +632,10 @@ function log(msg, content) {
 ## *setPreferredCaptionsLanguages*
 
 
-Set a prioritized list of preferred languages for captions using ISO 639-2/B codes. This list, expressed as a comma-separated string (e.g., "eng,fra"), helps the player select the most suitable subtitle track based on the user's preferences. If no exact match is found, the player will make a best-effort selection of the closest available subtitle track.
+Allows users to set their preferred languages for captions, ensuring a more personalized and accessible viewing experience. This function helps tailor content to match the user's language preferences, enhancing usability and inclusivity.
 
-### Related Functions  
-[getPreferredCaptionsLanguages](#getPreferredCaptionsLanguages) : Retrieves the current list of preferred captions languages.
+### Related Functions
+[getPreferredCaptionsLanguages](#getPreferredCaptionsLanguages) : Retrieves the currently set preferred captions languages.
 
 ### Events
 
@@ -687,14 +687,16 @@ Set a prioritized list of preferred languages for captions using ISO 639-2/B cod
 <summary><kbd>CURL</kbd></summary>
 
 ```bash
-curl -H 'content-type:text/plain;' --data-binary '{
+curl -H 'content-type:text/plain;' --data-binary
+'{
 "jsonrpc": "2.0",
 "id": 42,
 "method": "org.rdk.UserSettings.setPreferredCaptionsLanguages",
 "params": {
 "preferredLanguages": "eng"
 }
-}' http://127.0.0.1:9998/jsonrpc
+}'
+http://127.0.0.1:9998/jsonrpc
 ```
 </details>
 
@@ -765,10 +767,10 @@ function log(msg, content) {
 ## *setPreferredClosedCaptionService*
 
 
-Sets the preferred closed caption service for the user, allowing customization of the displayed captions. The setting is honored by the player, with valid inputs including "CC[1-4]", "TEXT[1-4]", and "SERVICE[1-64]". The "AUTO" option may behave differently depending on the player.
+Allows users to select their preferred closed captioning service for enhanced accessibility and personalized viewing experiences. This setting ensures captions are displayed using the chosen service, improving usability for those who rely on closed captions.
 
-### Related Functions  
-[getPreferredClosedCaptionService](#getPreferredClosedCaptionService) : Retrieves the current preferred closed caption service setting.
+### Related Functions
+[getPreferredClosedCaptionService](#getPreferredClosedCaptionService) : Retrieves the currently selected closed captioning service.
 
 ### Events
 
@@ -840,36 +842,36 @@ http://127.0.0.1:9998/jsonrpc
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>ThunderJS - Browser example</title>
+<meta charset="utf-8">
+<title>ThunderJS - Browser example</title>
 </head>
 <body>
 <script>
-    var thunderJS
-    var defaultHost = localStorage.getItem('host')
-    var host = prompt('Please inform the IP address of your STB', defaultHost || '192.168.')
-    localStorage.setItem('host', host)
-    thunderJS = ThunderJS({
-      host: host,
+var thunderJS
+var defaultHost = localStorage.getItem('host')
+var host = prompt('Please inform the IP address of your STB', defaultHost || '192.168.')
+localStorage.setItem('host', host)
+thunderJS = ThunderJS({
+  host: host,
+})
+function setPreferredClosedCaptionService(service) {
+  thunderJS.setPreferredClosedCaptionService(service)
+    .then(function(result) {
+      log('Success', result)
     })
-    function setPreferredClosedCaptionService(service) {
-      thunderJS.setPreferredClosedCaptionService(service)
-        .then(function(result) {
-          log('Success', result)
-        })
-        .catch(function(error) {
-          log('Error', error)
-        })
-    }
-    function log(msg, content) {
-      var el = document.getElementById('log')
-      var entry = '<p class="font-bold">' + msg + '</p>'
-      if (content) {
-        entry += '<pre class="border mt-4 mb-8 text-sm">' + JSON.stringify(content, null, 2) + '</pre>'
-      }
-      entry += '<hr class="border-b" />'
-      el.innerHTML += entry
-    }
+    .catch(function(error) {
+      log('Error', error)
+    })
+}
+function log(msg, content) {
+  var el = document.getElementById('log')
+  var entry = '<p class="font-bold">' + msg + '</p>'
+  if (content) {
+    entry += '<pre class="border mt-4 mb-8 text-sm">' + JSON.stringify(content, null, 2) + '</pre>'
+  }
+  entry += '<hr class="border-b" />'
+  el.innerHTML += entry
+}
 </script>
 <button onclick="setPreferredClosedCaptionService('CC3')">setPreferredClosedCaptionService</button>
 </body>
@@ -900,10 +902,10 @@ http://127.0.0.1:9998/jsonrpc
 ## *setPrivacyMode*
 
 
-Sets the PrivacyMode to either "SHARE" or "DO_NOT_SHARE," determining whether telemetry data, such as logs and crash reports, can be uploaded. This setting ensures user privacy preferences are respected and is critical for compliance with data-sharing policies.
+Allows users to configure their privacy preferences by setting the mode to either "SHARE" or "DO_NOT_SHARE." This ensures control over how personal data is handled, enhancing user privacy and customization.
 
-### Related Functions  
-[getPrivacyMode](#getPrivacyMode) : Retrieves the current PrivacyMode setting.
+### Related Functions
+[getPrivacyMode](#getPrivacyMode) : Retrieves the current privacy mode setting to confirm or review user preferences.
 
 ### Events
 
@@ -955,7 +957,16 @@ Sets the PrivacyMode to either "SHARE" or "DO_NOT_SHARE," determining whether te
 <summary><kbd>CURL</kbd></summary>
 
 ```bash
-curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc": "2.0", "id": 42, "method": "org.rdk.UserSettings.setPrivacyMode", "params": {"privacyMode": "SHARE"}}' http://127.0.0.1:9998/jsonrpc
+curl -H 'content-type:text/plain;' --data-binary
+'{
+"jsonrpc": "2.0",
+"id": 42,
+"method": "org.rdk.UserSettings.setPrivacyMode",
+"params": {
+"privacyMode": "SHARE"
+}
+}'
+http://127.0.0.1:9998/jsonrpc
 ```
 </details>
 
@@ -978,8 +989,8 @@ localStorage.setItem('host', host)
 thunderJS = ThunderJS({
   host: host,
 })
-function setPrivacyMode(params) {
-  thunderJS.setPrivacyMode(params)
+function setPrivacyMode(privacyMode) {
+  thunderJS.setPrivacyMode(privacyMode)
     .then(function(result) {
       log('Success', result)
     })
@@ -997,7 +1008,7 @@ function log(msg, content) {
   el.innerHTML += entry
 }
 </script>
-<button onclick="setPrivacyMode({ privacyMode: 'SHARE' })">setPrivacyMode</button>
+<button onclick="setPrivacyMode('SHARE')">setPrivacyMode</button>
 </body>
 </html>
 ```
@@ -1026,10 +1037,10 @@ function log(msg, content) {
 ## *setPinControl*
 
 
-Sets the PinControl feature to enable or disable parental control functionality. This API allows users to toggle the overall parental control settings, ensuring restricted access to content based on user preferences.
+Enables or disables the PIN control feature, which helps manage access to restricted content or settings based on user preferences. This function is essential for maintaining parental controls or other security measures to prevent unauthorized changes.
 
-### Related Functions  
-[getPinControl](#getPinControl) : Retrieves the current status of the PinControl setting.
+### Related Functions
+[getPinControl](#getPinControl) : Retrieves the current status of the PIN control feature.
 
 ### Events
 
@@ -1081,16 +1092,14 @@ Sets the PinControl feature to enable or disable parental control functionality.
 <summary><kbd>CURL</kbd></summary>
 
 ```bash
-curl -H 'content-type:text/plain;' --data-binary
-'{
+curl -H 'content-type:text/plain;' --data-binary '{
 "jsonrpc": "2.0",
 "id": 42,
 "method": "org.rdk.UserSettings.setPinControl",
 "params": {
 "pinControl": true
 }
-}'
-http://127.0.0.1:9998/jsonrpc
+}' http://127.0.0.1:9998/jsonrpc
 ```
 </details>
 
@@ -1161,10 +1170,10 @@ function log(msg, content) {
 ## *setViewingRestrictions*
 
 
-Sets the viewing restrictions by accepting a JSON document that specifies the rating schemes and ratings to be blocked. This function allows users to customize content access based on predefined criteria, ensuring compliance with parental controls or content guidelines.
+This API allows users to define specific viewing restrictions, such as content access limitations based on age ratings or other criteria, ensuring a controlled and safe viewing experience. It is particularly useful for managing parental controls or enforcing content guidelines tailored to individual preferences.
 
-### Related Functions  
-[getViewingRestrictions](#getViewingRestrictions) : Retrieves the current viewing restrictions in the form of a JSON document.
+### Related Functions
+[getViewingRestrictions](#getViewingRestrictions) : Retrieves the current viewing restrictions settings.
 
 ### Events
 
@@ -1296,10 +1305,10 @@ function log(msg, content) {
 ## *setViewingRestrictionsWindow*
 
 
-Sets the time interval during which viewing restrictions are applied. This function accepts a project-specific representation of the time interval (e.g., "ALWAYS") to define when content restrictions should be enforced, ensuring compliance with user or project requirements.
+Allows users to define a specific time window during which viewing restrictions are applied, ensuring content access aligns with personal or parental control preferences. This feature is useful for managing screen time or restricting access to certain content during designated periods.
 
 ### Related Functions
-[getViewingRestrictionsWindow](#getViewingRestrictionsWindow) : Retrieves the current time interval for viewing restrictions.
+[getViewingRestrictionsWindow](#getViewingRestrictionsWindow) : Retrieves the currently set time window for viewing restrictions.
 
 ### Events
 
@@ -1431,10 +1440,10 @@ function log(msg, content) {
 ## *setLiveWatershed*
 
 
-Sets the LiveWatershed feature ON or OFF, enabling or disabling project-specific watershed rules for live content, if applicable. This function allows users to control whether watershed restrictions are applied during live content playback, ensuring compliance with project-specific guidelines.
+Enables or disables the live watershed setting, which helps manage content accessibility based on predefined viewing restrictions. This feature is particularly useful for ensuring that live content adheres to user-defined guidelines, such as age-appropriate viewing.
 
-### Related Functions  
-[getLiveWatershed](#getLiveWatershed) : Retrieves the current status of the LiveWatershed setting.
+### Related Functions
+[getLiveWatershed](#getLiveWatershed) : Retrieves the current status of the live watershed setting.
 
 ### Events
 
@@ -1518,8 +1527,8 @@ localStorage.setItem('host', host)
 thunderJS = ThunderJS({
   host: host,
 })
-function setLiveWatershed(params) {
-  thunderJS.setLiveWatershed(params)
+function setLiveWatershed(liveWatershed) {
+  thunderJS.setLiveWatershed({ liveWatershed: liveWatershed })
     .then(function(result) {
       log('Success', result)
     })
@@ -1537,7 +1546,7 @@ function log(msg, content) {
   el.innerHTML += entry
 }
 </script>
-<button onclick="setLiveWatershed({ liveWatershed: true })">setLiveWatershed</button>
+<button onclick="setLiveWatershed(true)">setLiveWatershed</button>
 </body>
 </html>
 ```
@@ -1566,10 +1575,10 @@ function log(msg, content) {
 ## *setPlaybackWatershed*
 
 
-Sets the PlaybackWatershed setting to ON or OFF, determining whether project-specific watershed rules should be applied to non-live content. This feature is useful for enforcing content restrictions based on the project's guidelines, ensuring appropriate content playback.
+Enables or disables the playback watershed setting, which helps enforce content viewing restrictions based on user-defined preferences. This feature is useful for managing access to age-sensitive or restricted content during playback.
 
-### Related Functions  
-[getPlaybackWatershed](#getPlaybackWatershed) : Retrieves the current status of the PlaybackWatershed setting.
+### Related Functions
+[getPlaybackWatershed](#getPlaybackWatershed) : Retrieves the current status of the playback watershed setting.
 
 ### Events
 
@@ -1627,7 +1636,7 @@ curl -H 'content-type:text/plain;' --data-binary
 "id": 42,
 "method": "org.rdk.UserSettings.setPlaybackWatershed",
 "params": {
-"playbackWatershed": true
+"liveWatershed": true
 }
 }'
 http://127.0.0.1:9998/jsonrpc
@@ -1653,8 +1662,8 @@ localStorage.setItem('host', host)
 thunderJS = ThunderJS({
   host: host,
 })
-function setPlaybackWatershed(playbackWatershed) {
-  thunderJS.setPlaybackWatershed(playbackWatershed)
+function setPlaybackWatershed(liveWatershed) {
+  thunderJS.setPlaybackWatershed({ liveWatershed: liveWatershed })
     .then(function(result) {
       log('Success', result)
     })
@@ -1686,7 +1695,7 @@ function log(msg, content) {
     {
         printf("[%llu] Inside (%s)", TimeStamp(), __FUNCTION__);
         JsonObject parameters, response;
-        parameters["playbackWatershed"] = true;
+        parameters["liveWatershed"] = true;
         std::string result;
         if (invokeJSONRPC(remoteObject, methodName, parameters, response)) {
             response.ToString(result);
@@ -1701,9 +1710,9 @@ function log(msg, content) {
 ## *setBlockNotRatedContent*
 
 
-Enables or disables the blocking of unrated content, ensuring that content without a rating can be restricted based on user preferences. This function is useful for maintaining viewing controls and enforcing content restrictions where applicable.
+Enables or disables the blocking of unrated content to help users manage viewing restrictions and ensure a safer entertainment experience. This function is particularly useful for parents or guardians who want to prevent access to content without a rating.
 
-### Related Functions  
+### Related Functions
 [getBlockNotRatedContent](#getBlockNotRatedContent) : Retrieves the current setting for blocking unrated content.
 
 ### Events
@@ -1836,10 +1845,10 @@ function log(msg, content) {
 ## *setPinOnPurchase*
 
 
-Enables or disables the PIN challenge for purchases, ensuring added security by requiring a PIN when a purchase is attempted. This function allows users to toggle the feature ON or OFF based on their preference for purchase protection.
+Enables or disables the requirement for a PIN when making purchases, providing an added layer of security to prevent unauthorized transactions. This feature is particularly useful for households with shared access to devices or accounts.
 
-### Related Functions  
-[getPinOnPurchase](#getPinOnPurchase) : Retrieves the current status of the PIN challenge for purchases.
+### Related Functions
+[getPinOnPurchase](#getPinOnPurchase) : Retrieves the current status of the PIN requirement for purchases.
 
 ### Events
 
@@ -1971,10 +1980,10 @@ function log(msg, content) {
 ## *setHighContrast*
 
 
-Enables or disables high contrast mode in the application, enhancing visual accessibility for users with visual impairments. This function allows the app to display content with increased contrast, making it easier to distinguish elements on the screen.
+Enables or disables high contrast mode to improve on-screen visibility for users with visual impairments. This feature enhances accessibility by adjusting the display to provide better contrast between text, images, and backgrounds, making content easier to read and navigate.
 
-### Related Functions  
-[getHighContrast](#getHighContrast) : Retrieves the current high contrast setting.
+### Related Functions
+[getHighContrast](#getHighContrast) : Retrieves the current status of high contrast mode (enabled or disabled).
 
 ### Events
 
@@ -2059,7 +2068,7 @@ thunderJS = ThunderJS({
   host: host,
 })
 function setHighContrast(enabled) {
-  thunderJS.setHighContrast(enabled)
+  thunderJS.setHighContrast({ enabled: enabled })
     .then(function(result) {
       log('Success', result)
     })
@@ -2106,10 +2115,10 @@ function log(msg, content) {
 ## *setVoiceGuidance*
 
 
-Enables or disables Voice Guidance, a feature designed to assist users by providing spoken feedback for navigation and interaction. This API allows applications to toggle Voice Guidance based on user preferences, enhancing accessibility for visually impaired users.
+Enables or disables voice guidance, a feature designed to assist users with visual impairments by providing audio feedback for on-screen content and navigation. This setting enhances accessibility, ensuring a more inclusive user experience.
 
-### Related Functions  
-[getVoiceGuidance](#getVoiceGuidance) : Retrieves the current Voice Guidance setting.
+### Related Functions
+[getVoiceGuidance](#getVoiceGuidance) : Retrieves the current status of the voice guidance feature.
 
 ### Events
 
@@ -2191,8 +2200,8 @@ localStorage.setItem('host', host)
 thunderJS = ThunderJS({
   host: host,
 })
-function setVoiceGuidance(params) {
-  thunderJS.setVoiceGuidance(params)
+function setVoiceGuidance(enabled) {
+  thunderJS.setVoiceGuidance(enabled)
     .then(function(result) {
       log('Success', result)
     })
@@ -2210,7 +2219,7 @@ function log(msg, content) {
   el.innerHTML += entry
 }
 </script>
-<button onclick="setVoiceGuidance({enabled: true})">setVoiceGuidance</button>
+<button onclick="setVoiceGuidance(true)">setVoiceGuidance</button>
 </body>
 </html>
 ```
@@ -2239,10 +2248,10 @@ function log(msg, content) {
 ## *setVoiceGuidanceRate*
 
 
-Sets the rate of voice guidance, allowing users to adjust the speed of spoken feedback for accessibility purposes. The rate can be set within a range of 0.1 to 10, providing flexibility to match user preferences and needs.
+Adjusts the speed of voice guidance to enhance accessibility for users who rely on audio navigation. This function allows customization of the voice guidance rate within a predefined range, ensuring a comfortable and personalized experience.
 
-### Related Functions  
-[getVoiceGuidanceRate](#getVoiceGuidanceRate) : Retrieves the current voice guidance rate setting.
+### Related Functions
+[getVoiceGuidanceRate](#getVoiceGuidanceRate) : Retrieves the current speed setting of voice guidance.
 
 ### Events
 
@@ -2294,14 +2303,16 @@ Sets the rate of voice guidance, allowing users to adjust the speed of spoken fe
 <summary><kbd>CURL</kbd></summary>
 
 ```bash
-curl -H 'content-type:text/plain;' --data-binary '{
+curl -H 'content-type:text/plain;' --data-binary
+'{
 "jsonrpc": "2.0",
 "id": 42,
 "method": "org.rdk.UserSettings.setVoiceGuidanceRate",
 "params": {
 "rate": 0.1
 }
-}' http://127.0.0.1:9998/jsonrpc
+}'
+http://127.0.0.1:9998/jsonrpc
 ```
 </details>
 
@@ -2372,10 +2383,10 @@ function log(msg, content) {
 ## *setVoiceGuidanceHints*
 
 
-Sets the Voice Guidance Hints feature to either ON or OFF, allowing users to enable or disable additional hints provided during voice guidance. This setting enhances accessibility by offering contextual guidance for better navigation and understanding.
+Enables or disables additional hints for voice guidance, providing users with more detailed spoken instructions to enhance navigation and accessibility. This feature is particularly useful for individuals who rely on voice guidance for a more intuitive and supportive user experience.
 
-### Related Functions  
-[getVoiceGuidanceHints](#getVoiceGuidanceHints) : Retrieves the current status of the Voice Guidance Hints setting.
+### Related Functions
+[getVoiceGuidanceHints](#getVoiceGuidanceHints) : Retrieves the current status of voice guidance hints (enabled or disabled).
 
 ### Events
 
@@ -2507,10 +2518,10 @@ function log(msg, content) {
 ## *setContentPin*
 
 
-Sets the Content PIN, a four-digit numeric code used to unlock access to restricted audiovisual content. This function ensures content access control by validating the PIN format and updating the user settings accordingly. It is essential for managing parental controls and content restrictions effectively.
+Allows users to set or update the content PIN, which is used to restrict access to certain content based on parental controls or other security settings. The PIN must be a 4-digit numeric code, ensuring simplicity and security. This feature helps maintain control over content accessibility, providing a safer and more personalized viewing experience.
 
-### Related Functions  
-[getContentPin](#getContentPin) : Retrieves the currently set Content PIN.
+### Related Functions
+[getContentPin](#getContentPin) : Retrieves the currently set content PIN.
 
 ### Events
 
@@ -2562,7 +2573,7 @@ Sets the Content PIN, a four-digit numeric code used to unlock access to restric
 <summary><kbd>CURL</kbd></summary>
 
 ```bash
-curl -H 'content-type:text/plain;' --data-binary
+curl -H 'content-type:text/plain;' --data-binary \
 '{
 "jsonrpc": "2.0",
 "id": 42,
@@ -2570,7 +2581,7 @@ curl -H 'content-type:text/plain;' --data-binary
 "params": {
 "contentPin": "1234"
 }
-}'
+}' \
 http://127.0.0.1:9998/jsonrpc
 ```
 </details>
@@ -2642,10 +2653,10 @@ function log(msg, content) {
 ## *getAudioDescription*
 
 
-Retrieves the current status of the Audio Description feature, indicating whether it is enabled or disabled. This feature ensures that audio descriptive tracks are prioritized over standard audio tracks, enhancing accessibility for visually impaired users.
+Retrieves the current status of the audio description feature, which provides additional audio narration for visually impaired users by describing on-screen actions, settings, and events. This function helps users ensure that the audio description feature is enabled or disabled according to their preferences, enhancing accessibility and inclusivity.
 
-### Related Functions  
-[setAudioDescription](#setAudioDescription) : Enables or disables the Audio Description feature.
+### Related Functions
+[setAudioDescription](#setAudioDescription) : Enables or disables the audio description feature.
 
 ### Events
 
@@ -2766,10 +2777,10 @@ function log(msg, content) {
 ## *getPreferredAudioLanguages*
 
 
-Retrieves the current preferred audio languages setting for the user. This function provides the list of audio languages prioritized by the user, enabling applications to tailor audio playback to the user's preferences. It ensures a personalized and accessible audio experience.
+Retrieves the user's preferred audio languages for media playback, ensuring a personalized viewing experience by selecting audio tracks that match their language preferences. This function is essential for users who want to enjoy content in their desired language without manual adjustments.
 
-### Related Functions  
-[setPreferredAudioLanguages](#setPreferredAudioLanguages) : Updates the user's preferred audio languages setting.
+### Related Functions
+[setPreferredAudioLanguages](#setPreferredAudioLanguages) : Allows users to set their preferred audio languages for media playback.
 
 ### Events
 
@@ -2813,13 +2824,7 @@ This method takes no parameters.
 <summary><kbd>CURL</kbd></summary>
 
 ```bash
-curl -H 'content-type:text/plain;' --data-binary
-'{
-"jsonrpc": "2.0",
-"id": 42,
-"method": "org.rdk.UserSettings.getPreferredAudioLanguages"
-}'
-http://127.0.0.1:9998/jsonrpc
+curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc": "2.0", "id": 42, "method": "org.rdk.UserSettings.getPreferredAudioLanguages"}' http://127.0.0.1:9998/jsonrpc
 ```
 </details>
 
@@ -2889,10 +2894,10 @@ function log(msg, content) {
 ## *getPresentationLanguage*
 
 
-Retrieves the current presentation language setting in a full BCP 47 format, including script, region, and variant (e.g., "en-US", "es-US"). This function is essential for applications to adapt their content or interface to the user's preferred language, ensuring a personalized and accessible user experience.
+Retrieves the current presentation language setting, allowing users to confirm or adjust their preferred language for on-screen menus, notifications, and other interface elements. This function ensures a personalized and accessible user experience by aligning the interface language with user preferences.
 
-### Related Functions  
-[setPresentationLanguage](#setPresentationLanguage) : Sets the presentation language in a full BCP 47 format.
+### Related Functions
+[setPresentationLanguage](#setPresentationLanguage) : Allows users to set their preferred presentation language.
 
 ### Events
 
@@ -3012,10 +3017,10 @@ function log(msg, content) {
 ## *getCaptions*
 
 
-Retrieves the current state of the Captions setting, indicating whether captions are enabled or disabled. This function is essential for media players to determine the global captions preference and ensure consistent user experience across playback sessions.
+Retrieves the current status of captions, indicating whether they are enabled or disabled. This function helps users confirm their caption settings, ensuring accessibility preferences are met for an improved viewing experience.
 
-### Related Functions  
-[setCaptions](#setCaptions) : Enables or disables the Captions setting globally.
+### Related Functions
+[setCaptions](#setCaptions) : Allows users to enable or disable captions based on their preferences.
 
 ### Events
 
@@ -3135,10 +3140,10 @@ function log(msg, content) {
 ## *getPreferredCaptionsLanguages*
 
 
-Retrieves the current preferred captions languages setting as a prioritized list of ISO 639-2/B language codes. This list helps the player select the most suitable subtitle track based on user preferences. If no matching track is found, the player will attempt to select the best available option.
+Retrieves the user's preferred languages for captions, enabling a personalized viewing experience by displaying subtitles in the desired language. This function is essential for ensuring accessibility and convenience for multilingual users.
 
-### Related Functions  
-[setPreferredCaptionsLanguages](#setPreferredCaptionsLanguages) : Allows setting a prioritized list of preferred captions languages.
+### Related Functions
+[setPreferredCaptionsLanguages](#setPreferredCaptionsLanguages) : Allows users to set their preferred languages for captions.
 
 ### Events
 
@@ -3258,10 +3263,10 @@ function log(msg, content) {
 ## *getPreferredClosedCaptionService*
 
 
-Retrieves the current preferred closed caption service setting, such as "CC3" or "SERVICE[1-64]". This setting determines which closed caption service is displayed, allowing users to customize their viewing experience based on their preferences.
+Retrieves the user's preferred closed captioning service setting, allowing users to customize their viewing experience based on their accessibility needs. This function ensures that the selected closed captioning service aligns with the user's preferences for enhanced accessibility and convenience.
 
 ### Related Functions
-[setPreferredClosedCaptionService](#setPreferredClosedCaptionService) : Sets the preferred closed caption service to be used by the player.
+[setPreferredClosedCaptionService](#setPreferredClosedCaptionService) : Allows users to set their preferred closed captioning service.
 
 ### Events
 
@@ -3305,12 +3310,12 @@ This method takes no parameters.
 <summary><kbd>CURL</kbd></summary>
 
 ```bash
-curl -H 'content-type:text/plain;' --data-binary \
+curl -H 'content-type:text/plain;' --data-binary
 '{
 "jsonrpc": "2.0",
 "id": 42,
 "method": "org.rdk.UserSettings.getPreferredClosedCaptionService"
-}' \
+}'
 http://127.0.0.1:9998/jsonrpc
 ```
 </details>
@@ -3381,10 +3386,10 @@ function log(msg, content) {
 ## *getPrivacyMode*
 
 
-Retrieves the current PrivacyMode setting, which determines whether telemetry data, such as logs and crash reports, is shared ("SHARE") or not shared ("DO_NOT_SHARE"). This function ensures that the user's privacy preferences are respected and applied consistently across the system.
+The `getPrivacyMode` API retrieves the current privacy mode status, indicating whether privacy settings are enabled or disabled on the device. This function is essential for users who want to verify their privacy configuration and ensure their personal data is protected during device usage.
 
-### Related Functions  
-[setPrivacyMode](#setPrivacyMode) : Sets the PrivacyMode to either "SHARE" or "DO_NOT_SHARE" to control data sharing preferences.
+### Related Functions
+[setPrivacyMode](#setPrivacyMode) : Allows users to enable or disable privacy mode on the device.
 
 ### Events
 
@@ -3504,10 +3509,10 @@ function log(msg, content) {
 ## *getPinControl*
 
 
-Retrieves the current status of the PinControl setting, indicating whether parental control is enabled or disabled. This function is essential for managing access restrictions and ensuring compliance with user-defined content control preferences.
+Retrieves the current settings for parental control PIN management, allowing users to check if PIN protection is enabled for specific actions like purchases or content access. This API is essential for ensuring secure and personalized access to restricted features.
 
 ### Related Functions
-[setPinControl](#setPinControl) : Enables or disables the PinControl setting.
+[setPinControl](#setPinControl) : Enables or modifies parental control PIN settings.
 
 ### Events
 
@@ -3621,10 +3626,10 @@ function log(msg, content) {
 ## *getViewingRestrictions*
 
 
-Retrieves the current viewing restrictions as a JSON document, detailing the rating schemes and ratings that are blocked. This function is essential for managing content access based on user-defined restrictions, ensuring compliance with parental controls or other content guidelines.
+Retrieves the current viewing restrictions set for the user, such as content access limitations based on age ratings or other criteria. This function helps users ensure their preferences or parental controls are applied effectively.
 
-### Related Functions  
-[setViewingRestrictions](#setViewingRestrictions) : Sets the viewing restrictions by specifying the rating schemes and ratings to be blocked.
+### Related Functions
+[setViewingRestrictions](#setViewingRestrictions) : Allows users to configure or update viewing restrictions.
 
 ### Events
 
@@ -3668,13 +3673,7 @@ This method takes no parameters.
 <summary><kbd>CURL</kbd></summary>
 
 ```bash
-curl -H 'content-type:text/plain;' --data-binary
-'{
-"jsonrpc": "2.0",
-"id": 42,
-"method": "org.rdk.UserSettings.getViewingRestrictions"
-}'
-http://127.0.0.1:9998/jsonrpc
+curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc": "2.0", "id": 42, "method": "org.rdk.UserSettings.getViewingRestrictions"}' http://127.0.0.1:9998/jsonrpc
 ```
 </details>
 
@@ -3736,7 +3735,7 @@ function log(msg, content) {
             printf("Response: '%s'", result.c_str());
         }
     }
-    ```
+```
 </details>
 
 
@@ -3744,10 +3743,10 @@ function log(msg, content) {
 ## *getViewingRestrictionsWindow*
 
 
-Retrieves the current ViewingRestrictionsWindow setting, which defines the time interval during which viewing restrictions are applied. This setting is project-specific and can represent values like "ALWAYS" to indicate continuous restrictions.
+Retrieves the current time window during which viewing restrictions are applied, helping users manage and enforce content access limitations effectively. This function is useful for ensuring compliance with parental controls or other content restriction settings.
 
-### Related Functions  
-[setViewingRestrictionsWindow](#setViewingRestrictionsWindow) : Sets the ViewingRestrictionsWindow to define the applicable time interval for viewing restrictions.
+### Related Functions
+[setViewingRestrictionsWindow](#setViewingRestrictionsWindow) : Allows users to define or update the time window for viewing restrictions.
 
 ### Events
 
@@ -3867,10 +3866,10 @@ function log(msg, content) {
 ## *getLiveWatershed*
 
 
-Retrieves the current status of the LiveWatershed setting, indicating whether project-specific watershed rules are applied for live content. This function helps ensure compliance with content restrictions based on the project's requirements.
+Retrieves the current status of the live watershed setting, which determines whether content restrictions based on watershed rules are applied during live broadcasts. This function is essential for users who want to ensure appropriate content filtering is active for live programming.
 
-### Related Functions  
-[setLiveWatershed](#setLiveWatershed) : Enables or disables the application of watershed rules for live content.
+### Related Functions
+[setLiveWatershed](#setLiveWatershed) : Enables or disables the live watershed setting.
 
 ### Events
 
@@ -3990,10 +3989,10 @@ function log(msg, content) {
 ## *getPlaybackWatershed*
 
 
-Retrieves the current status of the PlaybackWatershed setting, indicating whether project-specific watershed rules are applied for non-live content. This setting helps enforce content restrictions based on predefined guidelines, ensuring compliance with project-specific requirements.
+Retrieves the current playback watershed setting, which determines whether content is restricted based on watershed guidelines. This feature is useful for managing viewing restrictions and ensuring age-appropriate content during specific times.
 
-### Related Functions  
-[setPlaybackWatershed](#setPlaybackWatershed) : Enables or disables the PlaybackWatershed setting.
+### Related Functions
+[setPlaybackWatershed](#setPlaybackWatershed) : Allows you to configure the playback watershed setting.
 
 ### Events
 
@@ -4113,10 +4112,10 @@ function log(msg, content) {
 ## *getBlockNotRatedContent*
 
 
-Retrieves the current status of the "Block Not Rated Content" setting, indicating whether unrated content is blocked or allowed. This function is essential for managing content restrictions based on ratings, ensuring compliance with user preferences or project requirements.
+Retrieves the current setting that determines whether content without a rating is blocked. This feature is useful for users who want to ensure that unrated content is restricted for safety or preference reasons.
 
-### Related Functions  
-[setBlockNotRatedContent](#setBlockNotRatedContent) : Enables or disables the blocking of unrated content.
+### Related Functions
+[setBlockNotRatedContent](#setBlockNotRatedContent) : Allows users to enable or disable the blocking of unrated content.
 
 ### Events
 
@@ -4160,12 +4159,12 @@ This method takes no parameters.
 <summary><kbd>CURL</kbd></summary>
 
 ```bash
-curl -H 'content-type:text/plain;' --data-binary \
+curl -H 'content-type:text/plain;' --data-binary
 '{
 "jsonrpc": "2.0",
 "id": 42,
 "method": "org.rdk.UserSettings.getBlockNotRatedContent"
-}' \
+}'
 http://127.0.0.1:9998/jsonrpc
 ```
 </details>
@@ -4236,10 +4235,10 @@ function log(msg, content) {
 ## *getPinOnPurchase*
 
 
-Retrieves the current status of the "Pin on Purchase" setting, indicating whether a PIN challenge is required when making a purchase. This function helps ensure secure transactions by verifying if the PIN protection is enabled or disabled.
+Retrieves the current status of the "PIN on Purchase" setting, indicating whether a PIN is required to authorize purchases. This feature helps users maintain control over unauthorized or accidental purchases, enhancing security and parental control.
 
-### Related Functions  
-[setPinOnPurchase](#setPinOnPurchase) : Enables or disables the "Pin on Purchase" setting.
+### Related Functions
+[setPinOnPurchase](#setPinOnPurchase) : Enables or disables the "PIN on Purchase" setting.
 
 ### Events
 
@@ -4283,13 +4282,7 @@ This method takes no parameters.
 <summary><kbd>CURL</kbd></summary>
 
 ```bash
-curl -H 'content-type:text/plain;' --data-binary
-'{
-"jsonrpc": "2.0",
-"id": 42,
-"method": "org.rdk.UserSettings.getPinOnPurchase"
-}'
-http://127.0.0.1:9998/jsonrpc
+curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc": "2.0", "id": 42, "method": "org.rdk.UserSettings.getPinOnPurchase"}' http://127.0.0.1:9998/jsonrpc
 ```
 </details>
 
@@ -4359,10 +4352,10 @@ function log(msg, content) {
 ## *getHighContrast*
 
 
-Retrieves the current high contrast setting, indicating whether the app is configured to display with enhanced visual contrast for improved accessibility. This function is essential for ensuring user interface preferences are respected, particularly for users with visual impairments.
+Retrieves the current status of the High Contrast mode, indicating whether it is enabled or disabled. This feature enhances visual accessibility by improving text readability and interface clarity, making it easier for users with visual impairments to navigate the system.
 
-### Related Functions  
-[setHighContrast](#setHighContrast) : Allows enabling or disabling high contrast mode.
+### Related Functions
+[setHighContrast](#setHighContrast) : Allows users to enable or disable High Contrast mode.
 
 ### Events
 
@@ -4482,10 +4475,10 @@ function log(msg, content) {
 ## *getVoiceGuidance*
 
 
-Retrieves the current Voice Guidance setting, indicating whether the feature is enabled or disabled. This function is essential for accessibility, allowing users to confirm if Voice Guidance, which provides audio feedback for on-screen content, is active.
+Retrieves the current status of voice guidance, indicating whether it is enabled or disabled. This feature is essential for enhancing accessibility by providing audio feedback for on-screen actions, helping users navigate and interact with the interface more effectively.
 
-### Related Functions  
-[setVoiceGuidance](#setVoiceGuidance) : Enables or disables the Voice Guidance feature.
+### Related Functions
+[setVoiceGuidance](#setVoiceGuidance) : Allows you to enable or disable voice guidance.
 
 ### Events
 
@@ -4529,7 +4522,13 @@ This method takes no parameters.
 <summary><kbd>CURL</kbd></summary>
 
 ```bash
-curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc": "2.0", "id": 42, "method": "org.rdk.UserSettings.getVoiceGuidance"}' http://127.0.0.1:9998/jsonrpc
+curl -H 'content-type:text/plain;' --data-binary
+'{
+"jsonrpc": "2.0",
+"id": 42,
+"method": "org.rdk.UserSettings.getVoiceGuidance"
+}'
+http://127.0.0.1:9998/jsonrpc
 ```
 </details>
 
@@ -4599,10 +4598,10 @@ function log(msg, content) {
 ## *getVoiceGuidanceRate*
 
 
-Retrieves the current voice guidance rate setting, which determines the speed of voice guidance playback. This API is essential for ensuring accessibility by allowing users to confirm the rate of voice guidance, which can range from 0.1 to 10.
+Retrieves the current speed setting for voice guidance, allowing users to understand how quickly spoken instructions are delivered. This feature is essential for tailoring accessibility options to individual preferences, ensuring a more comfortable and personalized experience.
 
-### Related Functions  
-[setVoiceGuidanceRate](#setVoiceGuidanceRate) : Allows users to set the voice guidance rate to a desired value within the supported range.
+### Related Functions
+[setVoiceGuidanceRate](#setVoiceGuidanceRate) : Adjusts the speed of voice guidance to match user preferences.
 
 ### Events
 
@@ -4646,7 +4645,13 @@ This method takes no parameters.
 <summary><kbd>CURL</kbd></summary>
 
 ```bash
-curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc": "2.0", "id": 42, "method": "org.rdk.UserSettings.getVoiceGuidanceRate"}' http://127.0.0.1:9998/jsonrpc
+curl -H 'content-type:text/plain;' --data-binary \
+'{
+"jsonrpc": "2.0",
+"id": 42,
+"method": "org.rdk.UserSettings.getVoiceGuidanceRate"
+}' \
+http://127.0.0.1:9998/jsonrpc
 ```
 </details>
 
@@ -4716,10 +4721,10 @@ function log(msg, content) {
 ## *getVoiceGuidanceHints*
 
 
-Retrieves the current status of Voice Guidance hints, indicating whether the feature is enabled or disabled. This API helps users understand if additional contextual hints for Voice Guidance are active, enhancing accessibility and user experience.
+Retrieves the current status of voice guidance hints, indicating whether additional contextual audio cues are enabled to assist users during navigation. This feature is particularly useful for enhancing accessibility and improving the user experience for individuals who rely on auditory guidance.
 
-### Related Functions  
-[setVoiceGuidanceHints](#setVoiceGuidanceHints) : Enables or disables Voice Guidance hints.
+### Related Functions
+[setVoiceGuidanceHints](#setVoiceGuidanceHints) : Enables or disables voice guidance hints.
 
 ### Events
 
@@ -4839,10 +4844,10 @@ function log(msg, content) {
 ## *getMigrationState*
 
 
-Retrieve the migration state of a specific user setting key to determine if it requires migration. This API is essential for identifying whether a setting, previously owned by another component, has been successfully migrated to the UserSettings interface. It ensures the validity of settings during migration or first-time installation.
+Retrieves the current migration state of a service or plugin, providing insight into its operational status (e.g., activated, hibernated, or suspended). This is useful for monitoring and managing the lifecycle of services to ensure optimal performance and resource allocation.
 
-### Related Functions  
-[getMigrationStates](#getMigrationStates) : Retrieve the migration states of all defined keys.
+### Related Functions
+[getMigrationStates](#getMigrationStates) : Retrieves the migration states for multiple services or plugins.
 
 ### Events
 
@@ -4892,16 +4897,14 @@ No Events
 <summary><kbd>CURL</kbd></summary>
 
 ```bash
-curl -H 'content-type:text/plain;' --data-binary
-'{
+curl -H 'content-type:text/plain;' --data-binary '{
 "jsonrpc": "2.0",
 "id": 42,
 "method": "org.rdk.UserSettings.getMigrationState",
 "params": {
 "key": "VOICE_GUIDANCE_RATE"
 }
-}'
-http://127.0.0.1:9998/jsonrpc
+}' http://127.0.0.1:9998/jsonrpc
 ```
 </details>
 
@@ -4925,7 +4928,7 @@ thunderJS = ThunderJS({
   host: host,
 })
 function getMigrationState(key) {
-  thunderJS.getMigrationState(key)
+  thunderJS.getMigrationState({ key: key })
     .then(function(result) {
       log('Success', result)
     })
@@ -4972,10 +4975,10 @@ function log(msg, content) {
 ## *getMigrationStates*
 
 
-Retrieves the migration state of all defined user settings keys, indicating whether each key requires migration. This API is essential for identifying settings that need to be transitioned from their previous ownership to the UserSettings interface, ensuring data consistency and validity during migration or first-time installation.
+Provides a comprehensive overview of the current states of various system components or services, such as their activation, suspension, or hibernation status. This API is essential for monitoring and managing the operational states of services, ensuring smooth transitions and system stability during updates or migrations.
 
-### Related Functions  
-[getMigrationState](#getMigrationState) : Retrieves the migration state for a specific user settings key.
+### Related Functions
+[getMigrationState](#getMigrationState) : Retrieves the state of a specific service or component.
 
 ### Events
 
@@ -5031,7 +5034,7 @@ curl -H 'content-type:text/plain;' --data-binary
 '{
 "jsonrpc": "2.0",
 "id": 42,
-"method": "org.rdk.UserSettings.getMigrationStates"
+"method": "DeviceInfo.getMigrationStates"
 }'
 http://127.0.0.1:9998/jsonrpc
 ```
@@ -5057,7 +5060,7 @@ thunderJS = ThunderJS({
   host: host,
 })
 function getMigrationStates() {
-  thunderJS.getMigrationStates()
+  thunderJS.DeviceInfo.getMigrationStates()
     .then(function(result) {
       log('Success', result)
     })
@@ -5103,10 +5106,10 @@ function log(msg, content) {
 ## *getContentPin*
 
 
-Retrieves the current Content PIN, a four-digit numeric code used to unlock access to restricted audiovisual content. This function ensures secure access control by providing the PIN set by the user.
+Retrieve the current content PIN set for your device, which is used to manage access to restricted content or parental controls. This function helps ensure secure viewing by allowing users to verify or update their PIN settings as needed.
 
-### Related Functions  
-[setContentPin](#setContentPin) : Sets the Content PIN to a new four-digit numeric code.
+### Related Functions
+[setContentPin](#setContentPin) : Update the content PIN to control access to restricted content.
 
 ### Events
 
@@ -5150,7 +5153,13 @@ This method takes no parameters.
 <summary><kbd>CURL</kbd></summary>
 
 ```bash
-curl -H 'content-type:text/plain;' --data-binary '{"jsonrpc": "2.0", "id": 42, "method": "org.rdk.UserSettings.getContentPin"}' http://127.0.0.1:9998/jsonrpc
+curl -H 'content-type:text/plain;' --data-binary
+'{
+"jsonrpc": "2.0",
+"id": 42,
+"method": "org.rdk.UserSettings.getContentPin"
+}'
+http://127.0.0.1:9998/jsonrpc
 ```
 </details>
 
@@ -5252,10 +5261,12 @@ org.rdk.UserSettings interface events:
 ## *onAudioDescriptionChanged*
 
 
-The *onAudioDescriptionChanged* event is triggered whenever the Audio Description setting is updated. Audio Description is a feature designed to enhance accessibility by providing additional audio narration for visually impaired users, describing key visual elements in the content. This event notifies users when the setting is turned ON or OFF, ensuring they are aware of changes to their accessibility preferences.
+This event notifies users when the audio description feature has been enabled or disabled. Audio description is an accessibility feature that provides additional audio narration to describe visual elements of a video, making content more accessible to visually impaired users. The event is triggered whenever the audio description setting is changed, ensuring users are informed about the current status of this feature.
 
 ### Related Functions
-[setAudioDescription](#setAudioDescription) : This function directly triggers the event by enabling or disabling the Audio Description feature.
+[setAudioDescription](#setAudioDescription) : This function triggers the event when the audio description setting is updated, either enabling or disabling the feature.
+
+[getAudioDescription](#getAudioDescription) : This function can be used to retrieve the current status of the audio description setting, which may have triggered the event.
 
 ### Parameters
 
@@ -5280,12 +5291,10 @@ The *onAudioDescriptionChanged* event is triggered whenever the Audio Descriptio
 ## *onPreferredAudioLanguagesChanged*
 
 
-This event is triggered when the user's preferred audio language settings are updated. It notifies the system or application that the preferred audio language has been changed, allowing for adjustments to audio playback to match the user's new preferences. This ensures a personalized and seamless audio experience for users.
+This event is triggered whenever the user's preferred audio language settings are updated. It notifies the system or application that the preferred audio language has been changed, allowing for adjustments to audio playback to match the user's new preferences. This ensures a personalized and seamless audio experience for the user.
 
 ### Related Functions
-[setPreferredAudioLanguages](#setPreferredAudioLanguages) : This function updates the user's preferred audio language settings, which triggers the `onPreferredAudioLanguagesChanged` event to reflect the change.
-
-[getPreferredAudioLanguages](#getPreferredAudioLanguages) : This function retrieves the current preferred audio language settings, which are monitored for changes that trigger the `onPreferredAudioLanguagesChanged` event.
+[setPreferredAudioLanguages](#setPreferredAudioLanguages) : This function triggers the event when the user updates their preferred audio language settings.
 
 ### Parameters
 
@@ -5310,12 +5319,10 @@ This event is triggered when the user's preferred audio language settings are up
 ## *onPresentationLanguageChanged*
 
 
-The *onPresentationLanguageChanged* event is triggered whenever the presentation language setting is updated. This event notifies users that the language used for on-screen menus, instructions, and other interface elements has been changed. It ensures that users are aware of the update and can experience the interface in their preferred language. 
+This event is triggered whenever the presentation language setting is updated. The presentation language determines the primary language used for on-screen menus, notifications, and other interface elements. Users may change this setting to better suit their language preferences, and this event ensures that the system responds appropriately to the update.
 
 ### Related Functions
-[setPresentationLanguage](#setPresentationLanguage) : This function sets the presentation language to a specific value (e.g., "en-US", "es-US"). When the language is updated, it triggers the *onPresentationLanguageChanged* event.
-
-[getPresentationLanguage](#getPresentationLanguage) : This function retrieves the current presentation language setting. While it does not directly trigger the event, it is closely related as it reflects the updated language after the event occurs.
+[setPresentationLanguage](#setPresentationLanguage) : This function triggers the event when the presentation language is updated by the user. It ensures that the new language preference is applied across the system.
 
 ### Parameters
 
@@ -5340,12 +5347,12 @@ The *onPresentationLanguageChanged* event is triggered whenever the presentation
 ## *onCaptionsChanged*
 
 
-The *onCaptionsChanged* event occurs whenever the Captions setting is updated. This event is triggered when captions are enabled or disabled, allowing users to be notified of changes to the accessibility settings related to on-screen text display. It is particularly useful for media players or applications that need to dynamically adjust their behavior based on the current captions state during playback.  
+This event is triggered whenever the captions setting is changed. Captions are a visual representation of spoken dialogue and other audio elements, designed to enhance accessibility for users who are deaf or hard of hearing, or for those who prefer text-based audio descriptions. The event notifies users when captions are enabled or disabled, ensuring they are aware of changes to their viewing experience.
 
-### Related Functions  
-[setCaptions](#setCaptions) : This function directly triggers the *onCaptionsChanged* event when the captions setting is modified, either enabling or disabling captions.  
+### Related Functions
+[getCaptions](#getCaptions) : This function retrieves the current state of the captions setting, which directly influences the triggering of the `onCaptionsChanged` event.
 
-[getCaptions](#getCaptions) : This function retrieves the current state of the captions setting, which can be used to confirm the change reflected by the *onCaptionsChanged* event.
+[setCaptions](#setCaptions) : This function allows users to enable or disable captions. Any change made through this function will trigger the `onCaptionsChanged` event.
 
 ### Parameters
 
@@ -5370,12 +5377,10 @@ The *onCaptionsChanged* event occurs whenever the Captions setting is updated. T
 ## *onPreferredCaptionsLanguagesChanged*
 
 
-The *onPreferredCaptionsLanguagesChanged* event occurs when the user's preferred captions languages setting is updated. This event ensures that any changes made to the preferred captions languages are reflected across the system, allowing users to enjoy content in their desired language for captions. It is triggered whenever the preferred captions languages are modified, providing a seamless experience for users who rely on captions for accessibility or language preferences.
+This event is triggered whenever the user's preferred captions languages are updated. It reflects changes made to the list of languages that the user has prioritized for captions, ensuring that the system adapts to their preferences. This event helps maintain a personalized viewing experience by dynamically adjusting captions to match the user's updated language settings.
 
-### Related Functions  
-[setPreferredCaptionsLanguages](#setPreferredCaptionsLanguages) : This function triggers the event when the user updates their preferred captions languages setting. It ensures the new preferences are saved and the event is dispatched to notify relevant components.  
-
-[getPreferredCaptionsLanguages](#getPreferredCaptionsLanguages) : This function retrieves the current preferred captions languages setting. While it does not directly trigger the event, it is closely related as it reflects the updated preferences after the event is triggered.
+### Related Functions
+[setPreferredCaptionsLanguages](#setPreferredCaptionsLanguages) : This function triggers the event when the user updates their preferred captions languages. It ensures that the system reflects the new preferences immediately.
 
 ### Parameters
 
@@ -5400,12 +5405,12 @@ The *onPreferredCaptionsLanguagesChanged* event occurs when the user's preferred
 ## *onPreferredClosedCaptionServiceChanged*
 
 
-This event is triggered when the preferred closed caption service setting is updated. Closed caption services allow users to select specific captioning options, such as "CC[1-4]", "TEXT[1-4]", or "SERVICE[1-64]", to enhance their viewing experience. For example, a user might switch to "CC3" to access a particular captioning style or language. This event ensures that any changes to the preferred closed caption service are recognized and applied, providing a seamless and personalized accessibility experience.
+This event is triggered whenever the user's preferred closed captioning service is updated. Closed captioning services provide text-based transcriptions of audio content, which can be essential for accessibility or personal preference. The event ensures that any changes to the preferred service are recognized and applied, allowing users to seamlessly switch to their desired captioning provider.
 
-### Related Functions  
-[getPreferredClosedCaptionService](#getPreferredClosedCaptionService) : Retrieves the current preferred closed caption service setting, allowing users to confirm or view the active captioning option.  
+### Related Functions
+[getPreferredClosedCaptionService](#getPreferredClosedCaptionService) : Retrieves the currently set preferred closed captioning service, which is monitored for changes that trigger this event.
 
-[setPreferredClosedCaptionService](#setPreferredClosedCaptionService) : Updates the preferred closed caption service setting, triggering the event when a new service (e.g., "CC3") is selected.
+[setPreferredClosedCaptionService](#setPreferredClosedCaptionService) : Updates the user's preferred closed captioning service, directly triggering this event to reflect the change.
 
 ### Parameters
 
@@ -5430,10 +5435,12 @@ This event is triggered when the preferred closed caption service setting is upd
 ## *onPrivacyModeChanged*
 
 
-This event is triggered whenever the Privacy Mode setting is updated. Privacy Mode determines whether the system shares or restricts the sharing of user data, such as logs and crash reports. The setting can be toggled between "SHARE" (data sharing enabled) and "DO_NOT_SHARE" (data sharing disabled). This event notifies users about changes to this setting, ensuring transparency and control over their privacy preferences.
+This event is triggered whenever the privacy mode setting is updated. Privacy mode determines whether the device is configured to share or not share certain user-related data. For example, switching between "SHARE" and "DO_NOT_SHARE" modes can impact how the device handles data privacy preferences. This event ensures users are notified of changes to their privacy settings, helping them stay informed about their data-sharing status.
 
 ### Related Functions
-[setPrivacyMode](#setPrivacyMode) : This function updates the Privacy Mode setting. When the mode is changed, the `onPrivacyModeChanged` event is triggered to reflect the update.
+[getPrivacyMode](#getPrivacyMode) : Retrieves the current privacy mode setting, allowing users to check whether their device is set to "SHARE" or "DO_NOT_SHARE."
+
+[setPrivacyMode](#setPrivacyMode) : Updates the privacy mode setting, triggering the event when the mode is changed.
 
 ### Parameters
 
@@ -5458,12 +5465,12 @@ This event is triggered whenever the Privacy Mode setting is updated. Privacy Mo
 ## *onPinControlChanged*
 
 
-The *onPinControlChanged* event occurs when the Pin Control setting is updated. Pin Control is a feature that allows users to enable or disable restrictions based on a PIN, providing an additional layer of security for accessing certain content or settings. This event is triggered whenever the Pin Control status changes, ensuring that users are notified of updates to this security feature.
+This event is triggered whenever there is a change in the "Pin Control" setting. The "Pin Control" feature allows users to enable or disable the requirement of a PIN for accessing certain content or features. For example, this setting can be used to restrict access to specific content based on parental controls. When the "Pin Control" setting is updated, this event notifies the system or application of the change, ensuring that the new setting is applied immediately.
 
-### Related Functions  
-[setPinControl](#setPinControl) : This function triggers the *onPinControlChanged* event when the Pin Control setting is modified. It allows users to enable or disable the PIN-based restriction system.  
+### Related Functions
+[setPinControl](#setPinControl) : This function triggers the event when the "Pin Control" setting is updated. It allows users to enable or disable the PIN requirement.
 
-[getPinControl](#getPinControl) : This function retrieves the current status of the Pin Control setting, which can indirectly reflect changes that trigger the *onPinControlChanged* event.
+[getPinControl](#getPinControl) : This function retrieves the current state of the "Pin Control" setting, which can be used to verify the change that triggered the event.
 
 ### Parameters
 
@@ -5488,12 +5495,12 @@ The *onPinControlChanged* event occurs when the Pin Control setting is updated. 
 ## *onViewingRestrictionsChanged*
 
 
-This event is triggered whenever the Viewing Restrictions settings are updated. Viewing Restrictions are used to control access to content based on specific criteria, such as ratings or other defined rules. This event ensures users are notified when these settings change, allowing them to stay informed about any updates to content accessibility.  
+This event is triggered whenever the viewing restrictions for content are updated. Viewing restrictions are settings that control access to certain types of content based on criteria such as age ratings, parental controls, or other limitations. This event ensures that users are notified when these restrictions are changed, allowing them to stay informed about updates to their content access settings.
 
-### Related Functions  
-[setViewingRestrictions](#setViewingRestrictions) : This function updates the Viewing Restrictions settings, which directly triggers the event when changes are made.  
+### Related Functions
+[setViewingRestrictions](#setViewingRestrictions) : This function updates the viewing restrictions, which directly triggers the `onViewingRestrictionsChanged` event to notify users of the change.
 
-[getViewingRestrictions](#getViewingRestrictions) : This function retrieves the current Viewing Restrictions settings, which may reflect changes that triggered the event.
+[getViewingRestrictions](#getViewingRestrictions) : This function retrieves the current viewing restrictions, which may be used to confirm or display the updated settings after the event is triggered.
 
 ### Parameters
 
@@ -5518,11 +5525,12 @@ This event is triggered whenever the Viewing Restrictions settings are updated. 
 ## *onViewingRestrictionsWindowChanged*
 
 
-This event is triggered when the "Viewing Restrictions Window" setting is updated. The Viewing Restrictions Window defines the specific time intervals during which viewing restrictions are applied, such as limiting access to certain types of content. For example, it might be set to "ALWAYS" or specific hours of the day. This event ensures that users are notified whenever these settings change, allowing them to stay informed about the active restrictions.
+The `onViewingRestrictionsWindowChanged` event is triggered whenever there is a change in the viewing restrictions window settings. This event notifies users about updates to the time frame or conditions during which specific content restrictions are applied. For example, this could include changes to parental control settings that limit access to certain types of content during specific hours. This ensures users are always aware of updates to their content access preferences.
 
-### Related Functions  
-[getViewingRestrictionsWindow](#getViewingRestrictionsWindow) : Retrieves the current Viewing Restrictions Window setting, which defines the applicable time intervals for restrictions.  
-[setViewingRestrictionsWindow](#setViewingRestrictionsWindow) : Updates the Viewing Restrictions Window setting, triggering the event when the new value is applied.
+### Related Functions
+[getViewingRestrictionsWindow](#getViewingRestrictionsWindow) : Retrieves the current settings for the viewing restrictions window, which can trigger this event when changes are detected.
+
+[setViewingRestrictionsWindow](#setViewingRestrictionsWindow) : Updates the viewing restrictions window settings, directly triggering this event to notify users of the change.
 
 ### Parameters
 
@@ -5547,12 +5555,12 @@ This event is triggered when the "Viewing Restrictions Window" setting is update
 ## *onLiveWatershedChanged*
 
 
-The *onLiveWatershedChanged* event is triggered whenever the LiveWatershed setting is updated. This setting determines whether project-specific watershed rules are applied to live content, which may include restrictions based on content ratings or other criteria. Users are notified through this event when the LiveWatershed feature is enabled or disabled, ensuring they are aware of changes to content accessibility or restrictions.
+The *onLiveWatershedChanged* event occurs when there is a change in the live watershed setting. This setting determines the content restrictions applied during live playback based on watershed rules, which are typically used to enforce age-appropriate viewing guidelines. The event is triggered whenever the live watershed status is updated, ensuring users are informed of changes to content accessibility during live streaming.
 
 ### Related Functions
-[setLiveWatershed](#setLiveWatershed) : This function triggers the event when the LiveWatershed setting is turned ON or OFF, reflecting the user's preference for applying watershed rules to live content.
+[getLiveWatershed](#getLiveWatershed) : Retrieves the current status of the live watershed setting, which can trigger this event when the value changes.
 
-[getLiveWatershed](#getLiveWatershed) : This function retrieves the current status of the LiveWatershed setting, which may have been updated and triggered the event.
+[setLiveWatershed](#setLiveWatershed) : Updates the live watershed setting, directly triggering the *onLiveWatershedChanged* event to reflect the new status.
 
 ### Parameters
 
@@ -5577,12 +5585,12 @@ The *onLiveWatershedChanged* event is triggered whenever the LiveWatershed setti
 ## *onPlaybackWatershedChanged*
 
 
-This event is triggered whenever the PlaybackWatershed setting is updated. The PlaybackWatershed setting determines whether specific watershed rules are applied to non-live content, depending on the project's requirements. This event notifies users about changes to this setting, ensuring they are aware of updates that may affect content accessibility or restrictions.
+The **onPlaybackWatershedChanged** event notifies users when the playback watershed setting has been updated. This setting determines whether certain content is restricted based on its watershed classification, which is typically used to enforce age-appropriate viewing restrictions. The event is triggered whenever the playback watershed status is changed, ensuring users are informed of updates to this setting.
 
 ### Related Functions
-[setPlaybackWatershed](#setPlaybackWatershed) : This function is used to enable or disable the PlaybackWatershed setting. When this function is called, it triggers the `onPlaybackWatershedChanged` event to notify users of the change.
+[setPlaybackWatershed](#setPlaybackWatershed) : This function triggers the event when the playback watershed setting is modified, either enabling or disabling the restriction.
 
-[getPlaybackWatershed](#getPlaybackWatershed) : This function retrieves the current status of the PlaybackWatershed setting. While it does not directly trigger the event, it is closely related as it provides the current state of the setting that the event monitors.
+[getPlaybackWatershed](#getPlaybackWatershed) : This function retrieves the current status of the playback watershed setting, which may have been updated and triggered the event.
 
 ### Parameters
 
@@ -5607,12 +5615,11 @@ This event is triggered whenever the PlaybackWatershed setting is updated. The P
 ## *onBlockNotRatedContentChanged*
 
 
-This event is triggered whenever the "Block Not Rated Content" setting is changed. The "Block Not Rated Content" feature allows users to control whether content without a rating should be restricted or accessible. This event notifies the system or application of any updates to this setting, ensuring that the appropriate actions are taken based on the user's preferences.
+This event is triggered whenever there is a change in the setting that controls whether content without a rating is blocked. It notifies users about updates to the "Block Not Rated Content" preference, which is used to restrict access to unrated content for enhanced parental control. This event ensures that users are aware of any modifications to this setting, allowing them to maintain their desired content restrictions.
 
 ### Related Functions
-[setBlockNotRatedContent](#setBlockNotRatedContent) : This function is used to enable or disable the "Block Not Rated Content" setting. When this function is called, it triggers the `onBlockNotRatedContentChanged` event to reflect the updated status.
-
-[getBlockNotRatedContent](#getBlockNotRatedContent) : This function retrieves the current status of the "Block Not Rated Content" setting. While it does not directly trigger the event, it is closely related as it provides the current state of the setting.
+[setBlockNotRatedContent](#setBlockNotRatedContent) : This function triggers the event when the "Block Not Rated Content" setting is updated.
+[getBlockNotRatedContent](#getBlockNotRatedContent) : This function can retrieve the current state of the "Block Not Rated Content" setting, which may be relevant when the event is triggered.
 
 ### Parameters
 
@@ -5637,12 +5644,12 @@ This event is triggered whenever the "Block Not Rated Content" setting is change
 ## *onPinOnPurchaseChanged*
 
 
-The *onPinOnPurchaseChanged* event notifies users when the "Pin on Purchase" setting has been updated. This setting determines whether a PIN is required to authorize purchases, providing an additional layer of security. The event is triggered whenever the "Pin on Purchase" feature is enabled or disabled, ensuring users are aware of changes to this important security setting.
+This event is triggered whenever the "Pin on Purchase" setting is updated. The "Pin on Purchase" feature ensures that a PIN is required to authorize purchases, adding an extra layer of security to prevent unauthorized transactions. Users can enable or disable this feature based on their preferences, and any changes to this setting will activate the event.
 
-### Related Functions  
-[setPinOnPurchase](#setPinOnPurchase) : This function is used to enable or disable the "Pin on Purchase" feature. When this function is called to update the setting, it triggers the *onPinOnPurchaseChanged* event.  
+### Related Functions
+[getPinOnPurchase](#getPinOnPurchase) : Retrieves the current status of the "Pin on Purchase" setting, indicating whether the PIN requirement for purchases is enabled or disabled.
 
-[getPinOnPurchase](#getPinOnPurchase) : This function retrieves the current status of the "Pin on Purchase" setting. While it does not directly trigger the event, it is closely related as it reflects the changes made when the event occurs.
+[setPinOnPurchase](#setPinOnPurchase) : Updates the "Pin on Purchase" setting, enabling or disabling the PIN requirement for purchases. Changes made through this function trigger the event.
 
 ### Parameters
 
@@ -5667,12 +5674,12 @@ The *onPinOnPurchaseChanged* event notifies users when the "Pin on Purchase" set
 ## *onHighContrastChanged*
 
 
-This event is triggered whenever the high contrast setting is changed. High contrast mode enhances the visibility of text and interface elements by increasing the contrast between foreground and background colors, making it easier for users with visual impairments to navigate and interact with the application. The event notifies whether high contrast mode has been enabled or disabled, ensuring the app can adapt its display settings accordingly.
+This event is triggered whenever the High Contrast mode setting is changed. High Contrast mode is a visual accessibility feature designed to improve readability and visibility for users with visual impairments by increasing the contrast between text and background elements. When this setting is enabled or disabled, the event notifies the system or application to adapt its interface accordingly.
 
-### Related Functions  
-[setHighContrast](#setHighContrast) : This function allows users to enable or disable high contrast mode. When the setting is changed using this function, the `onHighContrastChanged` event is triggered to reflect the updated state.  
+### Related Functions
+[setHighContrast](#setHighContrast) : This function allows users to enable or disable High Contrast mode, which directly triggers the `onHighContrastChanged` event.
 
-[getHighContrast](#getHighContrast) : This function retrieves the current high contrast setting. If the setting is modified, the `onHighContrastChanged` event is triggered to notify the change.
+[getHighContrast](#getHighContrast) : This function retrieves the current state of High Contrast mode. Changes detected through this function can also trigger the `onHighContrastChanged` event.
 
 ### Parameters
 
@@ -5697,12 +5704,12 @@ This event is triggered whenever the high contrast setting is changed. High cont
 ## *onVoiceGuidanceChanged*
 
 
-This event is triggered whenever the Voice Guidance setting is updated, indicating whether Voice Guidance has been enabled or disabled. Voice Guidance is an accessibility feature designed to assist users by providing spoken feedback for navigating menus, settings, and other on-screen elements. This event ensures users are informed of changes to the Voice Guidance status, allowing them to adapt their experience accordingly.
+This event is triggered whenever the Voice Guidance feature is enabled or disabled. Voice Guidance is an accessibility feature designed to assist users by providing spoken feedback for navigating menus, settings, and other on-screen elements. The event notifies the system or application when the Voice Guidance setting changes, allowing it to adapt accordingly.
 
-### Related Functions  
-[setVoiceGuidance](#setVoiceGuidance) : This function enables or disables Voice Guidance. When the setting is updated, it triggers the `onVoiceGuidanceChanged` event to reflect the change.  
+### Related Functions
+[setVoiceGuidance](#setVoiceGuidance) : This function directly triggers the event by enabling or disabling the Voice Guidance feature based on user preferences.
 
-[getVoiceGuidance](#getVoiceGuidance) : This function retrieves the current status of Voice Guidance (enabled or disabled). Changes made through this function can also trigger the `onVoiceGuidanceChanged` event.
+[getVoiceGuidance](#getVoiceGuidance) : This function retrieves the current state of the Voice Guidance feature, which can be used to confirm the change that triggered the event.
 
 ### Parameters
 
@@ -5727,12 +5734,10 @@ This event is triggered whenever the Voice Guidance setting is updated, indicati
 ## *onVoiceGuidanceRateChanged*
 
 
-This event is triggered whenever the voice guidance rate is updated. Voice guidance rate determines the speed at which voice guidance is delivered, allowing users to customize the pace of spoken instructions to suit their preferences. This event notifies users that the rate has been successfully changed, ensuring they are aware of the adjustment.
+This event is triggered whenever the speed of voice guidance is adjusted. Voice guidance is an accessibility feature that provides spoken feedback to help users navigate and interact with their device. The event notifies users about changes to the voice guidance rate, ensuring they are aware of updates to the speed at which the guidance is delivered.
 
-### Related Functions  
-[setVoiceGuidanceRate](#setVoiceGuidanceRate) : This function is used to set the voice guidance rate. When the rate is updated using this function, the `onVoiceGuidanceRateChanged` event is triggered to reflect the change.  
-
-[getVoiceGuidanceRate](#getVoiceGuidanceRate) : This function retrieves the current voice guidance rate setting. If the rate is modified, the `onVoiceGuidanceRateChanged` event is dispatched to notify users of the update.
+### Related Functions
+[setVoiceGuidanceRate](#setVoiceGuidanceRate) : This function allows users to set the desired speed for voice guidance. When the rate is successfully updated, the `onVoiceGuidanceRateChanged` event is triggered to reflect the change.
 
 ### Parameters
 
@@ -5757,12 +5762,12 @@ This event is triggered whenever the voice guidance rate is updated. Voice guida
 ## *onVoiceGuidanceHintsChanged*
 
 
-This event is triggered whenever the Voice Guidance Hints setting is updated. Voice Guidance Hints provide additional spoken cues to assist users in navigating menus, settings, or other interface elements. This event notifies users when the hints are enabled or disabled, ensuring they are aware of changes to accessibility features that enhance their experience.  
+This event is triggered whenever there is a change in the status of voice guidance hints. Voice guidance hints provide additional spoken cues to assist users in navigating menus, settings, or other interface elements. This event ensures that users are informed when these hints are enabled or disabled, enhancing accessibility and usability for individuals who rely on voice guidance features.
 
-### Related Functions  
-[setVoiceGuidanceHints](#setVoiceGuidanceHints) : This function allows users to enable or disable Voice Guidance Hints. When the setting is changed using this function, the event is triggered to reflect the update.  
+### Related Functions
+[setVoiceGuidanceHints](#setVoiceGuidanceHints) : This function allows users to enable or disable voice guidance hints. Changes made through this function directly trigger the `onVoiceGuidanceHintsChanged` event, reflecting the updated status of the hints.
 
-[getVoiceGuidanceHints](#getVoiceGuidanceHints) : This function retrieves the current status of Voice Guidance Hints (enabled or disabled). If the status changes, the event is triggered to notify users of the update.
+[getVoiceGuidanceHints](#getVoiceGuidanceHints) : This function retrieves the current status of voice guidance hints (enabled or disabled). If the status changes, the `onVoiceGuidanceHintsChanged` event is triggered to notify users of the update.
 
 ### Parameters
 
@@ -5787,12 +5792,12 @@ This event is triggered whenever the Voice Guidance Hints setting is updated. Vo
 ## *onContentPinChanged*
 
 
-The *onContentPinChanged* event is triggered whenever the Content PIN setting is updated. This event notifies users that the PIN used to control access to restricted content has been changed. It ensures that users are aware of any modifications to this security feature, which is typically used to manage access to specific content based on parental controls or other restrictions.
+This event is triggered whenever the content PIN is updated or changed. The content PIN is a security feature used to restrict access to certain types of content or actions, such as purchases or viewing restricted material. Users may update their content PIN to enhance privacy and control over their viewing experience. This event ensures that any changes to the content PIN are recognized and appropriately handled by the system.
 
 ### Related Functions
-[setContentPin](#setContentPin) : This function triggers the event when a new Content PIN is set or an existing one is updated. It validates the PIN format (four decimal digits) and applies the change, which then dispatches the *onContentPinChanged* event.
+[setContentPin](#setContentPin) : This function allows users to update the content PIN. When the PIN is successfully changed using this function, the `onContentPinChanged` event is triggered to notify the system of the update.
 
-[getContentPin](#getContentPin) : This function retrieves the current Content PIN. While it does not directly trigger the event, it is closely related as it allows users to verify the updated PIN after the event is triggered.
+[getContentPin](#getContentPin) : This function retrieves the current content PIN. While it does not directly trigger the event, it is closely related as it provides access to the PIN that may have been updated through the event.
 
 ### Parameters
 
