@@ -1,0 +1,24 @@
+ -> There is a conflict for the event triggered by requestactivesource
+    The event according to existing md file : onactivesourcechange,ondeviceadded,ondeviceinfoupdated
+    The event according to source code :na
+
+ -> There is a conflict for the event triggered by requestshortaudiodescriptor
+    The event according to existing md file : shortaudiodesciptorevent
+    The event according to source code :shortaudiodescriptorevent
+
+ -> There is a conflict for the event triggered by sendaudiodevicepoweronmessage
+    The event according to existing md file : setsystemaudiomodeevent
+    The event according to source code :na
+
+ -> There is a conflict for the event triggered by sendgetaudiostatusmessage
+    The event according to existing md file : reportaudiostatusevent
+    The event according to source code :reportaudiostatusevent,reportaudiodevicepowerstatus
+
+ -> There is a conflict for the event triggered by sendkeypressevent
+    The event according to existing md file : na
+    The event according to source code :arcterminationevent
+
+ -> There is a conflict for the event triggered by setenabled
+    The event according to existing md file : reportcecenabledevent
+    The event according to source code :na
+
